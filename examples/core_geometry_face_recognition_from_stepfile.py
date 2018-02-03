@@ -128,7 +128,7 @@ if __name__ == '__main__':
     display.SetSelectionModeFace()  # switch to Face selection mode
     display.register_select_callback(recognize_clicked)
     # first loads the STEP file and display
-    shp = read_step_file(os.path.join('.', 'models', 'face_recognition_sample_part.stp'))
+    shp = read_step_file(os.path.join('..', 'assets', 'models', 'face_recognition_sample_part.stp'))
     display.DisplayShape(shp, update=True)
     add_menu('recognition')
     add_function_to_menu('recognition', recognize_batch)

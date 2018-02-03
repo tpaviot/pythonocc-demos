@@ -29,7 +29,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 def absolute_position(event=None):
     # create a texture
-    aTextureItem = TextureItem(TCollection_AsciiString("./images/carre-200.png"),
+    aTextureItem = TextureItem(TCollection_AsciiString("../assets/images/carre-200.png"),
                                display.GetView().GetObject(),
                                display.GetOverLayer())
     aTextureItem.SetAbsolutePosition(50, 50)
@@ -38,7 +38,7 @@ def absolute_position(event=None):
 
 def relative_position(event=None):
     # create a texture
-    aTextureItem = TextureItem(TCollection_AsciiString("./images/carre-200.png"),
+    aTextureItem = TextureItem(TCollection_AsciiString("../assets/images/carre-200.png"),
                                display.GetView().GetObject(),
                                display.GetOverLayer())
     aTextureItem.SetRelativePosition(30, 60)  # 30% width, 60% width

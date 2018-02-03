@@ -40,7 +40,7 @@ def vertex_clicked(shp, *kwargs):
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 # loads  and displays a step file
-the_shape = read_step_file('./models/as1_pe_203.stp')
+the_shape = read_step_file('../assets/models/as1_pe_203.stp')
 
 display.SetSelectionModeVertex()  # switch to Vertex selection mode
 display.register_select_callback(vertex_clicked)

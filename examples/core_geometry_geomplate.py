@@ -278,11 +278,8 @@ def build_curve_network(event=None):
     mimic the curve network surfacing command from rhino
     '''
     print('Importing IGES file...')
-    pth = os.path.dirname(os.path.abspath(__file__))
-    pth = os.path.abspath(
-        os.path.join(pth, 'models', 'curve_geom_plate.igs'))
-    iges = read_iges_file(pth)
-    print(iges)
+    iges_file = os.path.join('..', 'assets', 'models', 'curve_geom_plate.igs')
+    iges = read_iges_file(iges_file)
 
     print('Building geomplate...')
     topo = TopologyExplorer(iges)

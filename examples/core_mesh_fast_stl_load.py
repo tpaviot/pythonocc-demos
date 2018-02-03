@@ -34,7 +34,7 @@ print('Done.')
 # courtesy of Mauricio Oliveira
 print('Loading STL geometry ...', end='')
 init_time = time.time()
-aMesh.STLToMesh(os.path.join('.', 'models', 'five_spoke_wheel.stl'))
+aMesh.STLToMesh(os.path.join('..', 'assets', 'models', 'five_spoke_wheel.stl'))
 final_time = time.time()
 delta_t = final_time - init_time
 print('Done.')

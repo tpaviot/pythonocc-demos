@@ -50,7 +50,7 @@ def drange(start, stop, step):
 def get_brep():
     cylinder_head = TopoDS_Shape()
     builder = BRep_Builder()
-    breptools_Read(cylinder_head, './models/cylinder_head.brep', builder)
+    breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
     return cylinder_head
 
 

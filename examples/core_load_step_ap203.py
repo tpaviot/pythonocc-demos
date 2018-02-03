@@ -31,12 +31,12 @@ from OCC.Extend.TopologyUtils import TopologyExplorer
 from OCC.Extend.DataExchange import read_step_file
 
 def import_as_one_shape(event=None):
-    shp = read_step_file(os.path.join('.', 'models', 'as1_pe_203.stp'))
+    shp = read_step_file(os.path.join('..', 'assets', 'models', 'as1_pe_203.stp'))
     display.EraseAll()
     display.DisplayShape(shp, update=True)
 
 def import_as_multiple_shapes(event=None):
-    compound = read_step_file(os.path.join('.', 'models', 'as1_pe_203.stp'))
+    compound = read_step_file(os.path.join('..', 'assets', 'models', 'as1_pe_203.stp'))
     t = TopologyExplorer(compound)
     display.EraseAll()
     for solid in t.solids():

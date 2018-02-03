@@ -35,7 +35,7 @@ from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
 from OCC.Display.SimpleGui import init_display
 
-filename = './models/as1-oc-214.stp'
+filename = '../assets/models/as1-oc-214.stp'
 
 # create an handle to a document
 h_doc = Handle_TDocStd_Document()

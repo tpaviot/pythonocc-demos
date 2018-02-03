@@ -24,7 +24,7 @@ from OCC.Core.Addons import text_to_brep, register_font, Font_FA_Bold, Font_FA_R
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # register the Respective font
-register_font(os.path.join('.', 'fonts', 'Respective.ttf'))
+register_font(os.path.join('..', 'assets', 'fonts', 'Respective.ttf'))
 
 # text
 # Poetry from Paul Verlaine, Chanson d'Automne

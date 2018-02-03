@@ -34,7 +34,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, './models/cylinder_head.brep', builder)
+breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
 
 ais_shp = display.DisplayShape(cylinder_head).GetObject()
 

@@ -32,7 +32,7 @@ from OCC.Core.TDF import TDF_LabelSequence
 
 from OCC.Display.SimpleGui import init_display
 
-filename = './models/as1_pe_203.stp'
+filename = '../assets/models/as1_pe_203.stp'
 _shapes = []
 
 # create an handle to a document

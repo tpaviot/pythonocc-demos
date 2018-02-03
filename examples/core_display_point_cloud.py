@@ -48,7 +48,7 @@ def random_points(event=None):
     display.FitAll()
 
 def bunny(event=None):
-    pcd_file = open(os.path.join('models', 'bunny.pcd'), 'r').readlines()[10:]
+    pcd_file = open(os.path.join('..', 'assets', 'models', 'bunny.pcd'), 'r').readlines()[10:]
     # create the point_cloud
     pc = Graphic3d_ArrayOfPoints(len(pcd_file))
     for line in pcd_file:

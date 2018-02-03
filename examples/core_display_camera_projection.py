@@ -27,7 +27,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 # loads the motor model
 motor_c = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(motor_c, './models/Motor-c.brep', builder)
+breptools_Read(motor_c, '../assets/models/Motor-c.brep', builder)
 display.DisplayShape(motor_c, update=True)
 
 def perspective(event=None):

@@ -99,7 +99,7 @@ def build_curve_network(event=None, enforce_tangency=True):
     '''
     mimic the curve network surfacing command from rhino
     '''
-    root_compound_shape = read_step_file("./models/splinecage.stp")
+    root_compound_shape = read_step_file("../assets/models/splinecage.stp")
     topology_explorer = TopologyExplorer(root_compound_shape)
 
     # approximate the hell out of all surfaces and curves
