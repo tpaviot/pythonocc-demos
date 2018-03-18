@@ -17,8 +17,6 @@
 
 from __future__ import print_function
 
-from OCC.Core.IGESControl import IGESControl_Reader
-from OCC.Core.IFSelect import IFSelect_RetDone, IFSelect_ItemsByEntity
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_iges_file
 

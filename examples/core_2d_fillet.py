@@ -16,11 +16,12 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.gp import gp_Pnt,gp_Dir,gp_Pln
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.ChFi2d import ChFi2d_AnaFilletAlgo
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge,BRepBuilderAPI_MakeWire
 
 from OCC.Extend.ShapeFactory import make_wire
+
+from OCC.Display.SimpleGui import init_display
 display,start_display, add_menu,add_functionto_menu = init_display()
 
 # Defining the points
