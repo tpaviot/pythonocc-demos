@@ -42,7 +42,7 @@ from OCC.Display.backend import load_any_qt_backend, get_qt_modules
 
 load_any_qt_backend()
 
-QtCore, QtGui, QtWidgets, QtOpenGL = get_qt_modules()
+Q, QtGui, QtWidgets, QtOpenGL = get_qt_modules()
 from OCC.Display.qtDisplay import qtViewer3d
 
 # --------------------------------------------------------------------------
@@ -78,9 +78,9 @@ class Bubble(object):
 
     def updateBrush(self):
         gradient = QtGui.QRadialGradient(
-                QtCore.QPointF(self.radius, self.radius),
+                Q.QPointF(self.radius, self.radius),
                 self.radius,
-                QtCore.QPointF(self.radius * 0.5, self.radius * 0.5))
+                Q.QPointF(self.radius * 0.5, self.radius * 0.5))
         gradient.setColorAt(0, QtGui.QColor(255, 255, 255, 0))
         gradient.setColorAt(0.25, self.innerColor)
         gradient.setColorAt(1, self.outerColor)
@@ -96,7 +96,7 @@ class Bubble(object):
             font = painter.font()
             font.setPointSize(20)
             painter.setFont(font)
-            painter.setPen(QtCore.Qt.red)
+            painter.setPen(Q.Qt.red)
             painter.drawText(0, 0, "so hovering over!!!")
 
         painter.drawEllipse(0, 0, int(2 * self.radius), int(2 * self.radius))
@@ -131,7 +131,7 @@ class Bubble(object):
             self.vel.setY(-self.vel.y())
 
     def rect(self):
-        return QtCore.QRectF(self.position.x() - self.radius,
+        return Q.QRectF(self.position.x() - self.radius,
                              self.position.y() - self.radius, 2 * self.radius,
                              2 * self.radius)
 
@@ -150,8 +150,8 @@ class GLWidget(qtViewer3d):
         # parameters for bubbles
         # ---------------------------------------------------------------------
 
-        midnight = QtCore.QTime(0, 0, 0)
-        random.seed(midnight.secsTo(QtCore.QTime.currentTime()))
+        midnight = Q.QTime(0, 0, 0)
+        random.seed(midnight.secsTo(Q.QTime.currentTime()))
         self.bubbles = []
 
         # parameter for overpainted text box
@@ -165,7 +165,7 @@ class GLWidget(qtViewer3d):
         # "point" conversion takes place implicitly
         # ---------------------------------------------------------------------
 
-        self.lastPos = QtCore.QPoint()
+        self.lastPos = Q.QPoint()
 
         # ---------------------------------------------------------------------
         # GUI parameters
@@ -175,7 +175,7 @@ class GLWidget(qtViewer3d):
         self.setWindowTitle("Overpainting a Scene")
 
         # parameters for overpainting
-        self.setAttribute(QtCore.Qt.WA_NoSystemBackground)
+        self.setAttribute(Q.Qt.WA_NoSystemBackground)
         self.setAutoFillBackground(False)
 
         # ---------------------------------------------------------------------
@@ -191,10 +191,10 @@ class GLWidget(qtViewer3d):
         # ---------------------------------------------------------------------
 
         # QPoint stored on mouse press
-        self._point_on_mouse_press = QtCore.QPoint()
+        self._point_on_mouse_press = Q.QPoint()
 
         # QPoint stored on mouse move
-        self._point_on_mouse_move = QtCore.QPoint()
+        self._point_on_mouse_move = Q.QPoint()
 
         # stores the delta between self._point_on_mouse_press and self._point_on_mouse_move
         self._delta_event_pos = None
@@ -213,9 +213,9 @@ class GLWidget(qtViewer3d):
     @point_on_mouse_press.setter
     def point_on_mouse_press(self, event):
         if isinstance(event, QtGui.QMouseEvent):
-            self._point_on_mouse_press = QtCore.QPoint(event.pos())
-        elif isinstance(event, QtCore.QPoint):
-            self._point_on_mouse_press = QtCore.QPoint(event)
+            self._point_on_mouse_press = Q.QPoint(event.pos())
+        elif isinstance(event, Q.QPoint):
+            self._point_on_mouse_press = Q.QPoint(event)
 
     @property
     def point_on_mouse_move(self):
@@ -226,9 +226,9 @@ class GLWidget(qtViewer3d):
     @point_on_mouse_move.setter
     def point_on_mouse_move(self, event):
         if isinstance(event, (QtGui.QMouseEvent, QtGui.QWheelEvent)):
-            self._point_on_mouse_move = QtCore.QPoint(event.pos())
-        elif isinstance(event, QtCore.QPoint):
-            self._point_on_mouse_move = QtCore.QPoint(event)
+            self._point_on_mouse_move = Q.QPoint(event.pos())
+        elif isinstance(event, Q.QPoint):
+            self._point_on_mouse_move = Q.QPoint(event)
 
     @property
     def delta_mouse_event_pos(self):
@@ -257,7 +257,7 @@ class GLWidget(qtViewer3d):
         self._is_left_mouse_button_surpressed = value
 
     def _setupAnimation(self):
-        self.animationTimer = QtCore.QTimer()
+        self.animationTimer = Q.QTimer()
         self.animationTimer.setSingleShot(False)
         self.animationTimer.timeout.connect(self.animate)
         self.animationTimer.start(25)
@@ -269,16 +269,16 @@ class GLWidget(qtViewer3d):
         button = event.button()
         modifiers = event.modifiers()
 
-        if button == QtCore.Qt.RightButton:
+        if button == Q.Qt.RightButton:
             self.is_right_mouse_button_surpressed = True
-        elif button == QtCore.Qt.LeftButton:
+        elif button == Q.Qt.LeftButton:
             self.is_left_mouse_button_surpressed = True
 
-        if button == QtCore.Qt.RightButton and modifiers == QtCore.Qt.ShiftModifier:
+        if button == Q.Qt.RightButton and modifiers == Q.Qt.ShiftModifier:
             # ON_ZOOM_AREA
             self._drawbox = True
 
-        elif button == QtCore.Qt.LeftButton and modifiers == QtCore.Qt.ShiftModifier:
+        elif button == Q.Qt.LeftButton and modifiers == Q.Qt.ShiftModifier:
             # ON_SELECT_AREA
             self._drawbox = True
             self._select_area = True
@@ -289,17 +289,17 @@ class GLWidget(qtViewer3d):
         button = event.button()
         modifiers = event.modifiers()
 
-        if button == QtCore.Qt.RightButton:
+        if button == Q.Qt.RightButton:
             self.is_right_mouse_button_surpressed = False
-            if modifiers == QtCore.Qt.ShiftModifier:
+            if modifiers == Q.Qt.ShiftModifier:
                 self.current_action = ON_ZOOM_AREA
 
-        if button == QtCore.Qt.LeftButton:
+        if button == Q.Qt.LeftButton:
             self.is_left_mouse_button_surpressed = False
 
             if self._select_area:
                 self.current_action = ON_SELECT_AREA
-            elif modifiers == QtCore.Qt.ShiftModifier:
+            elif modifiers == Q.Qt.ShiftModifier:
                 self.current_action = ON_SHIFT_SELECT
             else:
                 self.current_action = ON_SELECT
@@ -317,23 +317,23 @@ class GLWidget(qtViewer3d):
         modifiers = event.modifiers()
 
         # rotate
-        if buttons == QtCore.Qt.LeftButton and not modifiers == QtCore.Qt.ShiftModifier:
+        if buttons == Q.Qt.LeftButton and not modifiers == Q.Qt.ShiftModifier:
             self.current_action = ON_DYN_ROT
 
         # dynamic zoom
-        elif buttons == QtCore.Qt.RightButton and not modifiers == QtCore.Qt.ShiftModifier:
+        elif buttons == Q.Qt.RightButton and not modifiers == Q.Qt.ShiftModifier:
             self.current_action = ON_DYN_ZOOM
 
         # dynamic panning
-        elif buttons == QtCore.Qt.MidButton:
+        elif buttons == Q.Qt.MidButton:
             self.current_action = ON_DYN_PAN
 
         # zoom window, overpaints rectangle
-        elif buttons == QtCore.Qt.RightButton and modifiers == QtCore.Qt.ShiftModifier:
+        elif buttons == Q.Qt.RightButton and modifiers == Q.Qt.ShiftModifier:
             self.current_action = ON_ZOOM_AREA
 
         # select area
-        elif buttons == QtCore.Qt.LeftButton and modifiers == QtCore.Qt.ShiftModifier:
+        elif buttons == Q.Qt.LeftButton and modifiers == Q.Qt.ShiftModifier:
             self.current_action = ON_SELECT_AREA
 
         self.update()
@@ -553,19 +553,19 @@ class GLWidget(qtViewer3d):
         self.createBubbles(20 - len(self.bubbles))
 
     def sizeHint(self):
-        return QtCore.QSize(800, 600)
+        return Q.QSize(800, 600)
 
     def createBubbles(self, number):
         """ instantiate a `number` of bubbles to be painted on top of
         the viewport
         """
         for _ in range(number):
-            position = QtCore.QPointF(
+            position = Q.QPointF(
                     self.width() * (0.1 + 0.8 * random.random()),
                     self.height() * (0.1 + 0.8 * random.random()))
             radius = min(self.width(), self.height()) * (
                 0.0125 + 0.0875 * random.random())
-            velocity = QtCore.QPointF(
+            velocity = Q.QPointF(
                     self.width() * 0.0125 * (-0.5 + random.random()),
                     self.height() * 0.0125 * (-0.5 + random.random()))
 
@@ -594,7 +594,7 @@ class GLWidget(qtViewer3d):
             pass
 
         else:
-            rect = QtCore.QRect(self.point_on_mouse_press[0],
+            rect = Q.QRect(self.point_on_mouse_press[0],
                                 self.point_on_mouse_press[1], -dx, -dy)
             painter.drawRect(rect)
 
@@ -604,8 +604,8 @@ class GLWidget(qtViewer3d):
         """
         for bubble in self.bubbles:
             bubble_rect = bubble.rect()
-            if bubble_rect.intersects(QtCore.QRectF(event.rect())):
-                pt = QtCore.QPointF(self._point_on_mouse_move)
+            if bubble_rect.intersects(Q.QRectF(event.rect())):
+                pt = Q.QPointF(self._point_on_mouse_move)
                 over_mouse = bubble_rect.contains(pt)
                 bubble.drawBubble(painter, over_mouse)
 
@@ -619,25 +619,25 @@ class GLWidget(qtViewer3d):
 
         rect = metrics.boundingRect(0, 0, self.width() - 2 * border,
                                     int(self.height() * 0.125),
-                                    QtCore.Qt.AlignCenter | QtCore.Qt.TextWordWrap,
+                                    Q.Qt.AlignCenter | Q.Qt.TextWordWrap,
                                     self.text)
 
         painter.setRenderHint(QtGui.QPainter.TextAntialiasing)
 
         painter.fillRect(
-                QtCore.QRect(0, 0, self.width(), rect.height() + 2 * border),
+                Q.QRect(0, 0, self.width(), rect.height() + 2 * border),
                 QtGui.QColor(0, 0, 0, transparency))
 
-        painter.setPen(QtCore.Qt.white)
+        painter.setPen(Q.Qt.white)
 
         painter.fillRect(
-                QtCore.QRect(0, 0, self.width(), rect.height() + 2 * border),
+                Q.QRect(0, 0, self.width(), rect.height() + 2 * border),
                 QtGui.QColor(0, 0, 0, transparency))
 
         painter.drawText((self.width() - rect.width()) / 2, border,
                          rect.width(),
                          rect.height(),
-                         QtCore.Qt.AlignCenter | QtCore.Qt.TextWordWrap,
+                         Q.Qt.AlignCenter | Q.Qt.TextWordWrap,
                          self.text)
 
 

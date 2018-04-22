@@ -22,8 +22,8 @@ from __future__ import print_function
 import random
 
 from OCC.Display.WebGl import threejs_renderer
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-from OCC.Core.gp import gp_Vec
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeTorus
+from OCC.gp import gp_Vec
 
 from OCC.Extend.ShapeFactory import translate_shp
 

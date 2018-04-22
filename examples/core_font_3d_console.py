@@ -19,8 +19,8 @@ import sys
 from code import InteractiveConsole
 from StringIO import StringIO
 
-from OCC.Core.gp import gp_Vec
-from OCC.Core.Addons import text_to_brep, Font_FA_Bold
+from OCC.gp import gp_Vec
+from OCC.Addons import text_to_brep, Font_FA_Bold
 
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.ShapeFactory import translate_shp, make_extrusion
@@ -29,7 +29,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 from OCC.Display.qtDisplay import qtViewer3d
 from OCC.Display.backend import get_qt_modules
-QtCore, QtGui, QtWidgets, QtOpenGL = get_qt_modules()
+Q, QtGui, QtWidgets, QtOpenGL = get_qt_modules()
 
 
 def display_str_at_pos(stri, col, line):
@@ -68,16 +68,16 @@ python_cmd = ""
 def newKeyReleaseEvent(event):
     global shift_pressed
     code = event.key()
-    if code == QtCore.Qt.Key_Shift:
+    if code == Q.Qt.Key_Shift:
         shift_pressed = False
         print("Shift released")
 
 def newkeyPressEvent(event):
     global python_cmd, col, lin, shift_pressed
     code = event.key()
-    if code == QtCore.Qt.Key_Shift:
+    if code == Q.Qt.Key_Shift:
         shift_pressed = True
-    elif code == QtCore.Qt.Key_Return or code == QtCore.Qt.Key_Enter:  # enter key
+    elif code == Q.Qt.Key_Return or code == Q.Qt.Key_Enter:  # enter key
         # pass the python command to the interpreter
         output = c.runcode(python_cmd)
         lines = output.splitlines()
@@ -90,7 +90,7 @@ def newkeyPressEvent(event):
         ### display prompt below
         display_str_at_pos(">>>", 0, lin)
         col = 3
-    elif code == QtCore.Qt.Key_Escape:
+    elif code == Q.Qt.Key_Escape:
         sys.exit(0)
     else:
         if code > 255:

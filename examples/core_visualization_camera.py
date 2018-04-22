@@ -19,7 +19,7 @@
 
 
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.Graphic3d import Graphic3d_Camera
+from OCC.Graphic3d import Graphic3d_Camera
 
 import sys, os
 

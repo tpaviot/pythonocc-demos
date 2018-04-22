@@ -17,7 +17,7 @@
 
 import os
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Extend.DataExchange import write_stl_file
 
 # first, create the shape

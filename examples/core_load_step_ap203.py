@@ -22,7 +22,7 @@ import os
 import os.path
 import sys
 
-from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Display.SimpleGui import init_display
 
 from OCC.Extend.TopologyUtils import TopologyExplorer

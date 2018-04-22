@@ -18,12 +18,12 @@
 import sys
 
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCone
-from OCC.Core.Graphic3d import Graphic3d_NOM_PLASTIC, Graphic3d_NOM_ALUMINIUM
-from OCC.Core.V3d import V3d_SpotLight, V3d_COMPLETE, V3d_XnegYnegZpos
-from OCC.Core.Quantity import Quantity_NOC_WHITE, Quantity_NOC_CORAL2, Quantity_NOC_BROWN
-from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.Core.gp import gp_Vec
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCone
+from OCC.Graphic3d import Graphic3d_NOM_PLASTIC, Graphic3d_NOM_ALUMINIUM
+from OCC.V3d import V3d_SpotLight, V3d_COMPLETE, V3d_XnegYnegZpos
+from OCC.Quantity import Quantity_NOC_WHITE, Quantity_NOC_CORAL2, Quantity_NOC_BROWN
+from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.gp import gp_Vec
 
 from OCC.Extend.ShapeFactory import translate_shp
 

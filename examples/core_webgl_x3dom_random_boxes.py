@@ -20,8 +20,8 @@
 import random
 
 from OCC.Display.WebGl import x3dom_renderer
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.gp import gp_Vec
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.gp import gp_Vec
 
 from OCC.Extend.ShapeFactory import translate_shp, rotate_shp_3_axis
 

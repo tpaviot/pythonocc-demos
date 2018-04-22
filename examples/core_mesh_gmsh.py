@@ -22,8 +22,8 @@ from __future__ import print_function
 import os
 import sys
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
-from OCC.Core.BRepTools import breptools_Write
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
+from OCC.BRepTools import breptools_Write
 
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_stl_file

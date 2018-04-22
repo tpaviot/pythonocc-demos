@@ -19,10 +19,10 @@
 
 from __future__ import print_function
 
-from OCC.Core.BRepExtrema import BRepExtrema_DistShapeShape
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.BRepExtrema import BRepExtrema_DistShapeShape
+from OCC.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_Circ
+from OCC.gp import gp_Pnt, gp_Ax2, gp_Circ
 
 from OCC.Extend.ShapeFactory import make_edge, make_vertex
 
