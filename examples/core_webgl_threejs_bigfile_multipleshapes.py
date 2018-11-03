@@ -18,6 +18,7 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import sys
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 
@@ -27,7 +28,12 @@ from OCC.Display.WebGl import threejs_renderer
 
 # opens a big step file
 # render each part of the assembly as a shape
-big_shp = read_step_file(os.path.join('..', 'assets', 'models', '3864470050F1.stp'))
+stp_file = os.path.join('..', 'assets', 'models', '3864470050F1.stp')
+if not os.path.isfile(stp_file):
+	print("File 3864470050F1.stp not found. First unzip 3864470050F1.zip file from the assets folder")
+	sys.exit(0)
+# file exist, we can load the file
+big_shp = read_step_file(stp_file)
 
 all_subshapes = TopologyExplorer(big_shp).solids()
 
