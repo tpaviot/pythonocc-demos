@@ -190,20 +190,20 @@ def getSubShapes(lab, loc):
         # n = c.Name(c.Red(), c.Green(), c.Blue())
         # print('    color Name & RGB: ', c, n, c.Red(), c.Green(), c.Blue())
         # Display shape
-        display.DisplayColoredShape(shape, c)
+        # display.DisplayColoredShape(shape, c)
 
         for i in range(l_subss.Length()):
             lab = l_subss.Value(i+1)
             print("\n########  simpleshape subshape label :", lab)
-            shape = shape_tool.GetShape(lab)
+            shape_sub = shape_tool.GetShape(lab)
 
             c = Quantity_Color()
             colorSet = False
-            if (color_tool.GetInstanceColor(shape, 0, c) or
-                    color_tool.GetInstanceColor(shape, 1, c) or
-                    color_tool.GetInstanceColor(shape, 2, c)):
+            if (color_tool.GetInstanceColor(shape_sub, 0, c) or
+                    color_tool.GetInstanceColor(shape_sub, 1, c) or
+                    color_tool.GetInstanceColor(shape_sub, 2, c)):
                 for i in (0, 1, 2):
-                    color_tool.SetInstanceColor(shape, i, c)
+                    color_tool.SetInstanceColor(shape_sub, i, c)
                 colorSet = True
                 n = c.Name(c.Red(), c.Green(), c.Blue())
                 print('    instance color Name & RGB: ', c, n, c.Red(), c.Green(), c.Blue())
@@ -221,7 +221,9 @@ def getSubShapes(lab, loc):
             # n = c.Name(c.Red(), c.Green(), c.Blue())
             # print('    color Name & RGB: ', c, n, c.Red(), c.Green(), c.Blue())
             # Display shape
-            display.DisplayColoredShape(shape, c)
+            # display.DisplayColoredShape(shape, c)
+        
+        display.DisplayColoredShape(shape, c)
 
 def getShapes():
     labels = TDF_LabelSequence()
