@@ -19,9 +19,12 @@
 
 import os
 import random
+import struct
 
 from OCC.Core.Graphic3d import Graphic3d_ArrayOfPoints
 from OCC.Core.AIS import AIS_PointCloud
+from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Core.gp import gp_Pnt
 
 from OCC.Display.SimpleGui import init_display
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -61,8 +64,46 @@ def bunny(event=None):
     display.View_Iso()
     display.FitAll()
 
+def tabletop(event=None):
+    pcd_file = open(os.path.join('..', 'assets', 'models', 'tabletop.pcd'), 'r').readlines()[11:]
+    # create the point_cloud
+    pc = Graphic3d_ArrayOfPoints(len(pcd_file), True)
+    for idx, line in enumerate(pcd_file):
+        x, y, z, rgb = map(float, line.split())
+        r, g, b = unpackRGB(rgb)
+        color = Quantity_Color(r/float(255), g/float(255), b/float(255), Quantity_TOC_RGB)
+        pc.AddVertex(gp_Pnt(x, y, z), color)
+
+    # then build the point cloud
+    point_cloud = AIS_PointCloud()
+    point_cloud.SetPoints(pc.GetHandle())
+    # display
+    ais_context = display.GetContext().GetObject()
+    ais_context.Display(point_cloud.GetHandle())
+    display.DisableAntiAliasing()
+    display.View_Iso()
+    display.FitAll()
+
+def unpackRGB(rgb):
+    """
+    Unpack PCL RGB data into r/g/b
+    reference:
+        http://docs.pointclouds.org/trunk/structpcl_1_1_point_x_y_z_r_g_b.html
+    :param rgb: float
+    :return:    unsigned integer [0 - 255]
+    """
+    # reinterpret from float to unsigned integer
+    rgb = struct.unpack('I', struct.pack('f', rgb))[0]
+    # unpack rgb into r/g/b
+    r = (rgb >> 16) & 0x0000ff
+    g = (rgb >> 8)  & 0x0000ff
+    b = (rgb)       & 0x0000ff
+    return r, g, b
+
+
 if __name__ == '__main__':
     add_menu('pointcloud')
     add_function_to_menu('pointcloud', random_points)
     add_function_to_menu('pointcloud', bunny)
+    add_function_to_menu('pointcloud', tabletop)
     start_display()
