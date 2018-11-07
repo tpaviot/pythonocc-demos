@@ -30,6 +30,6 @@ for shpt_lbl_color in shapes_labels_colors:
     shape, label, c = shpt_lbl_color
     all_faces = TopologyExplorer(shape).faces()
     for face in all_faces:
-        my_renderer.DisplayShape(face, color=(c.Red(), c.Green(), c.Blue()))
+        my_renderer.DisplayShape(face, color=(c.Red(), c.Green(), c.Blue()), export_edges=True)
 
 my_renderer.render()
