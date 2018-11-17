@@ -36,11 +36,7 @@ filename = '../assets/models/as1_pe_203.stp'
 _shapes = []
 
 # create an handle to a document
-doc = TDocStd_Document()
-
-# Create the application
-app = XCAFApp_Application.GetApplication()
-app.NewDocument(TCollection_ExtendedString("MDTV-CAF"), doc)
+doc = TDocStd_Document(TCollection_ExtendedString("pythonocc-doc"))
 
 # Get root assembly
 shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())

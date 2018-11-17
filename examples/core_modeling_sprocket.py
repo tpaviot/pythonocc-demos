@@ -161,14 +161,14 @@ def build_tooth():
     arc4 = BRepBuilderAPI_MakeEdge(geomapi_To3d(mirror_profile, plane)).Edge()
     arc5 = BRepBuilderAPI_MakeEdge(geomapi_To3d(mirror_base, plane)).Edge()
 
-    p4 = Proxy(mirror_base).EndPoint()
-    p5 = Proxy(inner_arc).StartPoint()
+    p4 = mirror_base.EndPoint()
+    p5 = inner_arc.StartPoint()
 
     lin1 = BRepBuilderAPI_MakeEdge(gp_Pnt(p4.X(), p4.Y(), 0),
                                    gp_Pnt(p5.X(), p5.Y(), 0)).Edge()
     arc6 = BRepBuilderAPI_MakeEdge(geomapi_To3d(inner_arc, plane)).Edge()
 
-    p6 = Proxy(inner_arc).EndPoint()
+    p6 = inner_arc.EndPoint()
     lin2 = BRepBuilderAPI_MakeEdge(gp_Pnt(p6.X(), p6.Y(), 0),
                                    gp_Pnt(p0.X(), p0.Y(), 0)).Edge()
 
@@ -322,7 +322,7 @@ def cut_out(base):
 
     geom_outer = GCE2d_MakeCircle(outer).Value()
     geom_inner = GCE2d_MakeCircle(inner).Value()
-    Proxy(geom_inner).Reverse()
+    geom_inner.Reverse()
 
     base_angle = (2. * M_PI) / mounting_hole_count
     hole_angle = atan(hole_radius / mounting_radius)

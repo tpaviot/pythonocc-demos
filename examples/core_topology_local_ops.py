@@ -29,7 +29,7 @@ from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeThickSolid, BRepOffsetAPI_M
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakePrism
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GCE2d import GCE2d_MakeLine
-from OCC.Core.Geom import Geom_Plane_DownCast, Geom_Plane
+from OCC.Core.Geom import Geom_Plane, Geom_Plane
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.TopTools import TopTools_ListOfShape
@@ -52,7 +52,7 @@ def extrusion(event=None):
     surf = BRep_Tool_Surface(F)
 
     #  Make a plane from this face
-    Pl = Geom_Plane_DownCast(surf)
+    Pln = Geom_Plane.DownCast(surf)
     
     # Get the normal of this plane. This will be the direction of extrusion.
     D = Pln.Axis().Direction()
@@ -261,7 +261,7 @@ def brep_feat_extrusion_protrusion(event=None):
     F = next(faces)
     surf1 = BRep_Tool_Surface(F)
 
-    Pl1 = Geom_Plane_DownCast(surf1)
+    Pl1 = Geom_Plane.DownCast(surf1)
 
     D1 = Pl1.Pln().Axis().Direction().Reversed()
     MW = BRepBuilderAPI_MakeWire()
@@ -298,7 +298,7 @@ def brep_feat_extrusion_protrusion(event=None):
     next(faces)
     F2 = next(faces)
     surf2 = BRep_Tool_Surface(F2)
-    Pl2 = Geom_Plane_DownCast(surf2)
+    Pl2 = Geom_Plane.DownCast(surf2)
     D2 = Pl2.Pln().Axis().Direction().Reversed()
     MW2 = BRepBuilderAPI_MakeWire()
     p1, p2 = gp_Pnt2d(100., 100.), gp_Pnt2d(200., 100.)

@@ -23,7 +23,7 @@ from OCC.Core.Precision import precision_Angular
 from OCC.Core.BRep import BRep_Tool_Surface
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopAbs import TopAbs_FACE
-from OCC.Core.Geom import Geom_Plane_DownCast
+from OCC.Core.Geom import Geom_Plane
 from OCC.Core.TopoDS import topods_Face
 
 from OCC.Display.SimpleGui import init_display
@@ -37,7 +37,7 @@ def draft_angle(event=None):
     topExp.Init(S, TopAbs_FACE)
     while topExp.More():
         face = topods_Face(topExp.Current())
-        surf = Geom_Plane_DownCast(BRep_Tool_Surface(face))
+        surf = Geom_Plane.DownCast(BRep_Tool_Surface(face))
         dirf = surf.Pln().Axis().Direction()
         ddd = gp_Dir(0, 0, 1)
         if dirf.IsNormal(ddd, precision_Angular()):

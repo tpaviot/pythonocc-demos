@@ -25,7 +25,7 @@ from OCC.Core.GeomFill import (GeomFill_BSplineCurves,
                                GeomFill_CoonsStyle,
                                GeomFill_CurvedStyle)
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSpline
-from OCC.Core.Geom import Geom_BSplineCurve_DownCast
+from OCC.Core.Geom import Geom_BSplineCurve
 
 from OCC.Display.SimpleGui import init_display
 
@@ -64,14 +64,14 @@ def surface_from_curves():
                                         SPL2,
                                         GeomFill_StretchStyle)
 
-    SPL3 = Geom_BSplineCurve_DownCast(SPL1.Translated(gp_Vec(10, 0, 0)))
-    SPL4 = Geom_BSplineCurve_DownCast(SPL2.Translated(gp_Vec(10, 0, 0)))
+    SPL3 = Geom_BSplineCurve.DownCast(SPL1.Translated(gp_Vec(10, 0, 0)))
+    SPL4 = Geom_BSplineCurve.DownCast(SPL2.Translated(gp_Vec(10, 0, 0)))
     # Fill with CoonsStyle
     aGeomFill2 = GeomFill_BSplineCurves(SPL3,
                                         SPL4,
                                         GeomFill_CoonsStyle)
-    SPL5 = Geom_BSplineCurve_DownCast(SPL1.Translated(gp_Vec(20, 0, 0)))
-    SPL6 = Geom_BSplineCurve_DownCast(SPL2.Translated(gp_Vec(20, 0, 0)))
+    SPL5 = Geom_BSplineCurve.DownCast(SPL1.Translated(gp_Vec(20, 0, 0)))
+    SPL6 = Geom_BSplineCurve.DownCast(SPL2.Translated(gp_Vec(20, 0, 0)))
     # Fill with CurvedStyle
     aGeomFill3 = GeomFill_BSplineCurves(SPL5,
                                         SPL6,

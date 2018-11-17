@@ -16,7 +16,8 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Extend.DataExchange import read_step_file_with_names_colors
-from OCC.Display.WebGl import x3dom_renderer
+from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Display.SimpleGui import init_display
 
 filename = '../assets/models/as1-oc-214.stp'
 shapes_labels_colors = read_step_file_with_names_colors(filename)
@@ -28,6 +29,9 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 # traverse shapes, render in "face" mode
 for shpt_lbl_color in shapes_labels_colors:
     shape, label, c = shpt_lbl_color
-    display.DisplayColoredShape(shape, color=(c.Red(), c.Green(), c.Blue()))
+    display.DisplayColoredShape(shape, color=Quantity_Color(c.Red(),
+    	                                                    c.Green(),
+    	                                                    c.Blue(),
+    	                                                    Quantity_TOC_RGB))
 
 start_display()
