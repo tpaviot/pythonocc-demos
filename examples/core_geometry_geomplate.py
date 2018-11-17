@@ -136,12 +136,12 @@ def build_plate(polygon, points):
         for edg in WireExplorer(poly).ordered_edges():
             c = BRepAdaptor_HCurve()
             c.ChangeCurve().Initialize(edg)
-            constraint = BRepFill_CurveConstraint(c.GetHandle(), 0)
-            bpSrf.Add(constraint.GetHandle())
+            constraint = BRepFill_CurveConstraint(c, 0)
+            bpSrf.Add(constraint)
 
     # add point constraint
     for pt in points:
-        bpSrf.Add(GeomPlate_PointConstraint(pt, 0).GetHandle())
+        bpSrf.Add(GeomPlate_PointConstraint(pt, 0))
         bpSrf.Perform()
 
     maxSeg, maxDeg, critOrder = 9, 8, 0
@@ -150,7 +150,7 @@ def build_plate(polygon, points):
 
     srf = bpSrf.Surface()
     plate = GeomPlate_MakeApprox(srf, tol, maxSeg, maxDeg, dmax, critOrder)
-    uMin, uMax, vMin, vMax = srf.GetObject().Bounds()
+    uMin, uMax, vMin, vMax = srf.Bounds()
 
     return make_face(plate.Surface(), uMin, uMax, vMin, vMax, 1e-4)
 
@@ -256,8 +256,8 @@ def build_geom_plate(edges):
         c = BRepAdaptor_HCurve()
         print('edge:', edg)
         c.ChangeCurve().Initialize(edg)
-        constraint = BRepFill_CurveConstraint(c.GetHandle(), 0)
-        bpSrf.Add(constraint.GetHandle())
+        constraint = BRepFill_CurveConstraint(c, 0)
+        bpSrf.Add(constraint)
 
     # add point constraint
     try:
@@ -268,7 +268,7 @@ def build_geom_plate(edges):
     srf = bpSrf.Surface()
     plate = GeomPlate_MakeApprox(srf, 0.01, 10, 5, 0.01, 0, GeomAbs_C0)
 
-    uMin, uMax, vMin, vMax = srf.GetObject().Bounds()
+    uMin, uMax, vMin, vMax = srf.Bounds()
     face = make_face(plate.Surface(), uMin, uMax, vMin, vMax, 1e-6)
     return face
 

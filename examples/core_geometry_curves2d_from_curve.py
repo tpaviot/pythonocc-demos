@@ -17,8 +17,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
 from OCC.Core.gp import gp_OX2d
 from OCC.Core.GCE2d import GCE2d_MakeEllipse
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
@@ -34,7 +32,7 @@ def curves2d_from_curves():
     axis = gp_OX2d()
     ellipse = GCE2d_MakeEllipse(axis, major, minor).Value()
     trimmed_curve = Geom2d_TrimmedCurve(ellipse, -1, 2, True)
-    bspline = geom2dconvert_CurveToBSplineCurve(trimmed_curve.GetHandle(),
+    bspline = geom2dconvert_CurveToBSplineCurve(trimmed_curve,
                                                 Convert_TgtThetaOver2)
     display.DisplayShape(bspline, update=True)
 

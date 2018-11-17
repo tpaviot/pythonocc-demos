@@ -27,11 +27,11 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 c = gp_Circ(gp_Ax2(gp_Pnt(200., 200., 0.), gp_Dir(0., 0., 1.)), 80)
 ec = BRepBuilderAPI_MakeEdge(c).Edge()
 ais_shp = AIS_Shape(ec)
-display.Context.Display(ais_shp.GetHandle())
+display.Context.Display(ais_shp)
 
 
 rd = AIS_RadiusDimension(ec)
 #rd.SetArrowSize(12)
-display.Context.Display(rd.GetHandle())
+display.Context.Display(rd)
 display.FitAll()
 start_display()

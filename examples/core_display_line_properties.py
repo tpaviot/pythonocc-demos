@@ -36,7 +36,7 @@ def line():
     d1 = gp_Dir(4., 5., 6.)
     line1 = Geom_Line(p1, d1)
 
-    ais_line1 = AIS_Line(line1.GetHandle())
+    ais_line1 = AIS_Line(line1)
 
     # if we need to edit color, we can simply use SetColor
     # ais_line1.SetColor(Quantity_NOC_RED)
@@ -45,25 +45,25 @@ def line():
     # To do that, we need to do use AIS_Drawer and apply it to ais_line1
     width = 1.0
     drawer = Prs3d_Drawer()
-    ais_line1.SetAttributes(drawer.GetHandle())
+    ais_line1.SetAttributes(drawer)
 
-    display.Context.Display(ais_line1.GetHandle(), False)
+    display.Context.Display(ais_line1, False)
     # we can apply the same rule for other lines by just doing a for loop
     for i in range(1, 5):
         p2 = gp_Pnt(i, 2., 5.)
         d2 = gp_Dir(4*i, 6., 9.)
         line2 = Geom_Line(p2, d2)
 
-        ais_line2 = AIS_Line(line2.GetHandle())
+        ais_line2 = AIS_Line(line2)
     
         width = float(i)
-        drawer = ais_line2.Attributes().GetObject()
+        drawer = ais_line2.Attributes()
         # asp : first parameter color, second type, last width
         asp = Prs3d_LineAspect(9*i, i, width)
-        drawer.SetLineAspect(asp.GetHandle())
-        ais_line2.SetAttributes(drawer.GetHandle())
+        drawer.SetLineAspect(asp)
+        ais_line2.SetAttributes(drawer)
 
-        display.Context.Display(ais_line2.GetHandle(), False)
+        display.Context.Display(ais_line2, False)
     start_display()
 
 

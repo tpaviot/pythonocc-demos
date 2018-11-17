@@ -103,11 +103,11 @@ def face():
     line3 = Geom2d_Line(P32d, gp_Dir2d((0.9-0.02), (0.1-0.1)))
     ##
     ##//Edges are on the BSpline surface
-    Edge1 = BRepBuilderAPI_MakeEdge(line1.GetHandle(), BSplineSurf.Surface(),
+    Edge1 = BRepBuilderAPI_MakeEdge(line1, BSplineSurf.Surface(),
                                     0, P12d.Distance(P22d)).Edge()
-    Edge2 = BRepBuilderAPI_MakeEdge(line2.GetHandle(), BSplineSurf.Surface(),
+    Edge2 = BRepBuilderAPI_MakeEdge(line2, BSplineSurf.Surface(),
                                     0, P22d.Distance(P32d)).Edge()
-    Edge3 = BRepBuilderAPI_MakeEdge(line3.GetHandle(), BSplineSurf.Surface(),
+    Edge3 = BRepBuilderAPI_MakeEdge(line3, BSplineSurf.Surface(),
                                     0, P32d.Distance(P12d)).Edge()
     ##
     Wire1 = BRepBuilderAPI_MakeWire(Edge1, Edge2, Edge3).Wire()

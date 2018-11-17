@@ -45,7 +45,7 @@ def bspline():
     harray.SetValue(4, gp_Pnt2d(4, 3))
     harray.SetValue(5, gp_Pnt2d(5, 5))
 
-    anInterpolation = Geom2dAPI_Interpolate(harray.GetHandle(), False, 0.01)
+    anInterpolation = Geom2dAPI_Interpolate(harray, False, 0.01)
     anInterpolation.Perform()
     bspline_2 = anInterpolation.Curve()
 
@@ -56,7 +56,7 @@ def bspline():
     harray2.SetValue(4, gp_Pnt2d(15, 3))
     harray2.SetValue(5, gp_Pnt2d(16, 5))
 
-    anInterpolation2 = Geom2dAPI_Interpolate(harray.GetHandle(), True, 0.01)
+    anInterpolation2 = Geom2dAPI_Interpolate(harray, True, 0.01)
     anInterpolation2.Perform()
     bspline_3 = anInterpolation2.Curve()
 

@@ -18,16 +18,16 @@
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.Graphic3d import (Graphic3d_EF_PDF,
-                           Graphic3d_EF_SVG,
-                           Graphic3d_EF_TEX,
-                           Graphic3d_EF_PostScript,
-                           Graphic3d_EF_EnhPostScript)
+                                Graphic3d_EF_SVG,
+                                Graphic3d_EF_TEX,
+                                Graphic3d_EF_PostScript,
+                                Graphic3d_EF_EnhPostScript)
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 my_box = BRepPrimAPI_MakeTorus(40., 20.).Shape()
 
 display.DisplayShape(my_box, update=True)
-f = display.View.View().GetObject()
+f = display.View.View()
 
 #-------------------------------------------------------------------------------
 # for this example to work, pythonocc / OCE needs to be built with the gl2ps lib

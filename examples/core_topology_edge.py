@@ -19,7 +19,7 @@ import math
 
 from OCC.Core.gp import gp_Pnt, gp_Lin, gp_Ax1, gp_Dir, gp_Elips, gp_Ax2
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                BRepBuilderAPI_MakeVertex)
+                                     BRepBuilderAPI_MakeVertex)
 from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.Geom import Geom_BezierCurve
 
@@ -62,7 +62,7 @@ def edge(event=None):
     array.SetValue(7, P7)
     array.SetValue(8, P8)
     curve = Geom_BezierCurve(array)
-    ME = BRepBuilderAPI_MakeEdge(curve.GetHandle())
+    ME = BRepBuilderAPI_MakeEdge(curve)
     GreenEdge = ME
     V3 = ME.Vertex1()
     V4 = ME.Vertex2()

@@ -21,11 +21,11 @@ from __future__ import print_function
 
 from OCC.Core.gp import gp_Pnt, gp_Vec
 from OCC.Core.GeomFill import (GeomFill_BSplineCurves,
-                          GeomFill_StretchStyle,
-                          GeomFill_CoonsStyle,
-                          GeomFill_CurvedStyle)
+                               GeomFill_StretchStyle,
+                               GeomFill_CoonsStyle,
+                               GeomFill_CurvedStyle)
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSpline
-from OCC.Core.Geom import Handle_Geom_BSplineCurve_DownCast
+from OCC.Core.Geom import Geom_BSplineCurve_DownCast
 
 from OCC.Display.SimpleGui import init_display
 
@@ -48,7 +48,6 @@ def surface_from_curves():
 
     pt_list1 = point_list_to_TColgp_Array1OfPnt(array)
     SPL1 = GeomAPI_PointsToBSpline(pt_list1).Curve()
-    SPL1_c = SPL1.GetObject()
 
     # Second spline
     a2 = []
@@ -59,21 +58,20 @@ def surface_from_curves():
     a2.append(gp_Pnt(4, 9, -1))
     pt_list2 = point_list_to_TColgp_Array1OfPnt(a2)
     SPL2 = GeomAPI_PointsToBSpline(pt_list2).Curve()
-    SPL2_c = SPL2.GetObject()
 
     # Fill with StretchStyle
     aGeomFill1 = GeomFill_BSplineCurves(SPL1,
                                         SPL2,
                                         GeomFill_StretchStyle)
 
-    SPL3 = Handle_Geom_BSplineCurve_DownCast(SPL1_c.Translated(gp_Vec(10, 0, 0)))
-    SPL4 = Handle_Geom_BSplineCurve_DownCast(SPL2_c.Translated(gp_Vec(10, 0, 0)))
+    SPL3 = Geom_BSplineCurve_DownCast(SPL1.Translated(gp_Vec(10, 0, 0)))
+    SPL4 = Geom_BSplineCurve_DownCast(SPL2.Translated(gp_Vec(10, 0, 0)))
     # Fill with CoonsStyle
     aGeomFill2 = GeomFill_BSplineCurves(SPL3,
                                         SPL4,
                                         GeomFill_CoonsStyle)
-    SPL5 = Handle_Geom_BSplineCurve_DownCast(SPL1_c.Translated(gp_Vec(20, 0, 0)))
-    SPL6 = Handle_Geom_BSplineCurve_DownCast(SPL2_c.Translated(gp_Vec(20, 0, 0)))
+    SPL5 = Geom_BSplineCurve_DownCast(SPL1.Translated(gp_Vec(20, 0, 0)))
+    SPL6 = Geom_BSplineCurve_DownCast(SPL2.Translated(gp_Vec(20, 0, 0)))
     # Fill with CurvedStyle
     aGeomFill3 = GeomFill_BSplineCurves(SPL5,
                                         SPL6,

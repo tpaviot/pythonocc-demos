@@ -30,7 +30,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 #
 # Get Context
 #
-ais_context = display.GetContext().GetObject()
+ais_context = display.GetContext()
 #
 # Display current quality
 dc = ais_context.DeviationCoefficient()

@@ -27,13 +27,13 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 my_box = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
 
-ais = AIS_ColoredShape(my_box)
+ais_shp = AIS_ColoredShape(my_box)
 
 for fc in TopologyExplorer(my_box).faces():
     # set a custom color per-face
-    ais.SetCustomColor(fc, rgb_color(random(), random(), random()))
+    ais_shp.SetCustomColor(fc, rgb_color(random(), random(), random()))
 
-display.Context.Display(ais.GetHandle())
+display.Context.Display(ais_shp)
 display.FitAll()
 
 start_display()

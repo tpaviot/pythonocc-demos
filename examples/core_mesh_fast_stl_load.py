@@ -21,7 +21,8 @@ import os
 import os.path
 
 from OCC.Core.SMESH import SMESH_Gen, SMESH_MeshVSLink
-from OCC.Core.MeshVS import MeshVS_Mesh, MeshVS_BP_Mesh, MeshVS_MeshPrsBuilder, MeshVS_DMF_WireFrame
+from OCC.Core.MeshVS import (MeshVS_Mesh, MeshVS_BP_Mesh, MeshVS_MeshPrsBuilder,
+	                         MeshVS_DMF_WireFrame)
 from OCC.Display.SimpleGui import init_display
 
 # Create the Mesh
@@ -49,15 +50,15 @@ print("\tTransfer rate: %i triangles per seconds" % (aMesh.NbFaces() / delta_t))
 display, start_display, add_menu, add_function_to_menu = init_display()
 aDS = SMESH_MeshVSLink(aMesh)
 aMeshVS = MeshVS_Mesh(True)
-aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS.GetHandle(),
+aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS,
 	                               MeshVS_DMF_WireFrame,
-	                               aDS.GetHandle(),
+	                               aDS,
 	                               0,
 	                               MeshVS_BP_Mesh)
-aMeshVS.SetDataSource(aDS.GetHandle())
-aMeshVS.AddBuilder(aPrsBuilder.GetHandle(), True)
+aMeshVS.SetDataSource(aDS)
+aMeshVS.AddBuilder(aPrsBuilder, True)
 context = display.Context
-context.Display(aMeshVS.GetHandle())
-context.Deactivate(aMeshVS.GetHandle())
+context.Display(aMeshVS)
+context.Deactivate(aMeshVS)
 display.FitAll()
 start_display()

@@ -38,8 +38,8 @@ ais_shp.SetTransparency(0.10)
 # Get context and display shape
 #
 # Get Context
-ais_context = display.GetContext().GetObject()
-ais_context.Display(ais_shp.GetHandle())
+ais_context = display.GetContext()
+ais_context.Display(ais_shp)
 
 display.View_Iso()
 display.FitAll()

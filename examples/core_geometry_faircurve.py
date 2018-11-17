@@ -17,7 +17,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 import math
 import time
@@ -66,7 +65,7 @@ def faircurve(event=None):
         bc = batten_curve(pt1, pt2, height, slope,
                           math.radians(i), math.radians(-i))
         display.EraseAll()
-        edge = BRepBuilderAPI_MakeEdge(bc, pl.GetHandle()).Edge()
+        edge = BRepBuilderAPI_MakeEdge(bc, pl).Edge()
         display.DisplayShape(edge, update=True)
         time.sleep(0.21)
 

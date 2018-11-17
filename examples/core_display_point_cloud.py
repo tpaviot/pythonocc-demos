@@ -42,11 +42,11 @@ def random_points(event=None):
 
     # then build the point cloud
     point_cloud = AIS_PointCloud()
-    point_cloud.SetPoints(points_3d.GetHandle())
+    point_cloud.SetPoints(points_3d)
 
     # display
-    ais_context = display.GetContext().GetObject()
-    ais_context.Display(point_cloud.GetHandle())
+    ais_context = display.GetContext()
+    ais_context.Display(point_cloud)
     display.View_Iso()
     display.FitAll()
 
@@ -58,9 +58,9 @@ def bunny(event=None):
         x, y, z = map(float, line.split())
         pc.AddVertex(x, y, z)
     point_cloud = AIS_PointCloud()
-    point_cloud.SetPoints(pc.GetHandle())
-    ais_context = display.GetContext().GetObject()
-    ais_context.Display(point_cloud.GetHandle())
+    point_cloud.SetPoints(pc)
+    ais_context = display.GetContext()
+    ais_context.Display(point_cloud)
     display.View_Iso()
     display.FitAll()
 
@@ -76,10 +76,10 @@ def tabletop(event=None):
 
     # then build the point cloud
     point_cloud = AIS_PointCloud()
-    point_cloud.SetPoints(pc.GetHandle())
+    point_cloud.SetPoints(pc)
     # display
-    ais_context = display.GetContext().GetObject()
-    ais_context.Display(point_cloud.GetHandle())
+    ais_context = display.GetContext()
+    ais_context.Display(point_cloud)
     display.DisableAntiAliasing()
     display.View_Iso()
     display.FitAll()
