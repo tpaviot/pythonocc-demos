@@ -51,7 +51,7 @@ def simple_mesh():
     while ex.More():
         face = topods_Face(ex.Current())
         location = TopLoc_Location()
-        facing = (bt.Triangulation(face, location)).GetObject()
+        facing = (bt.Triangulation(face, location))
         tab = facing.Nodes()
         tri = facing.Triangles()
         for i in range(1, facing.NbTriangles()+1):

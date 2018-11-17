@@ -24,28 +24,28 @@
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 display.SetModeHLR()
 #
 # Get Context
 #
-ais_context = display.GetContext().GetObject()
+ais_context = display.GetContext()
 #
 # Get Prs3d_drawer from previous context
 #
-drawer_handle = ais_context.DefaultDrawer()
-drawer = drawer_handle.GetObject()
+drawer = ais_context.DefaultDrawer()
 drawer.SetIsoOnPlane(True)
 
-la = drawer.LineAspect().GetObject()
+la = drawer.LineAspect()
 la.SetWidth(4)
 # increase line width in the current viewer
 # This is only viewed in the HLR mode (hit 'e' key for instance)
-line_aspect = drawer.SeenLineAspect().GetObject()
+line_aspect = drawer.SeenLineAspect()
 drawer.EnableDrawHiddenLine()
 line_aspect.SetWidth(4)
 #
-drawer.SetWireAspect(line_aspect.GetHandle())
+drawer.SetWireAspect(line_aspect)
 #
 # Displays a cylinder
 #

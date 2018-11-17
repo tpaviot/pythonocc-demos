@@ -41,7 +41,7 @@ def project_point_on_curve():
 
     # project the point P on the circle
     projection = GeomAPI_ProjectPointOnCurve(point_to_project,
-                                             circle.GetHandle())
+                                             circle)
     # get the results of the projection
     # the point
     projected_point = projection.NearestPoint()

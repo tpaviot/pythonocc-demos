@@ -23,19 +23,20 @@
 import sys
 from math import pi as M_PI, sin, cos, pow, atan
 
-from OCC.Core.gp import gp_Pnt2d, gp_Ax2d, gp_Dir2d, gp_Circ2d, gp_Origin2d, gp_DX2d, \
-    gp_Ax2, gp_OX2d, gp_Lin2d, gp_Trsf, gp_XOY, \
-    gp_Pnt, gp_Vec, gp_Ax3, gp_Pln, gp_Origin, gp_DX, gp_DY, gp_DZ, gp_OZ
+from OCC.Core.gp import (gp_Pnt2d, gp_Ax2d, gp_Dir2d, gp_Circ2d, gp_Origin2d, gp_DX2d,
+                         gp_Ax2, gp_OX2d, gp_Lin2d, gp_Trsf, gp_XOY,
+                         gp_Pnt, gp_Vec, gp_Ax3, gp_Pln, gp_Origin, gp_DX, gp_DY,
+                         gp_DZ, gp_OZ)
 from OCC.Core.GCE2d import GCE2d_MakeArcOfCircle, GCE2d_MakeCircle, GCE2d_MakeLine
 from OCC.Core.Geom2dAPI import Geom2dAPI_InterCurveCurve
-from OCC.Core.Geom2d import Handle_Geom2d_TrimmedCurve
+from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 from OCC.Core.GeomAPI import geomapi_To3d
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                BRepBuilderAPI_MakeWire,
-                                BRepBuilderAPI_MakeFace,
-                                BRepBuilderAPI_Transform)
+                                     BRepBuilderAPI_MakeWire,
+                                     BRepBuilderAPI_MakeFace,
+                                     BRepBuilderAPI_Transform)
 from OCC.Core.BRepPrimAPI import (BRepPrimAPI_MakePrism, BRepPrimAPI_MakeRevol,
-                             BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeCone)
+                                  BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeCone)
 from OCC.Core.GccAna import GccAna_Circ2d2TanRad
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
 from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet2d
@@ -76,24 +77,15 @@ mounting_radius = 153.0 / 2.
 hole_radius = 8.5 / 2.
 
 
-class Proxy(object):
-    def __init__(self, obj):
-        self.obj = obj.GetObject()
-
-    def __getattribute__(self, attr):
-        obj = object.__getattribute__(self, 'obj')
-        return getattr(obj, attr).__get__(obj)
-
-
 def build_tooth():
     base_center = gp_Pnt2d(pitch_circle_radius + (tooth_radius - roller_radius), 0)
     base_circle = gp_Circ2d(gp_Ax2d(base_center, gp_Dir2d()), tooth_radius)
     trimmed_base = GCE2d_MakeArcOfCircle(base_circle,
                                          M_PI - (roller_contact_angle / 2.),
                                          M_PI).Value()
-    Proxy(trimmed_base).Reverse()  # just a trick
-    p0 = Proxy(trimmed_base).StartPoint()
-    p1 = Proxy(trimmed_base).EndPoint()
+    trimmed_base.Reverse()  # just a trick
+    p0 = trimmed_base.StartPoint()
+    p1 = trimmed_base.EndPoint()
 
     # Determine the center of the profile circle
     x_distance = cos(roller_contact_angle / 2.) * (profile_radius + tooth_radius)
@@ -135,22 +127,22 @@ def build_tooth():
     # Mirror and reverse the three arcs
     mirror_axis = gp_Ax2d(gp_Origin2d(), gp_DX2d().Rotated(tooth_angle / 2.))
 
-    mirror_base = Handle_Geom2d_TrimmedCurve.DownCast(Proxy(trimmed_base).Copy())
-    mirror_profile = Handle_Geom2d_TrimmedCurve.DownCast(Proxy(trimmed_profile).Copy())
-    mirror_outer = Handle_Geom2d_TrimmedCurve.DownCast(Proxy(trimmed_outer).Copy())
+    mirror_base = Geom2d_TrimmedCurve.DownCast(trimmed_base.Copy())
+    mirror_profile = Geom2d_TrimmedCurve.DownCast(trimmed_profile.Copy())
+    mirror_outer = Geom2d_TrimmedCurve.DownCast(trimmed_outer.Copy())
 
-    Proxy(mirror_base).Mirror(mirror_axis)
-    Proxy(mirror_profile).Mirror(mirror_axis)
-    Proxy(mirror_outer).Mirror(mirror_axis)
+    mirror_base.Mirror(mirror_axis)
+    mirror_profile.Mirror(mirror_axis)
+    mirror_outer.Mirror(mirror_axis)
 
-    Proxy(mirror_base).Reverse()
-    Proxy(mirror_profile).Reverse()
-    Proxy(mirror_outer).Reverse()
+    mirror_base.Reverse()
+    mirror_profile.Reverse()
+    mirror_outer.Reverse()
 
     # Replace the two outer arcs with a single one
-    outer_start = Proxy(trimmed_outer).StartPoint()
-    outer_mid = Proxy(trimmed_outer).EndPoint()
-    outer_end = Proxy(mirror_outer).EndPoint()
+    outer_start = trimmed_outer.StartPoint()
+    outer_mid = trimmed_outer.EndPoint()
+    outer_end = mirror_outer.EndPoint()
 
     outer_arc = GCE2d_MakeArcOfCircle(outer_start, outer_mid, outer_end).Value()
 
@@ -159,7 +151,7 @@ def build_tooth():
                              top_radius - roller_diameter)
     inner_start = gp_Pnt2d(top_radius - roller_diameter, 0)
     inner_arc = GCE2d_MakeArcOfCircle(inner_circle, inner_start, tooth_angle).Value()
-    Proxy(inner_arc).Reverse()
+    inner_arc.Reverse()
 
     # Convert the 2D arcs and two extra lines to 3D edges
     plane = gp_Pln(gp_Origin(), gp_DZ())

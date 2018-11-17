@@ -52,7 +52,7 @@ def bisect_linecircle(event=None):
     li1 = gp_Lin2d(gp_Pnt2d(2000000, 20), gp_Dir2d(0, 1))
     bi = GccAna_CircLin2dBisec(ci1, li1)
     assert bi.IsDone()
-    bisec = bi.ThisSolution(1).GetObject()
+    bisec = bi.ThisSolution(1)
     pb = bisec.Parabola()
     display.DisplayShape([make_edge2d(ci1), make_edge2d(li1)])
     display.DisplayColoredShape(make_edge2d(pb), 'BLUE')

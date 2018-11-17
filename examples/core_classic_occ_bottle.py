@@ -22,8 +22,8 @@ import math
 from OCC.Core.gp import gp_Pnt, gp_OX, gp_Vec, gp_Trsf, gp_DZ, gp_Ax2, gp_Ax3, gp_Pnt2d, gp_Dir2d, gp_Ax2d
 from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment
 from OCC.Core.GCE2d import GCE2d_MakeSegment
-from OCC.Core.Geom import Geom_Plane, Geom_CylindricalSurface, Handle_Geom_Plane, Handle_Geom_Surface
-from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve, Handle_Geom2d_Ellipse, Handle_Geom2d_Curve
+from OCC.Core.Geom import Geom_Plane, Geom_CylindricalSurface, Geom_Plane, Geom_Surface
+from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve, Geom2d_Ellipse, Geom2d_Curve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire, BRepBuilderAPI_MakeFace, \
     BRepBuilderAPI_Transform
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism, BRepPrimAPI_MakeCylinder
@@ -42,7 +42,7 @@ def face_is_plane(face):
     Returns True if the TopoDS_Shape is a plane, False otherwise
     """
     hs = BRep_Tool_Surface(face)
-    downcast_result = Handle_Geom_Plane.DownCast(hs)
+    downcast_result = Geom_Plane.DownCast(hs)
     # The handle is null if downcast failed or is not possible, that is to say the face is not a plane
     if downcast_result.IsNull():
         return False
@@ -54,7 +54,7 @@ def geom_plane_from_face(aFace):
     """
     Returns the geometric plane entity from a planar surface
     """
-    return Handle_Geom_Plane.DownCast(BRep_Tool_Surface(aFace)).GetObject()
+    return Geom_Plane.DownCast(BRep_Tool_Surface(aFace))
 
 
 height = 70
@@ -176,8 +176,8 @@ aMinor = myNeckHeight / 10.0
 anEllipse1 = Geom2d_Ellipse(anAx2d, aMajor, aMinor)
 anEllipse2 = Geom2d_Ellipse(anAx2d, aMajor, aMinor / 4.0)
 
-anArc1 = Geom2d_TrimmedCurve(Handle_Geom2d_Ellipse(anEllipse1), 0, math.pi)
-anArc2 = Geom2d_TrimmedCurve(Handle_Geom2d_Ellipse(anEllipse2), 0, math.pi)
+anArc1 = Geom2d_TrimmedCurve(Geom2d_Ellipse(anEllipse1), 0, math.pi)
+anArc2 = Geom2d_TrimmedCurve(Geom2d_Ellipse(anEllipse2), 0, math.pi)
 
 anEllipsePnt1 = anEllipse1.Value(0)
 anEllipsePnt2 = anEllipse1.Value(math.pi)
@@ -185,10 +185,10 @@ anEllipsePnt2 = anEllipse1.Value(math.pi)
 aSegment = GCE2d_MakeSegment(anEllipsePnt1, anEllipsePnt2)
 
 # Build edges and wires for threading
-anEdge1OnSurf1 = BRepBuilderAPI_MakeEdge(Handle_Geom2d_Curve(anArc1), Handle_Geom_Surface(aCyl1))
-anEdge2OnSurf1 = BRepBuilderAPI_MakeEdge(aSegment.Value(), Handle_Geom_Surface(aCyl1))
-anEdge1OnSurf2 = BRepBuilderAPI_MakeEdge(Handle_Geom2d_Curve(anArc2), Handle_Geom_Surface(aCyl2))
-anEdge2OnSurf2 = BRepBuilderAPI_MakeEdge(aSegment.Value(), Handle_Geom_Surface(aCyl2))
+anEdge1OnSurf1 = BRepBuilderAPI_MakeEdge(Geom2d_Curve(anArc1), Geom_Surface(aCyl1))
+anEdge2OnSurf1 = BRepBuilderAPI_MakeEdge(aSegment.Value(), Geom_Surface(aCyl1))
+anEdge1OnSurf2 = BRepBuilderAPI_MakeEdge(Geom2d_Curve(anArc2), Geom_Surface(aCyl2))
+anEdge2OnSurf2 = BRepBuilderAPI_MakeEdge(aSegment.Value(), Geom_Surface(aCyl2))
 
 threadingWire1 = BRepBuilderAPI_MakeWire(anEdge1OnSurf1.Edge(), anEdge2OnSurf1.Edge())
 threadingWire2 = BRepBuilderAPI_MakeWire(anEdge1OnSurf2.Edge(), anEdge2OnSurf2.Edge())

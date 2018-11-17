@@ -21,8 +21,8 @@ import math
 
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                BRepBuilderAPI_MakeFace,
-                                BRepBuilderAPI_MakeWire)
+                                     BRepBuilderAPI_MakeFace,
+                                     BRepBuilderAPI_MakeWire)
 from OCC.Core.TColgp import TColgp_Array2OfPnt
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
 from OCC.Core.GeomFill import GeomFill_SimpleBound, GeomFill_ConstrainedFilling
@@ -90,8 +90,8 @@ def boundary_curve_from_2_points(p1, p2):
     # boundary for filling
     adap = BRepAdaptor_CompCurve(w0)
     p0_h = BRepAdaptor_HCompCurve(adap)
-    boundary = GeomFill_SimpleBound(p0_h.GetHandle(), 1e-6, 1e-6)
-    return boundary.GetHandle()
+    boundary = GeomFill_SimpleBound(p0_h, 1e-6, 1e-6)
+    return boundary
 
 def heightmap_from_image(event=None):
     """ takes the heightmap from a jpeg file

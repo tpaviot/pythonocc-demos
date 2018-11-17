@@ -18,7 +18,7 @@ def create_ogl_group(display):
     create a group that will store an OpenGL buffer
     """
     aPresentation = Prs3d_Presentation(display._struc_mgr)
-    group = Prs3d_Root_CurrentGroup(aPresentation.GetHandle()).GetObject()
+    group = Prs3d_Root_CurrentGroup(aPresentation)
     return aPresentation, group
 
 
@@ -90,8 +90,8 @@ def draw_lines(pnt_list, nr_of_points, display):
     except StopIteration:
         pass
 
-    group.SetPrimitivesAspect(asp.GetHandle())
-    group.AddPrimitiveArray(gg.GetHandle())
+    group.SetPrimitivesAspect(asp)
+    group.AddPrimitiveArray(gg)
     a_presentation.Display()
 
 

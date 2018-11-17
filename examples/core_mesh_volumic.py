@@ -79,11 +79,11 @@ aMeshVS = MeshVS_Mesh(True)
 DMF = 1 # to wrap!
 MeshVS_BP_Mesh =  5 # To wrap!
 
-aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS.GetHandle(), DMF, aDS.GetHandle(), 0, MeshVS_BP_Mesh)
-aMeshVS.SetDataSource(aDS.GetHandle())
-aMeshVS.AddBuilder(aPrsBuilder.GetHandle(), True)
+aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS, DMF, aDS, 0, MeshVS_BP_Mesh)
+aMeshVS.SetDataSource(aDS)
+aMeshVS.AddBuilder(aPrsBuilder, True)
 context = display.Context
-context.Display(aMeshVS.GetHandle())
-context.Deactivate(aMeshVS.GetHandle())
+context.Display(aMeshVS)
+context.Deactivate(aMeshVS)
 display.FitAll()
 start_display()

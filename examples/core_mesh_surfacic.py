@@ -48,9 +48,9 @@ def point_list_to_TColgp_Array1OfPnt(li):
 
 def get_simple_bound(pts):
     spl1 = GeomAPI_PointsToBSpline(pts).Curve()
-    spl1_adap_h = GeomAdaptor_HCurve(spl1).GetHandle()
-    bound1_h = GeomFill_SimpleBound(spl1_adap_h, 0.001, 0.001).GetHandle()
-    return spl1, bound1_h
+    spl1_adap = GeomAdaptor_HCurve(spl1)
+    bound1 = GeomFill_SimpleBound(spl1_adap, 0.001, 0.001)
+    return spl1, bound1
 
 def constrained_filling(event=None):
 
@@ -117,7 +117,7 @@ def occ_triangle_mesh(event=None):
     while ex.More():
         F = topods_Face(ex.Current())
         L = TopLoc_Location()
-        facing = (BRep_Tool().Triangulation(F, L)).GetObject()
+        facing = (BRep_Tool().Triangulation(F, L))
         tab = facing.Nodes()
         tri = facing.Triangles()
         for i in range(1, facing.NbTriangles()+1):
@@ -195,17 +195,17 @@ def display_mesh(the_mesh):
     aDS = SMESH_MeshVSLink(the_mesh)
     aMeshVS = MeshVS_Mesh(True)
     DMF = 1 # to wrap!
-    aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS.GetHandle(),
+    aPrsBuilder = MeshVS_MeshPrsBuilder(aMeshVS,
                                         DMF,
-                                        aDS.GetHandle(),
+                                        aDS,
                                         0,
                                         MeshVS_BP_Mesh)
-    aMeshVS.SetDataSource(aDS.GetHandle())
-    aMeshVS.AddBuilder(aPrsBuilder.GetHandle(), True)
+    aMeshVS.SetDataSource(aDS)
+    aMeshVS.AddBuilder(aPrsBuilder, True)
     #Create the graphic window and display the mesh
     context = display.Context
-    context.Display(aMeshVS.GetHandle())
-    context.Deactivate(aMeshVS.GetHandle())
+    context.Display(aMeshVS)
+    context.Deactivate(aMeshVS)
 
     display.FitAll()
 

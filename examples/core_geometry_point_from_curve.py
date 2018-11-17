@@ -30,7 +30,7 @@ def points_from_curve():
     radius = 5.
     abscissa = 3.
     circle = Geom2d_Circle(gp_OX2d(), radius, True)
-    gac = Geom2dAdaptor_Curve(circle.GetHandle())
+    gac = Geom2dAdaptor_Curve(circle)
     ua = GCPnts_UniformAbscissa(gac, abscissa)
     a_sequence = []
     if ua.IsDone():

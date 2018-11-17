@@ -20,12 +20,12 @@ from __future__ import print_function
 
 from OCC.Core.TCollection import TCollection_ExtendedString
 
-from OCC.Core.TDocStd import Handle_TDocStd_Document
+from OCC.Core.TDocStd import TDocStd_Document
 from OCC.Core.XCAFApp import XCAFApp_Application
 from OCC.Core.XCAFDoc import (XCAFDoc_DocumentTool_ShapeTool,
-                         XCAFDoc_DocumentTool_ColorTool,
-                         XCAFDoc_DocumentTool_LayerTool,
-                         XCAFDoc_DocumentTool_MaterialTool)
+                              XCAFDoc_DocumentTool_ColorTool,
+                              XCAFDoc_DocumentTool_LayerTool,
+                              XCAFDoc_DocumentTool_MaterialTool)
 from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
 from OCC.Core.IFSelect import IFSelect_RetDone
 from OCC.Core.TDF import TDF_LabelSequence
@@ -36,15 +36,14 @@ filename = '../assets/models/as1_pe_203.stp'
 _shapes = []
 
 # create an handle to a document
-h_doc = Handle_TDocStd_Document()
+doc = TDocStd_Document()
 
 # Create the application
-app = XCAFApp_Application.GetApplication().GetObject()
-app.NewDocument(TCollection_ExtendedString("MDTV-CAF"), h_doc)
+app = XCAFApp_Application.GetApplication()
+app.NewDocument(TCollection_ExtendedString("MDTV-CAF"), doc)
 
 # Get root assembly
-doc = h_doc.GetObject()
-h_shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())
+shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())
 l_colors = XCAFDoc_DocumentTool_ColorTool(doc.Main())
 l_layers = XCAFDoc_DocumentTool_LayerTool(doc.Main())
 l_materials = XCAFDoc_DocumentTool_MaterialTool(doc.Main())
@@ -57,13 +56,12 @@ step_reader.SetMatMode(True)
 
 status = step_reader.ReadFile(filename)
 if status == IFSelect_RetDone:
-    step_reader.Transfer(doc.GetHandle())
+    step_reader.Transfer(doc)
 
 labels = TDF_LabelSequence()
 color_labels = TDF_LabelSequence()
 
-shape_tool = h_shape_tool.GetObject()
-h_shape_tool.GetObject().GetFreeShapes(labels)
+shape_tool.GetFreeShapes(labels)
 
 print("Number of shapes at root :%i" % labels.Length())
 for i in range(labels.Length()):
@@ -71,7 +69,7 @@ for i in range(labels.Length()):
     print("Is Assembly :", shape_tool.IsAssembly(labels.Value(i+1)))
     sub_shapes = shape_tool.GetSubShapes(labels.Value(i+1), sub_shapes_labels)
     print("Number of subshapes in the assemly :%i" % sub_shapes_labels.Length())
-l_colors.GetObject().GetColors(color_labels)
+l_colors.GetColors(color_labels)
 
 print("Number of colors=%i" % color_labels.Length())
 for i in range(color_labels.Length()):
@@ -80,8 +78,8 @@ for i in range(color_labels.Length()):
 
 for i in range(labels.Length()):
     label = labels.Value(i+1)
-    a_shape = h_shape_tool.GetObject().GetShape(label)
-    m = l_layers.GetObject().GetLayers(a_shape)
+    a_shape = shape_tool.GetShape(label)
+    m = l_layers.GetLayers(a_shape)
     _shapes.append(a_shape)
 
 #
