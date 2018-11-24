@@ -17,10 +17,8 @@
 from __future__ import print_function
 
 import sys
-import time
 
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, \
-    BRepBuilderAPI_MakeFace
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeFace
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GEOMAlgo import GEOMAlgo_Splitter
 from OCC.Core.TopAbs import TopAbs_EDGE
@@ -28,26 +26,6 @@ from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt
 
 display, start_display, add_menu, add_function_to_menu = init_display()
-
-
-def split_face_and_edge(event=None):
-    display.EraseAll()
-    p0 = gp_Pnt()
-    vnorm = gp_Dir(1, 0, 0)
-    pln = gp_Pln(p0, vnorm)
-    face = BRepBuilderAPI_MakeFace(pln, -10, 10, -10, 10).Face()
-    p1 = gp_Pnt(0, 0, 15)
-    p2 = gp_Pnt(0, 0, -15)
-    edge = BRepBuilderAPI_MakeEdge(p1, p2).Edge()
-    # Initialize splitter
-    splitter = GEOMAlgo_Splitter()
-    # Add both the face and edge as arguments. This will split both of the
-    # shapes.
-    splitter.AddArgument(face)
-    splitter.AddArgument(edge)
-    splitter.Perform()
-    display.DisplayShape(splitter.Shape())
-    display.FitAll()
 
 
 def split_face_with_edge(event=None):
@@ -105,7 +83,6 @@ def exit(event=None):
 
 if __name__ == '__main__':
     add_menu('GEOMAlgo Splitter Example')
-    add_function_to_menu('GEOMAlgo Splitter Example', split_face_and_edge)
     add_function_to_menu('GEOMAlgo Splitter Example', split_face_with_edge)
     add_function_to_menu('GEOMAlgo Splitter Example', split_edge_with_face)
     add_function_to_menu('GEOMAlgo Splitter Example', exit)

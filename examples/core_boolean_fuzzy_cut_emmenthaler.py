@@ -66,17 +66,6 @@ def emmenthaler(event=None):
         cyl = BRepPrimAPI_MakeCylinder(axe, random.uniform(8, 36), 5000.)
         return cyl.Shape()
 
-    def do_cone():
-        axe = gp_Ax2()
-        axe.SetLocation(gp_Pnt((random_vec()*scope).XYZ()))
-        axe.SetDirection(gp_Dir(random_vec()))
-        cone = BRepPrimAPI_MakeCone(axe,
-                                    0, #random.uniform(0,), # r1
-                                    random.uniform(10, 30), # r2
-                                    random.uniform(30, 1500), # h
-                                   )
-        return cone.Shape()
-
     # perform a recursive fusszy cut
     # initialize the loop with the box shape
     shp = box

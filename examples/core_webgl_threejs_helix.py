@@ -19,9 +19,7 @@
 from math import pi
 
 from OCC.Core.gp import gp_Pnt2d, gp_XOY, gp_Lin2d
-from OCC.Core.Geom2dAPI import Geom2dAPI_Interpolate, Geom2dAPI_PointsToBSpline
-from OCC.Core.TColgp import TColgp_HArray1OfPnt2d, TColgp_Array1OfPnt2d
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeEdge2d
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Core.gp import gp_XOY, gp_Ax3, gp_Dir2d
 from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.GCE2d import GCE2d_MakeSegment

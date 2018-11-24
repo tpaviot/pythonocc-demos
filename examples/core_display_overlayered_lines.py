@@ -15,9 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import random
-from math import pi
 
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.Addons import LineItem

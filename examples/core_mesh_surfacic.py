@@ -29,7 +29,7 @@ from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.BRep import BRep_Builder, BRep_Tool
 from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
 from OCC.Core.TopLoc import TopLoc_Location
-from OCC.Core.MeshVS import MeshVS_Mesh, MeshVS_BP_Mesh, MeshVS_MeshPrsBuilder, MeshVS_DMF_NodalColorDataPrs
+from OCC.Core.MeshVS import MeshVS_Mesh, MeshVS_BP_Mesh, MeshVS_MeshPrsBuilder
 
 # SMESH wrappers
 from OCC.Core.SMESH import SMESH_Gen, SMESH_MeshVSLink
@@ -146,7 +146,7 @@ def smesh_quadrangle_mesh(event=None):
     an1DHypothesis = StdMeshers_Arithmetic1D(0, 0, aMeshGen)#discretization of the wire
     an1DHypothesis.SetLength(0.01, False)  # the smallest distance between 2 points
     an1DHypothesis.SetLength(0.3, True)  # the longest distance between 2 points
-    an1DAlgo = StdMeshers_Regular_1D(1, 0, aMeshGen)  # interpolation
+    an1DAlgo = StdMeshers_Regular_1D(1, 0, aMeshGen)  # interpolation 1D Algo
     # 2D
     a2dHypothseis = StdMeshers_TrianglePreference(2, 0, aMeshGen)  # define the boundary
     a2dAlgo = StdMeshers_Quadrangle_2D(3, 0, aMeshGen)  # the 2D mesh

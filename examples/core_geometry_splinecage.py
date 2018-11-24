@@ -20,7 +20,6 @@
 # TODO:
 # * need examples where the tangency to constraining faces is respected
 
-import os
 import random
 
 from OCC.Core.BRepAdaptor import BRepAdaptor_Curve

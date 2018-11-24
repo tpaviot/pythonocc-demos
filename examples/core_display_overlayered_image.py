@@ -15,8 +15,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from math import pi
-
 from OCC.Core.TCollection import TCollection_AsciiString
 from OCC.Core.Addons import TextureItem
 from OCC.Display.SimpleGui import init_display

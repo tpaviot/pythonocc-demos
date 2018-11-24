@@ -1,3 +1,5 @@
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/tpaviot/pythonocc-demos.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tpaviot/pythonocc-demos/context:python)
+
 Some pythonocc related code snippets, examples, jupter notebooks etc.
 
 Requirements :

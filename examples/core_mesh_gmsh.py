@@ -22,7 +22,7 @@ from __future__ import print_function
 import os
 import sys
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.BRepTools import breptools_Write
 
 from OCC.Display.SimpleGui import init_display

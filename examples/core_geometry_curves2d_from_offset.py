@@ -48,7 +48,6 @@ def curves2d_from_offset(event=None):
     dist2 = 1.5
     offset_curve2 = Geom2d_OffsetCurve(spline_1, dist2)
     result2 = offset_curve2.IsCN(2)
-    result = offset_curve1.IsCN(2)
     print("Offset curve blue is C2: %r" % result2)
 
     display.DisplayShape(spline_1)

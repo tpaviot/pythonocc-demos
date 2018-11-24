@@ -42,7 +42,6 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 try:
     HAS_SCIPY = True
-    from scipy import arange
     from scipy.optimize import fsolve
 except ImportError:
     print('scipy not installed, will not be able to run the geomplate example')
@@ -162,7 +161,7 @@ def radius_at_uv(face, u, v):
     @param u,v:     u,v coordinate
     '''
     h_srf = BRep_Tool().Surface(face)
-    uv_domain = GeomLProp_SurfaceTool().Bounds(h_srf)
+    #uv_domain = GeomLProp_SurfaceTool().Bounds(h_srf)
     curvature = GeomLProp_SLProps(h_srf, u, v, 1, 1e-6)
     try:
         _crv_min = 1. / curvature.MinCurvature()
@@ -243,7 +242,7 @@ def solve_radius(event=None):
     poly = make_closed_polygon([p1, p2, p3, p4])
     for i in (0.1, 0.5, 1.5, 2., 3., 0.2):
         rcs = RadiusConstrainedSurface(display, poly, p5, i)
-        face = rcs.solve()
+        rcs.solve()
         print('Goal: %s radius: %s' % (i, rcs.curr_radius))
         time.sleep(0.1)
 

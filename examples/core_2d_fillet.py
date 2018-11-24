@@ -15,9 +15,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_Pnt,gp_Dir,gp_Pln
+from OCC.Core.gp import gp_Pnt, gp_Pln
 from OCC.Core.ChFi2d import ChFi2d_AnaFilletAlgo
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge,BRepBuilderAPI_MakeWire
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 
 from OCC.Extend.ShapeFactory import make_wire
 
@@ -30,15 +30,15 @@ p2 = gp_Pnt(5, 5, 0)
 p3 = gp_Pnt(-5,5, 0)
 
 # Making the edges
-ed1 = BRepBuilderAPI_MakeEdge(p3,p2).Edge()
-ed2 = BRepBuilderAPI_MakeEdge(p2,p1).Edge()
+ed1 = BRepBuilderAPI_MakeEdge(p3, p2).Edge()
+ed2 = BRepBuilderAPI_MakeEdge(p2, p1).Edge()
 
 #Making the 2dFillet
 f = ChFi2d_AnaFilletAlgo()
-f.Init(ed1,ed2,gp_Pln())
+f.Init(ed1, ed2, gp_Pln())
 radius = 1.0
 f.Perform(radius)
-fillet2d = f.Result(ed1,ed2)
+fillet2d = f.Result(ed1, ed2)
 
 # Create and display a wire
 w = make_wire([ed1, fillet2d, ed2])

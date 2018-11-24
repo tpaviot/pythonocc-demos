@@ -20,8 +20,6 @@
 import os
 import sys
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Extend.TopologyUtils import TopologyExplorer
 from OCC.Display.WebGl import threejs_renderer

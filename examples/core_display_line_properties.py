@@ -43,7 +43,6 @@ def line():
 
     # but actually we need to edit more, not just color. Line width and style as well
     # To do that, we need to do use AIS_Drawer and apply it to ais_line1
-    width = 1.0
     drawer = Prs3d_Drawer()
     ais_line1.SetAttributes(drawer)
 

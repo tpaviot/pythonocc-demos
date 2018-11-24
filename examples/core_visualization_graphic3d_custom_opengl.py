@@ -10,8 +10,6 @@ from OCC.Core.Prs3d import Prs3d_Root_CurrentGroup, Prs3d_Presentation
 from OCC.Core.Quantity import Quantity_NOC_BLACK, Quantity_Color
 from OCC.Core.gp import gp_Pnt
 
-display, start_display, add_menu, add_function_to_menu = init_display()
-
 
 def create_ogl_group(display):
     """
@@ -29,7 +27,6 @@ def generate_points(spread, n):
         for i in arr:
             yield i
     except ImportError:
-        import random
         n_ = n / 100
         warnings.warn("Numpy could not be imported... this example will run very SLOW"
                       "drawing {} rather than {} lines".format(n_, n))
@@ -95,12 +92,8 @@ def draw_lines(pnt_list, nr_of_points, display):
     a_presentation.Display()
 
 
-def main():
-    nr_of_points = 100000
-    spread = 100
-    draw_lines(generate_points(spread, nr_of_points), nr_of_points, display)
-    start_display()
-
-
-if __name__ == "__main__":
-    main()
+display, start_display, add_menu, add_function_to_menu = init_display()
+nr_of_points = 100000
+spread = 100
+draw_lines(generate_points(spread, nr_of_points), nr_of_points, display)
+start_display()

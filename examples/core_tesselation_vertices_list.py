@@ -16,12 +16,12 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.Visualization import Tesselator
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
 try:
     import numpy as np
     HAVE_NUMPY = True
-except:
+except ImportError:
     HAVE_NUMPY = False
 
 # create the shape
@@ -51,6 +51,4 @@ assert number_of_normals == number_of_vertices
 #
 if HAVE_NUMPY:
     vertices = np.array(vertices_position).reshape(int(number_of_vertices / 3), 3)
-    print(vertices)
     normals = np.array(normals).reshape(int(number_of_vertices / 3), 3)
-    print(normals)

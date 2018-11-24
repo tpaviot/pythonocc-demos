@@ -37,7 +37,6 @@ def rotate(event=None):
 
     vX = gp_Vec(12, 0, 0)
     vY = gp_Vec(0, 12, 0)
-    vZ = gp_Vec(0, 0, 12)
     v45 = (gp_Vec(1, 1, 1).Normalized() * 12)
     q1 = gp_Quaternion(vX, vY)
 

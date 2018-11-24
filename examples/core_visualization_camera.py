@@ -17,13 +17,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import sys
 
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.Graphic3d import Graphic3d_Camera
-
-import sys, os
-
-sys.path.append(os.path.dirname(__name__))
 from OCC.Extend.DataExchange import read_step_file
 
 display, start_display, add_menu, add_function_to_menu = init_display()

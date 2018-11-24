@@ -21,7 +21,6 @@ from __future__ import print_function
 from OCC.Core.TCollection import TCollection_ExtendedString
 
 from OCC.Core.TDocStd import TDocStd_Document
-from OCC.Core.XCAFApp import XCAFApp_Application
 from OCC.Core.XCAFDoc import (XCAFDoc_DocumentTool_ShapeTool,
                               XCAFDoc_DocumentTool_ColorTool,
                               XCAFDoc_DocumentTool_LayerTool,

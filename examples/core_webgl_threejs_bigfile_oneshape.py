@@ -19,8 +19,6 @@
 
 import os
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Display.WebGl import threejs_renderer
 
