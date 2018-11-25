@@ -68,7 +68,7 @@ def tabletop(event=None):
     pcd_file = open(os.path.join('..', 'assets', 'models', 'tabletop.pcd'), 'r').readlines()[11:]
     # create the point_cloud
     pc = Graphic3d_ArrayOfPoints(len(pcd_file), True)
-    for idx, line in enumerate(pcd_file):
+    for line in pcd_file:
         x, y, z, rgb = map(float, line.split())
         r, g, b = unpackRGB(rgb)
         color = Quantity_Color(r/float(255), g/float(255), b/float(255), Quantity_TOC_RGB)

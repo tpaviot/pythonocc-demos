@@ -552,8 +552,6 @@ class GLWidget(qtViewer3d):
         """
         self.createBubbles(20 - len(self.bubbles))
 
-    def sizeHint(self):
-        return QtCore.QSize(800, 600)
 
     def createBubbles(self, number):
         """ instantiate a `number` of bubbles to be painted on top of
