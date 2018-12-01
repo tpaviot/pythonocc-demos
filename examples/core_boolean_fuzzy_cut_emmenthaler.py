@@ -21,7 +21,7 @@ import random
 import time
 import sys
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeCone
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
 from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Ax2, gp_Dir
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 from OCC.Core.TopTools import TopTools_ListOfShape

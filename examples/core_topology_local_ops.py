@@ -20,22 +20,22 @@ from math import pi
 from OCC.Core.BRep import BRep_Tool_Surface
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section, BRepAlgoAPI_Fuse
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeWire, BRepBuilderAPI_MakeEdge,
-	                            BRepBuilderAPI_MakeFace, BRepBuilderAPI_GTransform)
+	                                 BRepBuilderAPI_MakeFace, BRepBuilderAPI_GTransform)
 from OCC.Core.BRepFeat import (BRepFeat_MakePrism, BRepFeat_MakeDPrism, BRepFeat_SplitShape,
-                          BRepFeat_MakeLinearForm, BRepFeat_MakeRevol)
+                               BRepFeat_MakeLinearForm, BRepFeat_MakeRevol)
 from OCC.Core.BRepLib import breplib_BuildCurves3d
 from OCC.Core.BRepOffset import BRepOffset_Skin
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeThickSolid, BRepOffsetAPI_MakeOffsetShape
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakePrism
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GCE2d import GCE2d_MakeLine
-from OCC.Core.Geom import Geom_Plane, Geom_Plane
+from OCC.Core.Geom import Geom_Plane
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.TopTools import TopTools_ListOfShape
 from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Core.gp import (gp_Pnt2d, gp_Circ2d, gp_Ax2d, gp_Dir2d, gp_Pnt, gp_Pln,
-	                gp_Vec, gp_OX, gp_Trsf, gp_GTrsf)
+	                     gp_Vec, gp_OX, gp_Trsf, gp_GTrsf)
 
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
