@@ -54,7 +54,7 @@ def line():
         line2 = Geom_Line(p2, d2)
 
         ais_line2 = AIS_Line(line2)
-    
+
         width = float(i)
         drawer = ais_line2.Attributes()
         # asp : first parameter color, second type, last width

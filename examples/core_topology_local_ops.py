@@ -53,7 +53,7 @@ def extrusion(event=None):
 
     #  Make a plane from this face
     Pln = Geom_Plane.DownCast(surf)
-    
+   
     # Get the normal of this plane. This will be the direction of extrusion.
     D = Pln.Axis().Direction()
 

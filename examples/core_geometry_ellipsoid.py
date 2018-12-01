@@ -28,7 +28,7 @@ sphere = BRepPrimAPI_MakeSphere(orig, 50.).Solid()
 
 # be careful that the following scale numbers are "not too big",
 # otherwise boolean operations can be buggy
-# see isue 
+# see isue
 a1 = 17.1
 a2 = 17.1
 a3 = 3.5
@@ -43,4 +43,4 @@ assert not common.IsNull()
 display.DisplayShape(box, color = "BLACK", transparency = 0.8)
 display.DisplayShape(ellipsoid, color = "BLACK", transparency = 0.8)
 display.DisplayShape(common, color = "BLACK", transparency = 0.8, update=True)
-start_display() 
+start_display()
