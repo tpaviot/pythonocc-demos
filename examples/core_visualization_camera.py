@@ -17,9 +17,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
-
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_step_file
 

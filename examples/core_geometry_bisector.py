@@ -48,7 +48,8 @@ def bisect_linecircle(event=None):
     ci1 = gp_Circ2d(gp_Ax22d(), 10000)
     li1 = gp_Lin2d(gp_Pnt2d(2000000, 20), gp_Dir2d(0, 1))
     bi = GccAna_CircLin2dBisec(ci1, li1)
-    assert bi.IsDone()
+    if not bi.IsDone():
+        raise AssertionError("Bisec is not Done")
     bisec = bi.ThisSolution(1)
     pb = bisec.Parabola()
     display.DisplayShape([make_edge2d(ci1), make_edge2d(li1)])

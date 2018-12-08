@@ -27,9 +27,8 @@ from OCC.Core.BRepFill import BRepFill_CurveConstraint
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GeomAbs import GeomAbs_C0
 from OCC.Core.GeomLProp import GeomLProp_SLProps
-from OCC.Core.GeomLProp import GeomLProp_SurfaceTool
 from OCC.Core.GeomPlate import (GeomPlate_BuildPlateSurface, GeomPlate_PointConstraint,
-	                       GeomPlate_MakeApprox)
+	                            GeomPlate_MakeApprox)
 from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepFill import BRepFill_Filling

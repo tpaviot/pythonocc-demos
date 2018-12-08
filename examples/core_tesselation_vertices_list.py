@@ -38,13 +38,16 @@ number_of_triangles = tess.ObjGetTriangleCount()
 number_of_vertices = len(vertices_position)
 
 # number of vertices should be a multiple of 3
-assert number_of_vertices % 3 == 0
-assert number_of_triangles * 9 == number_of_vertices
+if number_of_vertices % 3 != 0:
+	raise AssertionError("wrong number of vertices returned by the teselator")
+if number_of_triangles * 9 != number_of_vertices:
+	raise AssertionError("wrong number of triangles returned by the teselator")
 
 # get normals
 normals = tess.GetNormalsAsTuple()
 number_of_normals = len(normals)
-assert number_of_normals == number_of_vertices
+if not number_of_normals == number_of_vertices:
+	raise AssertionError("wrong number of normals returned by the tesselator")
 
 # if HAVE_NUMPY, we try to reshape the tuple so that it is of
 # a ndarray such as [[x1, y1, z1], [x2, y2, z2], ...]

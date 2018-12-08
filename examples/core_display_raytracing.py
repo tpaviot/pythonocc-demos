@@ -58,7 +58,7 @@ def raytracing_default_depth(event=None):
 
 def raytracing_depth_8(event=None):
     display.SetRaytracingMode(depth=8)
-    
+
 def rasterization(event=None):
     display.SetRasterizationMode()
 

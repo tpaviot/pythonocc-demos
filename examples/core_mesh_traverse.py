@@ -71,13 +71,15 @@ print("Nb Faces", aMesh.NbFaces())
 node_iter = mesh_ds.nodesIterator()
 for i in range(mesh_ds.NbNodes()-1):
     node = node_iter.next()
-    assert node is not None
+    if node is None:
+        raise AssertionError("Node is None")
     print('Coordinates of node %i:(%f,%f,%f)'%(i, node.X(), node.Y(), node.Z()))
 
 edge_iter = mesh_ds.edgesIterator()
 for i in range(mesh_ds.NbEdges()-1):
     edge = edge_iter.next()
-    assert edge is not None
+    if edge is None:
+        raise AssertionError("Edge is None")
     print('Edge %i: connected to %i nodes, shared between %i faces'%(i,edge.NbNodes(),edge.NbFaces()))
 
 face_iter = mesh_ds.facesIterator()

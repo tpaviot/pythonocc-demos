@@ -28,7 +28,7 @@ sphere = BRepPrimAPI_MakeSphere(orig, 50.).Solid()
 
 # be careful that the following scale numbers are "not too big",
 # otherwise boolean operations can be buggy
-# see isue 
+# see isue
 a1 = 17.1
 a2 = 17.1
 a3 = 3.5
@@ -38,9 +38,10 @@ ellipsoid = BRepBuilderAPI_GTransform(sphere, gTrsf).Shape()
 # then perform a boolean intersection with a box
 box = BRepPrimAPI_MakeBox(gp_Pnt(-1000, -1000, -1000), gp_Pnt(1000, 112.2, 1000)).Shape()
 common = BRepAlgoAPI_Common(box, ellipsoid).Shape()
-assert not common.IsNull()
+if common.IsNull():
+	raise AssertionError("common result is Null.")
 
 display.DisplayShape(box, color = "BLACK", transparency = 0.8)
 display.DisplayShape(ellipsoid, color = "BLACK", transparency = 0.8)
 display.DisplayShape(common, color = "BLACK", transparency = 0.8, update=True)
-start_display() 
+start_display()

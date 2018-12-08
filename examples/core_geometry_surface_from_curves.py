@@ -80,7 +80,7 @@ def surface_from_curves():
     aBSplineSurface1 = aGeomFill1.Surface()
     aBSplineSurface2 = aGeomFill2.Surface()
     aBSplineSurface3 = aGeomFill3.Surface()
-    
+   
     display.DisplayShape(make_face(aBSplineSurface1, 1e-6))
     display.DisplayShape(make_face(aBSplineSurface2, 1e-6))
     display.DisplayShape(make_face(aBSplineSurface3, 1e-6), update=True)

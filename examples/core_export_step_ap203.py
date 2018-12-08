@@ -36,4 +36,5 @@ Interface_Static_SetCVal("write.step.schema", "AP203")
 step_writer.Transfer(box_s, STEPControl_AsIs)
 status = step_writer.Write("box.stp")
 
-assert status == IFSelect_RetDone
+if status != IFSelect_RetDone:
+	raise AssertionError("load failed")

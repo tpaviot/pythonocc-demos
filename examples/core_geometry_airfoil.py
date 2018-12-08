@@ -33,7 +33,7 @@ from OCC.Core.GeomAPI import geomapi
 from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Pnt2d, gp_Pln, gp_Dir
 from OCC.Core.TColgp import TColgp_Array1OfPnt2d
 from OCC.Display.SimpleGui import init_display
-    
+   
 from OCC.Extend.ShapeFactory import make_wire, make_edge
 
 

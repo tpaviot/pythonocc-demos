@@ -21,7 +21,7 @@
 # available at http://www.algotopia.com/contents/opencascade/opencascade_sprocket
 
 import sys
-from math import pi as M_PI, sin, cos, pow, atan
+from math import pi as M_PI, sin, cos, atan
 
 from OCC.Core.gp import (gp_Pnt2d, gp_Ax2d, gp_Dir2d, gp_Circ2d, gp_Origin2d, gp_DX2d,
                          gp_Ax2, gp_OX2d, gp_Lin2d, gp_Trsf, gp_XOY,

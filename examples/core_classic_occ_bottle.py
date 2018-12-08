@@ -22,7 +22,7 @@ import math
 from OCC.Core.gp import gp_Pnt, gp_OX, gp_Vec, gp_Trsf, gp_DZ, gp_Ax2, gp_Ax3, gp_Pnt2d, gp_Dir2d, gp_Ax2d
 from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment
 from OCC.Core.GCE2d import GCE2d_MakeSegment
-from OCC.Core.Geom import Geom_Plane, Geom_CylindricalSurface, Geom_Plane
+from OCC.Core.Geom import Geom_Plane, Geom_CylindricalSurface
 from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire,
 	                                 BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform)
