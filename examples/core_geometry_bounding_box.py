@@ -42,7 +42,8 @@ def get_boundingbox(shape, tol=1e-6, use_mesh=True):
         mesh.SetParallel(True)
         mesh.SetShape(shape)
         mesh.Perform()
-        assert mesh.IsDone()
+        if not mesh.IsDone():
+            raise AssertionError("Mesh not done.")
     brepbndlib_Add(shape, bbox, use_mesh)
 
     xmin, ymin, zmin, xmax, ymax, zmax = bbox.Get()

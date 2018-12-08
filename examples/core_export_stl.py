@@ -27,7 +27,8 @@ my_torus = BRepPrimAPI_MakeTorus(20., 10.).Shape()
 stl_output_dir = os.path.abspath(os.path.join("..", "assets", "models"))
 
 # make sure the path exists otherwise OCE get confused
-assert os.path.isdir(stl_output_dir)
+if not os.path.isdir(stl_output_dir):
+	raise AssertionError("wrong path provided")
 stl_low_resolution_file = os.path.join(stl_output_dir, "torus_default_resolution.stl")
 write_stl_file(my_torus, stl_low_resolution_file)
 

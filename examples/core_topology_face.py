@@ -18,10 +18,10 @@
 import math
 
 from OCC.Core.gp import (gp_Pnt, gp_Sphere, gp_Ax3, gp_Dir, gp_Circ, gp_Ax2,
-                    gp_Pnt2d, gp_Dir2d)
+                         gp_Pnt2d, gp_Dir2d)
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                BRepBuilderAPI_MakeFace,
-                                BRepBuilderAPI_MakeWire)
+                                     BRepBuilderAPI_MakeFace,
+                                     BRepBuilderAPI_MakeWire)
 from OCC.Core.TColgp import TColgp_Array2OfPnt
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
 from OCC.Core.GeomAbs import GeomAbs_C2
@@ -71,7 +71,8 @@ def face():
 
     ##TopoDS_Wire YellowWire
     MW1 = BRepBuilderAPI_MakeWire(Edge1.Edge(), Edge2.Edge(), Edge3.Edge())
-    assert MW1.IsDone()
+    if not MW1.IsDone():
+        raise AssertionError("MW1 is not done.")
     yellow_wire = MW1.Wire()
     brown_face = BRepBuilderAPI_MakeFace(yellow_wire)
 
