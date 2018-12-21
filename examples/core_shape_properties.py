@@ -42,7 +42,7 @@ def cube_inertia_properties():
     print("Cube mass = %s" % mass)
     cog_x, cog_y, cog_z = cog.Coord()
     print("Center of mass: x = %f;y = %f;z = %f;" % (cog_x, cog_y, cog_z))
-    print("Matrix of inertia", matrix_of_intertia)
+    print("Matrix of inertia", matrix_of_inertia)
 
 
 def shape_faces_surface():
