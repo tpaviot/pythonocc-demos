@@ -1,0 +1,67 @@
+sudo: false
+
+language: cpp
+
+git:
+  depth: false
+
+matrix:
+  include:
+    - env: PYTHON="2.7" CONDA_PY=27 ARCH="x86_64"
+      os: linux
+      dist: trusty
+    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
+      os: linux
+      dist: trusty
+    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
+      os: linux
+      dist: trusty
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
+      os: linux
+      dist: trusty
+
+# Use miniconda to install binary versions of numpy etc. from continuum
+# analytic's repository. Follows an approach described by Dan Blanchard:
+# https://gist.github.com/dan-blanchard/7045057
+before_install:
+  - if [ ${PYTHON:0:1} == "2" ]; then
+      if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+      else
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh -O miniconda.sh;
+      fi;
+      else
+      if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+      else
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+      fi;
+    fi;
+  - chmod +x miniconda.sh
+  # When we are installing the 32 Bit conda on a 64 Bit system, the miniconda
+  # installer will ask for a "yes" despite the -b flag, so we pipe in a yes
+  - yes | ./miniconda.sh -b -p $HOME/miniconda
+  #- bash miniconda.sh -b -p -f $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$HOME/miniconda/lib:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  # download/install OCE from DLR-SC channel
+  - conda config --add channels https://conda.anaconda.org/dlr-sc
+  - conda config --add channels https://conda.anaconda.org/conda-forge
+  - conda config --add channels https://conda.anaconda.org/tpaviot
+  - conda config --add channels https://conda.anaconda.org/oce
+  - conda config --add channels https://conda.anaconda.org/pythonocc
+  # create a test environment
+  - conda create -n test_pythonocc python=$PYTHON
+  # switch to this environment
+  - source activate test_pythonocc
+  - conda install pythonocc-core==0.18.2
+  - conda install pyqt
+  - conda install wxpython
+  - conda install numpy
+
+script:
+  - sh run_examples.sh
