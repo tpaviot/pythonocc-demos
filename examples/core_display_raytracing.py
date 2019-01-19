@@ -39,10 +39,10 @@ translated_glass = translate_shp(glass, gp_Vec(-30, -30, 0))
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # create one spotlight
-spot_light = V3d_SpotLight(display.Viewer_handle, -100, -100, 100,
+spot_light = V3d_SpotLight(display.Viewer, -100, -100, 100,
                            V3d_XnegYnegZpos, Quantity_NOC_WHITE)
 ## display the spotlight in rasterized mode
-spot_light.Display(display.View_handle, V3d_COMPLETE)
+spot_light.Display(display.View, V3d_COMPLETE)
 display.View.SetLightOn()
 
 display.DisplayShape(bottle, material=Graphic3d_NOM_ALUMINIUM)
