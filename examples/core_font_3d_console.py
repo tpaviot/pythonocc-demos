@@ -17,7 +17,10 @@
 
 import sys
 from code import InteractiveConsole
-from StringIO import StringIO
+try:
+    from StringIO import StringIO  # Python2
+except ImportError:
+    from io import StringIO  # Python3
 
 from OCC.Core.gp import gp_Vec
 from OCC.Core.Addons import text_to_brep, Font_FA_Bold
@@ -126,6 +129,6 @@ class Interpreter(InteractiveConsole):
 c = Interpreter()
 
 # black background
-display.set_bg_gradient_color(0, 0, 0, 0, 0, 0)
+display.set_bg_gradient_color([0, 0, 0], [0, 0, 0])
 display.FitAll()
 start_display()
