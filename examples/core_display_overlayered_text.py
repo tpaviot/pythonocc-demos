@@ -81,8 +81,8 @@ def add_scrolled_text(event=None):
     aTextItem = TextItem(str_to_display, x1, y1, height, font_name,
                          text_color, subtitle_color, display_type,
                          display.GetOverLayer(),
-                         ScrollX=random.random()-0.5,
-                         ScrollY=random.random()-0.5)
+                         random.random()-0.5,
+                         random.random()-0.5)
     display.register_overlay_item(aTextItem)
     rotate_shp(ais_bottle)
 
