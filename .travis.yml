@@ -1,48 +1,61 @@
-sudo: false
+os: linux
+
+dist: bionic
 
 language: cpp
 
 git:
   depth: false
 
-matrix:
-  include:
-    - env: PYTHON="2.7" CONDA_PY=27 ARCH="x86_64"
-      os: linux
-      dist: trusty
-    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
-      os: linux
-      dist: trusty
-    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
-      os: linux
-      dist: trusty
-    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
-      os: linux
-      dist: trusty
 
-# Use miniconda to install binary versions of numpy etc. from continuum
-# analytic's repository. Follows an approach described by Dan Blanchard:
-# https://gist.github.com/dan-blanchard/7045057
+jobs:
+  include:
+# Linux
+    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
+    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
+# OSX
+    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
+      os: osx
+      osx_image: xcode9.4
+    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
+      os: osx
+      osx_image: xcode9.4
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
+      os: osx
+      osx_image: xcode9.4
+# Windows
+    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64" CC="cl.exe" CXX="cl.exe" MSVC_TOOLSET_VERSION=15
+      os: windows
+    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64" CC="cl.exe" CXX="cl.exe" MSVC_TOOLSET_VERSION=15
+      os: windows
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64" CC="cl.exe" CXX="cl.exe" MSVC_TOOLSET_VERSION=15
+      os: windows
+
 before_install:
-  - if [ ${PYTHON:0:1} == "2" ]; then
-      if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-      else
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh -O miniconda.sh;
-      fi;
-      else
-      if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      MINICONDA_PATH=$HOME/miniconda;
+      MINICONDA_SUB_PATH=$MINICONDA_PATH/bin;
+    elif [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      MINICONDA_PATH=/c/tools/miniconda3;
+      MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
+    fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-      else
+    elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
-      fi;
+    fi
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      chmod +x miniconda.sh;
+      yes | ./miniconda.sh -b -p $MINICONDA_PATH;
+    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      echo "installing miniconda for windows";
+      choco install openssl.light;
+      choco install miniconda3;
     fi;
-  - chmod +x miniconda.sh
-  # When we are installing the 32 Bit conda on a 64 Bit system, the miniconda
-  # installer will ask for a "yes" despite the -b flag, so we pipe in a yes
-  - yes | ./miniconda.sh -b -p $HOME/miniconda
-  #- bash miniconda.sh -b -p -f $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$HOME/miniconda/lib:$PATH"
+  - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -51,16 +64,12 @@ before_install:
   # download/install OCE from DLR-SC channel
   - conda config --add channels https://conda.anaconda.org/dlr-sc
   - conda config --add channels https://conda.anaconda.org/conda-forge
-  - conda config --add channels https://conda.anaconda.org/tpaviot
-  - conda config --add channels https://conda.anaconda.org/oce
-  - conda config --add channels https://conda.anaconda.org/pythonocc
   # create a test environment
   - conda create -n test_pythonocc python=$PYTHON
   # switch to this environment
   - source activate test_pythonocc
-  - conda install pythonocc-core==0.18.2
+  - conda install -c dlr-sc/label/dev pythonocc-core=7.4.0beta
   - conda install pyqt
-  - conda install wxpython
   - conda install numpy
 
 script:
