@@ -25,6 +25,7 @@ from OCC.Core.gp import gp_Pnt, gp_Dir
 from OCC.Core.Geom import Geom_Line
 from OCC.Core.AIS import AIS_Line
 from OCC.Core.Prs3d import Prs3d_LineAspect, Prs3d_Drawer
+from OCC.Core.Quantity import Quantity_Color
 
 from OCC.Display.SimpleGui import init_display
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -58,7 +59,7 @@ def line():
         width = float(i)
         drawer = ais_line2.Attributes()
         # asp : first parameter color, second type, last width
-        asp = Prs3d_LineAspect(9*i, i, width)
+        asp = Prs3d_LineAspect(Quantity_Color(9*i), i, width)
         drawer.SetLineAspect(asp)
         ais_line2.SetAttributes(drawer)
 

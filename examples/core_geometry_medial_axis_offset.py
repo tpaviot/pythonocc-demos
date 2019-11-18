@@ -33,21 +33,6 @@ def boolean_cut(shapeToCutFrom, cuttingShape):
     from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
     cut = BRepAlgoAPI_Cut(shapeToCutFrom, cuttingShape)
 
-    if not cut.BuilderCanWork():
-        raise AssertionError("input shapes invalid")
-
-    _error = {0: '- Ok',
-              1: '- The Object is created but Nothing is Done',
-              2: '- Null source shapes is not allowed',
-              3: '- Check types of the arguments',
-              4: '- Can not allocate memory for the DSFiller',
-              5: '- The Builder can not work with such types of arguments',
-              6: '- Unknown operation is not allowed',
-              7: '- Can not allocate memory for the Builder',
-            }
-    print('error status:', _error[cut.ErrorStatus()])
-    cut.RefineEdges()
-    cut.FuseEdges()
     shp = cut.Shape()
     return shp
 

@@ -73,5 +73,6 @@ if __name__ == '__main__':
     display.DisplayShape(surf, update=True)
     pts = build_points_network(surf)
     for pt in pts:
-        display.DisplayShape(pt, update=True)
+        display.DisplayShape(pt, update=False)
+    display.Repaint()
     start_display()

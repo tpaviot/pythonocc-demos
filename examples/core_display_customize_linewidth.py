@@ -39,7 +39,7 @@ ais_shp.SetTransparency(0.10)
 #
 # Get Context
 ais_context = display.GetContext()
-ais_context.Display(ais_shp)
+ais_context.Display(ais_shp, True)
 
 display.View_Iso()
 display.FitAll()
