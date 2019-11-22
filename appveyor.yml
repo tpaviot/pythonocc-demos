@@ -60,8 +60,10 @@ environment:
       CONDA_PY: "37"
       CONDA_NPY: "18"
       CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
-    allow_failures:
-      - PYTHON_VERSION: "3.5"
+
+matrix:
+  allow_failures:
+    - PYTHON_VERSION: "3.5"
 # We always use a 64-bit machine, but can build x86 distributions
 # with the TARGET_ARCH variable (which is used by CMD_IN_ENV).
 platform:
