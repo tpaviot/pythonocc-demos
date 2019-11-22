@@ -68,7 +68,6 @@ install:
   - conda info -a
   # download/install OCE from DLR-SC channel
   - conda config --add channels https://conda.anaconda.org/dlr-sc
-  - conda config --add channels https://conda.anaconda.org/conda-forge
   # create a test environment
   - conda create -n test_pythonocc python=$PYTHON
   # switch to this environment
