@@ -80,7 +80,7 @@ install:
     - cmd: conda config --add channels https://conda.anaconda.org/oce
     - cmd: conda config --add channels https://conda.anaconda.org/pythonocc
     - cmd: conda config --add channels https://conda.anaconda.org/tpaviot
-    - cmd: conda install -c tpaviot pythonocc-core==0.18.2
+    - cmd: conda install -c dlr-sc/label/dev pythonocc-core==7.4.0beta
     #- cmd: conda install pyqt
     #- cmd: conda install wxpython
     - cmd: conda install numpy
