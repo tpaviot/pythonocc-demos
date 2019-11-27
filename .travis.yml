@@ -33,6 +33,9 @@ jobs:
       os: windows
     - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64" CC="cl.exe" CXX="cl.exe" MSVC_TOOLSET_VERSION=15
       os: windows
+  allow_failures:
+  # not all dependencies are yet met for python 3.5
+    - env: PYTHON="3.5"
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
@@ -65,7 +68,6 @@ install:
   - conda info -a
   # download/install OCE from DLR-SC channel
   - conda config --add channels https://conda.anaconda.org/dlr-sc
-  - conda config --add channels https://conda.anaconda.org/conda-forge
   # create a test environment
   - conda create -n test_pythonocc python=$PYTHON
   # switch to this environment
