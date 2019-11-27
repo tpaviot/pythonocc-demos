@@ -7,7 +7,11 @@ Some pythonocc related code snippets, examples, jupter notebooks etc.
 
 Requirements :
 
-* pythonocc-0.18.2 or later
+* pythonocc-core 7.4.0beta
+
+````
+conda install -c dlr-sc/label/dev pythonocc-core=7.4.0beta
+````
 
 * jupyter if you want to test the jupyter notebooks, as well as pythreejs.
 
