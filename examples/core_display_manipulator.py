@@ -1,4 +1,4 @@
-##Copyright 2017 Thomas Paviot (tpaviot@gmail.com)
+##Copyright 2010-2014 Thomas Paviot (tpaviot@gmail.com)
 ##
 ##This file is part of pythonOCC.
 ##
@@ -15,14 +15,31 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+The very first pythonocc example. This uses to be the script
+used to check the following points:
+
+pythonocc installation is correct, i.e. pythonocc modules are found
+and properly imported
+
+a GUI manager is installed. Wether it is wxpython or pyqt/pyside, it's necessary
+to display a 3d window
+
+the rendering window can be initialized and set up, that is to say the
+graphic driver and OpenGl works correctly.
+
+If this example run on your machine, that means you're ready to explore the wide
+pythonocc world and run all the other examples.
+"""
+
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_ALICEBLUE, Quantity_NOC_ANTIQUEWHITE
+from OCC.Core.AIS import AIS_Manipulator
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 my_box = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
-
-display.View.SetBgGradientColors(Quantity_Color(Quantity_NOC_ALICEBLUE), Quantity_Color(Quantity_NOC_ANTIQUEWHITE), 2, True)
-display.Repaint()
-display.DisplayShape(my_box, update=True)
+display.View.TriedronErase()
+ais_shp = display.DisplayShape(my_box, update=True)
+manip = AIS_Manipulator()
+manip.Attach(ais_shp)
 start_display()

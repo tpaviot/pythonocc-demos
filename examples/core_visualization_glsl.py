@@ -27,7 +27,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 shape = BRepPrimAPI_MakeSphere(100).Shape()
 anIO = AIS_Shape(shape)
-display.Context.Display(anIO)
+display.Context.Display(anIO, True)
 
 # gragment shader
 fs = """
@@ -61,9 +61,9 @@ else:
     raise AssertionError("no valid shader program found")
 
 # when a shader fails to compile, raise an AssertionError
-assert not aspect.ShaderProgram().IsNull(), "no shader program is null"
+assert not aspect.ShaderProgram() is None, "no shader program is null"
 
 # redisplay the sphere, when the shader was attached to its AIS_Shape aspect
-display.Context.Redisplay(anIO)
+display.Context.Redisplay(anIO, True)
 display.FitAll()
 start_display()

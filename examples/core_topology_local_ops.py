@@ -162,7 +162,7 @@ def offset_cube(event=None):
     S2 = BRepPrimAPI_MakeBox(gp_Pnt(300, 0, 0), 220, 140, 180).Shape()
     offsetB = BRepOffsetAPI_MakeOffsetShape(S2, -20, 0.01, BRepOffset_Skin, False, False, GeomAbs_Arc)
     offB = display.DisplayColoredShape(S2, 'BLUE')
-    display.Context.SetTransparency(offB, 0.3)
+    display.Context.SetTransparency(offB, 0.3, True)
     display.DisplayColoredShape(offsetB.Shape(), 'GREEN')
     display.FitAll()
 
@@ -331,9 +331,8 @@ def brep_feat_extrusion_protrusion(event=None):
     tr = BRepBuilderAPI_GTransform(MKP2.Shape(), gtrf, True)
 
     fused = BRepAlgoAPI_Fuse(tr.Shape(), MKP2.Shape())
-    fused.RefineEdges()
     fused.Build()
-    print('Boolean operation error status:', fused.ErrorStatus())
+
     display.DisplayShape(fused.Shape())
     display.FitAll()
 

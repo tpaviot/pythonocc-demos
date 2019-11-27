@@ -60,7 +60,7 @@ def tag_edge(_edge, msg, _color=(1, 0, 0)):
 
 def glue_solids(event=None):
     display.EraseAll()
-    display.Context.RemoveAll()
+    display.Context.RemoveAll(True)
     # Without common edges
     S1 = BRepPrimAPI_MakeBox(gp_Pnt(500., 500., 0.), gp_Pnt(100., 250., 300.)).Shape()
     facesA = get_faces(S1)
@@ -99,7 +99,7 @@ def glue_solids(event=None):
 
 def glue_solids_edges(event=None):
     display.EraseAll()
-    display.Context.RemoveAll()
+    display.Context.RemoveAll(True)
 
     # With common edges
     S3 = BRepPrimAPI_MakeBox(500., 400., 300.).Shape()

@@ -39,7 +39,7 @@ def get_boundingbox(shape, tol=1e-6, use_mesh=True):
     bbox.SetGap(tol)
     if use_mesh:
         mesh = BRepMesh_IncrementalMesh()
-        mesh.SetParallel(True)
+        mesh.SetParallelDefault(True)
         mesh.SetShape(shape)
         mesh.Perform()
         if not mesh.IsDone():

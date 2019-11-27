@@ -38,6 +38,7 @@ def draw_shape_mpl(shape):
     """
 
     tess = Tesselator(shape)
+    tess.Compute()
 
     triangles = []
     edges = []

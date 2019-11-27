@@ -62,8 +62,8 @@ def common(event=None):
     display.EraseAll()
     ais_box = display.DisplayShape(Box)
     ais_wedge = display.DisplayShape(Wedge)
-    display.Context.SetTransparency(ais_box, 0.8)
-    display.Context.SetTransparency(ais_wedge, 0.8)
+    display.Context.SetTransparency(ais_box, 0.8, True)
+    display.Context.SetTransparency(ais_wedge, 0.8, True)
     display.DisplayShape(CommonSurface)
     display.FitAll()
 
@@ -131,7 +131,7 @@ def cut(event=None):
     Cut = BRepAlgoAPI_Cut(Sphere, Box).Shape()
     display.EraseAll()
     ais_box = display.DisplayShape(Box)
-    display.Context.SetTransparency(ais_box, 0.8)
+    display.Context.SetTransparency(ais_box, 0.8, True)
     display.DisplayShape(Cut)
     display.FitAll()
 

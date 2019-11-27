@@ -33,7 +33,7 @@ for fc in TopologyExplorer(my_box).faces():
     # set a custom color per-face
     ais_shp.SetCustomColor(fc, rgb_color(random(), random(), random()))
 
-display.Context.Display(ais_shp)
+display.Context.Display(ais_shp, True)
 display.FitAll()
 
 start_display()

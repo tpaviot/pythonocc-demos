@@ -29,9 +29,8 @@ builder.AddArgument(my_box1)
 builder.AddArgument(my_box2)
 builder.SetRunParallel(True)
 builder.Perform()  # or .PerformWithFiller(aPF);
-error_code = builder.ErrorStatus()
-if error_code != 0:
-	raise AssertionError("Failed with error code %i" % error_code)
+if builder.HasErrors():
+    raise AssertionError("Failed with error: ", builder.DumpErrorsToString())
 result = builder.Shape()
 display.DisplayShape(result, update=True)
 start_display()

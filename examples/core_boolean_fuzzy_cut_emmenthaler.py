@@ -76,7 +76,7 @@ def emmenthaler(event=None):
         print('boolean cylinder:', i, 'took', time.time()-tA)
     total_time = time.time() - init_time
     print("Total time : %fs" % total_time)
-    display.DisplayShape(shp)
+    display.DisplayShape(shp, update=True)
     start_display()
 
 

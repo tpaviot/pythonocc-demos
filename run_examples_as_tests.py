@@ -63,11 +63,6 @@ if __name__ == "__main__":
     # some tests have to be excluded from the automatic
     # run. For instance, qt based examples
     tests_to_exclude = ['core_display_signal_slots.py',
-                        'core_font_3d_console.py',
-                        'core_display_overlayered_image.py',
-                        'core_display_overlayered_lines.py',
-                        'core_display_overlayered_text.py',
-                        'core_display_raytracing.py',
                         'core_visualization_overpaint_viewer.py'
                         ]
 
