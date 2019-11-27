@@ -73,7 +73,6 @@ def random_points(event=None):
     display.FitAll()
 
 def bunny(event=None):
-    start_time = time.time()
     pcd_file_name = os.path.join('..', 'assets', 'models', 'bunny.pcd')
     # compute number of lines
     nbr_of_vertices = pcd_get_number_of_vertices(pcd_file_name)
