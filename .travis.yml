@@ -59,7 +59,7 @@ install:
   - conda create -n test_pythonocc python=$PYTHON
   # switch to this environment
   - source activate test_pythonocc
-  - conda install -c dlr-sc/label/dev pythonocc-core=7.4.0beta
+  - conda install -c tpaviot pythonocc-core=7.4.0beta
   - conda install pyqt
   - conda install numpy
 
