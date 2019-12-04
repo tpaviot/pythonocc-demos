@@ -16,9 +16,8 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.AIS import AIS_Shape, AIS_ColorScale
+from OCC.Core.AIS import AIS_ColorScale
 from OCC.Core.Graphic3d import Graphic3d_ZLayerId_TopOSD, Graphic3d_TMF_2d
-from OCC.Core.Quantity import Quantity_NOC_BLACK
 from OCC.Core.gp import gp_XY, gp_Pnt
 
 from OCC.Display.SimpleGui import init_display
@@ -48,6 +47,6 @@ colorscale.SetTransformPersistence(Graphic3d_TMF_2d, gp_Pnt (-1, -1, 0))
 colorscale.SetToUpdate()
 
 display.Context.Display(colorscale, True)
-display.DisplayShape(myBox)
+display.DisplayShape(myBox, update=True)
 
 start_display()
