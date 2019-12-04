@@ -18,7 +18,7 @@
 import random
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.gp import gp_XY, gp_Pnt, gp_Ax2, gp_Dir, gp_XYZ
+from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_Dir, gp_XYZ
 from OCC.Core.BRepBndLib import brepbndlib_AddOBB
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
 from OCC.Core.Bnd import Bnd_OBB
