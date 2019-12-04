@@ -40,7 +40,7 @@ def worker(example_name):
     # += operation is not atomic, so we need to get a lock:
     print("running %s ..." % example_name, end="")
     try:
-        ubprocess.check_output([sys.executable, example_name],
+        subprocess.check_output([sys.executable, example_name],
                                 stderr=subprocess.STDOUT,
                                 universal_newlines=True)
         print("[passed]")
