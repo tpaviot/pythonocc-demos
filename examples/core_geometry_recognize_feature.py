@@ -33,7 +33,7 @@ import sys
 from OCC.Core.GeomAbs import (GeomAbs_Plane, GeomAbs_Cylinder,
                               GeomAbs_BSplineSurface)
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
-
+from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Extend.TopologyUtils import TopologyExplorer
@@ -44,6 +44,9 @@ def recognize_face(a_face):
     if a plane, returns the normal
     if a cylinder, returns the radius
     """
+    if not type(a_face) is TopoDS_Face:
+        print("Please hit the 'G' key to switch to face selection mode")
+        return False
     surf = BRepAdaptor_Surface(a_face, True)
     surf_type = surf.GetType()
     if  surf_type == GeomAbs_Plane:
@@ -69,7 +72,7 @@ def recognize_face(a_face):
     elif surf_type == GeomAbs_BSplineSurface:
         print("Identified BSplineSurface Geometry")
         gp_bsrf = surf.Surface()
-        #degree = gp_bsrf.NbUKnots()
+        degree = gp_bsrf.NbUKnots()
     else:
         # TODO there are plenty other type that can be checked
         # see documentation for the BRepAdaptor class
@@ -105,9 +108,7 @@ if __name__ == '__main__':
     display.SetSelectionModeFace()  # switch to Face selection mode
     display.register_select_callback(recognize_clicked)
     # first loads the STEP file and display
-    from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-    shp = BRepPrimAPI_MakeTorus(30, 15).Shape()
-    #shp = read_step_file('../assets/models/as1_pe_203.stp')
+    shp = read_step_file('../assets/models/as1_pe_203.stp')
     display.DisplayShape(shp, update=True)
     add_menu('recognition')
     add_function_to_menu('recognition', recognize_batch)
