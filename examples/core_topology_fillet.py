@@ -122,9 +122,9 @@ def variable_filleting(event=None):
     afillet.Build()
     if afillet.IsDone():
         LawEvolvedBox = afillet.Shape()
+        display.DisplayShape(LawEvolvedBox)
     else:
         print("aFillet not done.")
-        display.DisplayShape(LawEvolvedBox)
     display.FitAll()
 
 
