@@ -35,7 +35,7 @@ def ConvertBndToShape(theBox):
   aHalfX = theBox.XHSize()
   aHalfY = theBox.YHSize()
   aHalfZ = theBox.ZHSize()
- 
+
   ax = gp_XYZ(aXDir.X(), aXDir.Y(), aXDir.Z())
   ay = gp_XYZ(aYDir.X(), aYDir.Y(), aYDir.Z())
   az = gp_XYZ(aZDir.X(), aZDir.Y(), aZDir.Z())
@@ -49,7 +49,7 @@ obb = Bnd_OBB()
 
 # choose n random vertices
 n = 10
-for i in range(n):
+for _ in range(n):
 	x = random.uniform(100, 1000)
 	y = random.uniform(100, 1000)
 	z = random.uniform(100, 1000)
@@ -63,5 +63,4 @@ display.DisplayShape(obb_shape)
 b = BRepPrimAPI_MakeBox(10, 10, 10).Shape()
 display.DisplayShape(b, update=True)
 
-" display all"
 start_display()
