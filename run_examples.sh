@@ -1,2 +1,2 @@
-# run example as tests
+#!/bin/sh
 python run_examples_as_tests.py
