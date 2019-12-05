@@ -71,14 +71,15 @@ def recognize_face(a_face):
         print("--> Axis (global coordinates)", axis.X(), axis.Y(), axis.Z())
     elif surf_type == GeomAbs_BSplineSurface:
         print("Identified BSplineSurface Geometry")
-        gp_bsrf = surf.Surface()
-        degree = gp_bsrf.NbUKnots()
+        #gp_bsrf = surf.Surface()
+        #degree = gp_bsrf.NbUKnots()
+        # TODO use a model that provided BSplineSurfaces, as1_pe_203.stp only contains
+        # planes and cylinders
     else:
         # TODO there are plenty other type that can be checked
         # see documentation for the BRepAdaptor class
         # https://www.opencascade.com/doc/occt-6.9.1/refman/html/class_b_rep_adaptor___surface.html
-        print(surf_type)
-        print("not implemented")
+        print(surf_type, "recognition not implemented")
 
 
 def recognize_clicked(shp, *kwargs):

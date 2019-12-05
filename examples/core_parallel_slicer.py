@@ -19,10 +19,7 @@
 
 import time
 import sys
-if sys.version_info[:3] >= (2, 6, 0):
-    import multiprocessing as processing
-else:
-    import processing
+import multiprocessing
 
 from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepTools import breptools_Read
@@ -82,6 +79,7 @@ def run(n_procs, compare_by_number_of_processors=False):
 
         slices = []
         n = len(z_slices) // n_procs
+        print('number of slices:', len(z_slices))
 
         _str_slices = []
         for i in range(1, n_procs+1):
@@ -98,7 +96,6 @@ def run(n_procs, compare_by_number_of_processors=False):
                 slices.append(z_slices[(i-1)*n:i*n])
                 _str_slices.append(' %s:%s ' % ((i-1)*n, i*n))
         print('the z-index array is sliced over %s processors like this: \n %s' % (n_procs, _str_slices))
-        print('number of slices:', z_slices[-1])
         return slices
 
     def arguments(n_slices, n_procs):
@@ -112,28 +109,28 @@ def run(n_procs, compare_by_number_of_processors=False):
 
     if not compare_by_number_of_processors:
         _results = []
-        P = processing.Pool(n_procs)
+        P = multiprocessing.Pool(n_procs)
         _results = P.map(vectorized_slicer, arguments(n_slice, n_procs))
 
     else:
-        arr = [[i, shape] for i in drange(z_min, z_max, z_delta/n_slice)]
+        # run a few tests from 1 to 9 processors
         for i in range(1, 9):
             tA = time.time()
             _results = []
             if i == 1:
                 _results = vectorized_slicer([drange(z_min, z_max, z_delta/n_slice), shape])
             else:
-                P = processing.Pool(n_procs)
+                P = multiprocessing.Pool(n_procs)
                 _results = P.map(vectorized_slicer, arguments(n_slice, i))
             print('slicing took %s seconds for %s processors' % (time.time() - tA, i))
         sys.exit()
 
-    print('\n\n\n DONE SLICING ON %i CORES \n\n\n' % nprocs)
+    print('\n\n\n done slicing on %i cores \n\n\n' % nprocs)
 
     # Display result
     display, start_display, add_menu, add_function_to_menu = init_display()
     print('displaying original shape')
-    display.DisplayShape(shape)
+    display.DisplayShape(shape, update=True)
     for n, result_shp in enumerate(_results):
         print('displaying results from process {0}'.format(n))
         display.DisplayShape(result_shp, update=True)
@@ -148,7 +145,10 @@ if __name__ == '__main__':
     # use compare_by_number_of_processors=True to see speed up
     # per number of processor added
     try:
-        nprocs = processing.cpu_count()
-    except:  # travis fails to run cpu_count
+        nprocs = multiprocessing.cpu_count()
+    except Exception as ex:  # travis fails to run cpu_count
+        print(ex)
         nprocs = 1
+    except SystemExit:
+        pass
     run(nprocs, compare_by_number_of_processors=False)
