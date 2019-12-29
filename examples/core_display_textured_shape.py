@@ -19,7 +19,6 @@
 
 import os
 
-from OCC.Core.Graphic3d import Graphic3d_NOM_SILVER, Graphic3d_MaterialAspect
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
 
 from OCC.Display.SimpleGui import init_display
@@ -65,15 +64,9 @@ class Texture(object):
 #
 texture_filename = '../assets/images/ground.bmp'
 t = Texture(texture_filename)
-m = Graphic3d_MaterialAspect(Graphic3d_NOM_SILVER)
 #
 # Displays a cylinder with a material and a texture
 #
 s = BRepPrimAPI_MakeCylinder(60, 200)
-display.DisplayShape(s.Shape(), material=m, texture=t)
-#
-# Display settings
-#
-display.View_Iso()
-display.FitAll()
+display.DisplayShape(s.Shape(), texture=t, update=True)
 start_display()
