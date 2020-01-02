@@ -19,19 +19,22 @@
 
 import math
 
-from OCC.Core.gp import gp_Pnt, gp_OX, gp_Vec, gp_Trsf, gp_DZ, gp_Ax2, gp_Ax3, gp_Pnt2d, gp_Dir2d, gp_Ax2d
+from OCC.Core.gp import (gp_Pnt, gp_OX, gp_Vec, gp_Trsf, gp_DZ, gp_Ax2, gp_Ax3,
+                         gp_Pnt2d, gp_Dir2d, gp_Ax2d)
 from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment
 from OCC.Core.GCE2d import GCE2d_MakeSegment
-from OCC.Core.Geom import Geom_Plane, Geom_CylindricalSurface
+from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve
 from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire,
-	                                 BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform)
+                                     BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform)
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism, BRepPrimAPI_MakeCylinder
 from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeThickSolid, BRepOffsetAPI_ThruSections
 from OCC.Core.BRepLib import breplib
-from OCC.Core.BRep import BRep_Tool_Surface, BRep_Builder
+from OCC.Core.BRep import BRep_Builder
+from OCC.Core.GeomAbs import GeomAbs_Plane
+from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
 from OCC.Core.TopoDS import topods, TopoDS_Compound
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopAbs import TopAbs_EDGE, TopAbs_FACE
@@ -41,20 +44,16 @@ def face_is_plane(face):
     """
     Returns True if the TopoDS_Shape is a plane, False otherwise
     """
-    hs = BRep_Tool_Surface(face)
-    downcast_result = Geom_Plane.DownCast(hs)
-    # The handle is null if downcast failed or is not possible, that is to say the face is not a plane
-    if downcast_result is None:
-        return False
-    else:
-        return True
+    surf = BRepAdaptor_Surface(face, True)
+    surf_type = surf.GetType()
+    return surf_type == GeomAbs_Plane
 
 
 def geom_plane_from_face(aFace):
     """
     Returns the geometric plane entity from a planar surface
     """
-    return Geom_Plane.DownCast(BRep_Tool_Surface(aFace))
+    return BRepAdaptor_Surface(aFace, True).Plane()
 
 
 height = 70
