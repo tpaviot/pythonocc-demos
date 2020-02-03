@@ -45,22 +45,31 @@ def ConvertBndToShape(theBox):
   aBox = BRepPrimAPI_MakeBox(anAxes, 2.0*aHalfX, 2.0*aHalfY, 2.0*aHalfZ).Shape()
   return aBox
 
-obb = Bnd_OBB()
-
-# choose n random vertices
+# compute the oriented bounding box of a point cloud
+obb1 = Bnd_OBB()
 n = 10
 for _ in range(n):
-	x = random.uniform(100, 1000)
-	y = random.uniform(100, 1000)
-	z = random.uniform(100, 1000)
+	x = random.uniform(100, 500)
+	y = random.uniform(100, 500)
+	z = random.uniform(100, 500)
 	p = BRepBuilderAPI_MakeVertex(gp_Pnt(x, y, z)).Shape()
 	display.DisplayShape(p)
-	brepbndlib_AddOBB(p, obb)
-obb_shape = ConvertBndToShape(obb)
-display.DisplayShape(obb_shape)
+	brepbndlib_AddOBB(p, obb1)
+obb_shape1 = ConvertBndToShape(obb1)
+display.DisplayShape(obb_shape1, transparency=0.5)
 
-# a ref box
-b = BRepPrimAPI_MakeBox(10, 10, 10).Shape()
-display.DisplayShape(b, update=True)
+# then loads a brep file and computes the optimal bounding box
+from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.TopoDS import TopoDS_Shape
+from OCC.Core.BRep import BRep_Builder
+
+cylinder_head = TopoDS_Shape()
+builder = BRep_Builder()
+breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
+obb2 = Bnd_OBB()
+brepbndlib_AddOBB(cylinder_head, obb2, True, True, True)
+obb_shape2 = ConvertBndToShape(obb2)
+display.DisplayShape(cylinder_head)
+display.DisplayShape(obb_shape2, transparency=0.5, update=True)
 
 start_display()
