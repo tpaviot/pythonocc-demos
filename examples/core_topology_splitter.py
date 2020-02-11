@@ -19,12 +19,13 @@ from __future__ import print_function
 import sys
 
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeFace
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.BOPAlgo import BOPAlgo_Splitter
 from OCC.Core.TopAbs import TopAbs_EDGE
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt
 
+from OCC.Extend.TopologyUtils import TopologyExplorer
+from OCC.Display.SimpleGui import init_display
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -44,7 +45,10 @@ def split_face_with_edge(event=None):
     splitter.AddArgument(face)
     splitter.AddTool(edge)
     splitter.Perform()
-    display.DisplayShape(splitter.Shape())
+    # resulting shapes
+    faces = TopologyExplorer(splitter.Shape()).faces()
+    for face in faces:
+        display.DisplayShape(face)
     display.FitAll()
 
 
