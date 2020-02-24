@@ -30,7 +30,7 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
 
 from OCC.Display.SimpleGui import init_display
 
-from OCC.Extend.ShapeFactory import get_boundingbox
+from OCC.Extend.ShapeFactory import get_aligned_boundingbox
 
 
 def drange(start, stop, step):
@@ -69,13 +69,14 @@ def vectorized_slicer(li):
 
 def run(n_procs, compare_by_number_of_processors=False):
     shape = get_brep()
-    x_min, y_min, z_min, x_max, y_max, z_max = get_boundingbox(shape)
-    z_delta = abs(z_min - z_max)
+    center, [dx, dy, dz], box_shp = get_aligned_boundingbox(shape)
+    z_min = center.Z() - dz / 2
+    z_max = center.Z() + dz / 2
 
     init_time = time.time()  # for total time computation
 
     def get_z_coords_for_n_procs(n_slices, n_procs):
-        z_slices = drange(z_min, z_max, z_delta/n_slices)
+        z_slices = drange(z_min, z_max, dz/n_slices)
 
         slices = []
         n = len(z_slices) // n_procs
@@ -118,7 +119,7 @@ def run(n_procs, compare_by_number_of_processors=False):
             tA = time.time()
             _results = []
             if i == 1:
-                _results = vectorized_slicer([drange(z_min, z_max, z_delta/n_slice), shape])
+                _results = vectorized_slicer([drange(z_min, z_max, dz/n_slice), shape])
             else:
                 P = multiprocessing.Pool(n_procs)
                 _results = P.map(vectorized_slicer, arguments(n_slice, i))
