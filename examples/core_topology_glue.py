@@ -8,7 +8,7 @@ from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.TopoDS import topods_Face
 from OCC.Core.gp import gp_Pnt, gp_Trsf, gp_Vec
 
-from OCC.Extend.ShapeFactory import center_boundingbox
+from OCC.Extend.ShapeFactory import get_aligned_boundingbox
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
@@ -44,7 +44,7 @@ def tag_faces(_shape, _color, shape_name):
     """
     for n, f in enumerate(_shape):
         # centroid of the face
-        center_pt = center_boundingbox(f)
+        center_pt = get_aligned_boundingbox(f)[0]
         # displays the face in the viewer
         display.DisplayShape(f, color=_color, transparency=0.9)
         # tag the face in the viewer
@@ -54,8 +54,8 @@ def tag_faces(_shape, _color, shape_name):
 def tag_edge(_edge, msg, _color=(1, 0, 0)):
     """ tag an edge
     """
-    pt = center_boundingbox(_edge)
-    display.DisplayMessage(pt, msg, None, _color, False)
+    center_pt = get_aligned_boundingbox(_edge)[0]
+    display.DisplayMessage(center_pt, msg, None, _color, False)
 
 
 def glue_solids(event=None):
