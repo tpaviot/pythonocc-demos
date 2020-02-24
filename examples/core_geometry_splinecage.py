@@ -124,7 +124,7 @@ def build_curve_network(event=None, enforce_tangency=True):
     input_edge_face_pairs, edges_no_adjacent_face = [], []
     for l, edg in filtered_length.items():
         if l in _edge_length_to_edge:
-            edge_face_pair = (_edge_length_to_edge[l], _edge_length_to_face[l])
+            edge_face_pair = [_edge_length_to_edge[l], _edge_length_to_face[l]]
             input_edge_face_pairs.append(edge_face_pair)
         else:
             edges_no_adjacent_face.append(edg)
