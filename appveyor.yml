@@ -63,7 +63,7 @@ install:
     - cmd: conda config --set show_channel_urls true
     - cmd: conda config --add channels https://conda.anaconda.org/dlr-sc
     - cmd: conda config --add channels https://conda.anaconda.org/tpaviot
-    - cmd: conda install -c tpaviot pythonocc-core==7.4.0rc1
+    - cmd: conda install -c tpaviot pythonocc-core==7.4.0
     #- cmd: conda install pyqt
     #- cmd: conda install wxpython
     - cmd: conda install numpy
