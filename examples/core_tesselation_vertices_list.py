@@ -15,7 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.Visualization import Tesselator
+from OCC.Core.Tesselator import ShapeTesselator
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
 try:
@@ -28,7 +28,7 @@ except ImportError:
 box_s = BRepPrimAPI_MakeBox(10, 20, 30).Shape()
 
 # compute the tesselation
-tess = Tesselator(box_s)
+tess = ShapeTesselator(box_s)
 tess.Compute()
 
 # get vertices

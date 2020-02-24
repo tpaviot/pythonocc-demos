@@ -22,7 +22,7 @@
 
 import sys
 
-from OCC.Core.Visualization import Tesselator
+from OCC.Core.Tesselator import ShapeTesselator
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 try:
     from mpl_toolkits.mplot3d import Axes3D
@@ -37,7 +37,7 @@ def draw_shape_mpl(shape):
     Draw a TopoDS_Shape with matplotlib
     """
 
-    tess = Tesselator(shape)
+    tess = ShapeTesselator(shape)
     tess.Compute()
 
     triangles = []
