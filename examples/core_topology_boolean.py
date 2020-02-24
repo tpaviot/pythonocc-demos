@@ -60,8 +60,8 @@ def common(event=None):
     CommonSurface = BRepAlgoAPI_Common(Box, Wedge).Shape()
 
     display.EraseAll()
-    ais_box = display.DisplayShape(Box)
-    ais_wedge = display.DisplayShape(Wedge)
+    ais_box = display.DisplayShape(Box)[0]
+    ais_wedge = display.DisplayShape(Wedge)[0]
     display.Context.SetTransparency(ais_box, 0.8, True)
     display.Context.SetTransparency(ais_wedge, 0.8, True)
     display.DisplayShape(CommonSurface)
@@ -130,7 +130,7 @@ def cut(event=None):
     # Cut: the shere is cut 'by' the box
     Cut = BRepAlgoAPI_Cut(Sphere, Box).Shape()
     display.EraseAll()
-    ais_box = display.DisplayShape(Box)
+    ais_box = display.DisplayShape(Box)[0]
     display.Context.SetTransparency(ais_box, 0.8, True)
     display.DisplayShape(Cut)
     display.FitAll()
