@@ -34,7 +34,7 @@ cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
 breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
 
-ais_shp = display.DisplayShape(cylinder_head)
+ais_shp = display.DisplayShape(cylinder_head)[0]
 
 # clip plane number one, by default xOy
 clip_plane_1 = Graphic3d_ClipPlane()
@@ -52,6 +52,7 @@ aColor = Quantity_Color(0.5, 0.6, 0.7, Quantity_TOC_RGB)
 aMat.SetAmbientColor(aColor)
 aMat.SetDiffuseColor(aColor)
 clip_plane_1.SetCappingMaterial(aMat)
+
 ais_shp.AddClipPlane(clip_plane_1)
 
 
