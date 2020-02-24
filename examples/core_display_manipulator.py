@@ -39,7 +39,7 @@ from OCC.Core.AIS import AIS_Manipulator
 display, start_display, add_menu, add_function_to_menu = init_display()
 my_box = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
 display.View.TriedronErase()
-ais_shp = display.DisplayShape(my_box, update=True)
+ais_shp = display.DisplayShape(my_box, update=True)[0]
 manip = AIS_Manipulator()
 manip.Attach(ais_shp)
 start_display()
