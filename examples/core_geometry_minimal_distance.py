@@ -73,7 +73,7 @@ def compute_minimal_distance_between_circles():
     Mcircle = gp_Circ(Maxis, r2)
 
     l_circle, m_circle = make_edge(Lcircle), make_edge(Mcircle)
-    display.DisplayShape((l_circle, m_circle))
+    display.DisplayShape([l_circle, m_circle])
 
     # compute the minimal distance between 2 circles
     # the minimal distance here matches the intersection of the circles
