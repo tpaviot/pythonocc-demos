@@ -17,8 +17,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
 import time
 from math import pi
 
@@ -34,7 +32,7 @@ ais_boxshp = None
 
 def build_shape():
     boxshp = BRepPrimAPI_MakeBox(50., 50., 50.).Shape()
-    ais_boxshp = display.DisplayShape(boxshp, update=True)
+    ais_boxshp = display.DisplayShape(boxshp, update=True)[0]
     return ais_boxshp
 
 
