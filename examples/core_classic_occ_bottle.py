@@ -20,7 +20,7 @@
 import math
 
 from OCC.Core.gp import (gp_Pnt, gp_OX, gp_Vec, gp_Trsf, gp_DZ, gp_Ax2, gp_Ax3,
-                         gp_Pnt2d, gp_Dir2d, gp_Ax2d)
+                         gp_Pnt2d, gp_Dir2d, gp_Ax2d, gp_Pln)
 from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment
 from OCC.Core.GCE2d import GCE2d_MakeSegment
 from OCC.Core.Geom import Geom_CylindricalSurface
@@ -35,21 +35,21 @@ from OCC.Core.BRepLib import breplib
 from OCC.Core.BRep import BRep_Builder
 from OCC.Core.GeomAbs import GeomAbs_Plane
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
-from OCC.Core.TopoDS import topods, TopoDS_Compound
+from OCC.Core.TopoDS import topods, TopoDS_Compound, TopoDS_Face
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopAbs import TopAbs_EDGE, TopAbs_FACE
 from OCC.Core.TopTools import TopTools_ListOfShape
 
-def face_is_plane(face):
+def face_is_plane(face: TopoDS_Face) -> bool:
     """
-    Returns True if the TopoDS_Shape is a plane, False otherwise
+    Returns True if the TopoDS_Face is a plane, False otherwise
     """
     surf = BRepAdaptor_Surface(face, True)
     surf_type = surf.GetType()
     return surf_type == GeomAbs_Plane
 
 
-def geom_plane_from_face(aFace):
+def geom_plane_from_face(aFace: TopoDS_Face) -> gp_Pln:
     """
     Returns the geometric plane entity from a planar surface
     """
@@ -107,19 +107,17 @@ myFaceProfile = BRepBuilderAPI_MakeFace(myWireProfile)
 
 # We want to sweep the face along the Z axis to the height
 aPrismVec = gp_Vec(0, 0, height)
-myBody = BRepPrimAPI_MakePrism(myFaceProfile.Face(), aPrismVec)
+myBody_step1 = BRepPrimAPI_MakePrism(myFaceProfile.Face(), aPrismVec)
 
 # Add fillets to all edges through the explorer
-mkFillet = BRepFilletAPI_MakeFillet(myBody.Shape())
-anEdgeExplorer = TopExp_Explorer(myBody.Shape(), TopAbs_EDGE)
+mkFillet = BRepFilletAPI_MakeFillet(myBody_step1.Shape())
+anEdgeExplorer = TopExp_Explorer(myBody_step1.Shape(), TopAbs_EDGE)
 
 while anEdgeExplorer.More():
     anEdge = topods.Edge(anEdgeExplorer.Current())
     mkFillet.Add(thickness / 12.0, anEdge)
 
     anEdgeExplorer.Next()
-
-myBody = mkFillet
 
 # Create the neck of the bottle
 neckLocation = gp_Pnt(0, 0, height)
@@ -131,33 +129,29 @@ myNeckHeight = height / 10.0
 
 mkCylinder = BRepPrimAPI_MakeCylinder(neckAx2, myNeckRadius, myNeckHeight)
 
-myBody = BRepAlgoAPI_Fuse(myBody.Shape(), mkCylinder.Shape())
+myBody_step2 = BRepAlgoAPI_Fuse(mkFillet.Shape(), mkCylinder.Shape())
 
 # Our goal is to find the highest Z face and remove it
-faceToRemove = None
-zMax = -1
+zMax = -1.
 
 # We have to work our way through all the faces to find the highest Z face so we can remove it for the shell
-aFaceExplorer = TopExp_Explorer(myBody.Shape(), TopAbs_FACE)
+aFaceExplorer = TopExp_Explorer(myBody_step2.Shape(), TopAbs_FACE)
 while aFaceExplorer.More():
     aFace = topods.Face(aFaceExplorer.Current())
-
     if face_is_plane(aFace):
         aPlane = geom_plane_from_face(aFace)
 
         # We want the highest Z face, so compare this to the previous faces
-        aPnt = aPlane.Location()
-        aZ = aPnt.Z()
+        aPntLoc = aPlane.Location()
+        aZ = aPntLoc.Z()
         if aZ > zMax:
             zMax = aZ
-            faceToRemove = aFace
-
     aFaceExplorer.Next()
 
 facesToRemove = TopTools_ListOfShape()
-facesToRemove.Append(faceToRemove)
+facesToRemove.Append(aFace)
 
-myBody = BRepOffsetAPI_MakeThickSolid(myBody.Shape(), facesToRemove, -thickness / 50.0, 0.001)
+myBody_step3 = BRepOffsetAPI_MakeThickSolid(myBody_step2.Shape(), facesToRemove, -thickness / 50.0, 0.001)
 
 # Set up our surfaces for the threading on the neck
 neckAx2_Ax3 = gp_Ax3(neckLocation, gp_DZ())
@@ -207,7 +201,7 @@ myThreading = aTool.Shape()
 bottle = TopoDS_Compound()
 aBuilder = BRep_Builder()
 aBuilder.MakeCompound(bottle)
-aBuilder.Add(bottle, myBody.Shape())
+aBuilder.Add(bottle, myBody_step3.Shape())
 aBuilder.Add(bottle, myThreading)
 print("bottle finished")
 
