@@ -29,7 +29,6 @@ def Thicken_spline(event=None):
     circle.SetLocation(array[0])
     circle_Edge = BRepBuilderAPI_MakeEdge(circle).Edge()
     circle_Wire = BRepBuilderAPI_MakeWire(circle_Edge).Wire()
-    
     # Creation of the law to dictate the evolution of the profile
     brep1  =BRepOffsetAPI_MakePipeShell(Bz_curv_Wire)
     Law_f = Law_Linear()
