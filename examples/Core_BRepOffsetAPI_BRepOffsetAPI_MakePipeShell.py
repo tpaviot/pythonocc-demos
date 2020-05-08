@@ -1,20 +1,10 @@
-import sys
-from OCC.Core.gp import *
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_Pnt, gp_Circ
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipeShell
-from OCC.Display.SimpleGui import * 
-from OCC.Core.gp import gp_Pnt, gp_Circ  
 from OCC.Core.Geom import Geom_BezierCurve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
-from OCC.Core.TColgp import TColgp_HArray1OfPnt2d, TColgp_Array1OfPnt
-from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipe
+from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.Law import Law_Linear
-
-
-def exit(event=None):
-    sys.exit()
-
+from OCC.Core.gp import *
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
@@ -56,6 +46,4 @@ if __name__ == '__main__':
     display.DisplayShape(Thicken_spline())
 
     start_display()
-
-
 
