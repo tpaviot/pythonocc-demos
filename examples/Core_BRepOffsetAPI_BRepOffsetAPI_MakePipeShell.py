@@ -4,7 +4,7 @@ from OCC.Core.Geom import Geom_BezierCurve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
 from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.Law import Law_Linear
-from OCC.Core.gp import *
+from OCC.Core.gp import gp_Circ, gp_Pnt, gp_ZOX
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
@@ -46,4 +46,6 @@ if __name__ == '__main__':
     display.DisplayShape(Thicken_spline())
 
     start_display()
+
+
 
