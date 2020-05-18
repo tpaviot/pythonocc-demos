@@ -61,10 +61,21 @@ for face in expl.faces():
         print(vknots.Value(i + 1), end=" ")
     print("\n")
     # weights, a 2d array
-    print("Weights:", end="")
     weights = bsrf.Weights()
-    for i in range(bsrf.NbUKnots()):
-        for j in range(bsrf.NbVKnots()):
-            print(weights.Value(i + 1, j + 1), end=" ")
+    # weights can be None
+    if weights is not None:
+        print("Weights:", end="")
+        for i in range(bsrf.NbUKnots()):
+            for j in range(bsrf.NbVKnots()):
+                print(weights.Value(i + 1, j + 1), end=" ")
+    # control points (aka poles), as a 2d array
+    poles = bsrf.Poles()
+    # weights can be None
+    if poles is not None:
+        print("Poles (control points):", end="")
+        for i in range(bsrf.NbUPoles()):
+            for j in range(bsrf.NbVPoles()):
+                p = poles.Value(i + 1, j + 1)
+                print(p.X(), p.Y(), p.Z(), end=" ")
     print()
     fc_idx += 1
