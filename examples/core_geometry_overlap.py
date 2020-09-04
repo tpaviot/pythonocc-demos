@@ -44,7 +44,7 @@ tolerance = 0.1
 isect_test = BRepExtrema_ShapeProximity(box1, box2, tolerance)
 isect_test.Perform()
 
-# Get intersect faces from Shape1
+# Get intersecting faces from Shape1
 overlaps1 = isect_test.OverlapSubShapes1()
 face_indices1 = overlaps1.Keys()
 shape_1_faces = []
@@ -52,7 +52,7 @@ for ind in face_indices1:
     face = isect_test.GetSubShape1(ind)
     shape_1_faces.append(face)
 
-# Get intersect faces from Shape2
+# Get intersecting faces from Shape2
 overlaps2 = isect_test.OverlapSubShapes2()
 face_indices2 = overlaps2.Keys()
 shape_2_faces = []
@@ -60,7 +60,7 @@ for ind in face_indices2:
     face = isect_test.GetSubShape2(ind)
     shape_2_faces.append(face)
 
-# display bothe boxes and intersect faces, in RED
+# display both boxes and intersecting faces, in RED
 display.DisplayShape(box1, transparency=0.5)
 display.DisplayShape(box2, transparency=0.5)
 display.DisplayShape(shape_1_faces + shape_2_faces, color='RED')

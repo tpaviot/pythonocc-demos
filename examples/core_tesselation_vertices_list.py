@@ -27,7 +27,7 @@ except ImportError:
 # create the shape
 box_s = BRepPrimAPI_MakeBox(10, 20, 30).Shape()
 
-# compute the tesselation
+# compute the tessellation
 tess = ShapeTesselator(box_s)
 tess.Compute()
 
@@ -47,7 +47,7 @@ if number_of_triangles * 9 != number_of_vertices:
 normals = tess.GetNormalsAsTuple()
 number_of_normals = len(normals)
 if not number_of_normals == number_of_vertices:
-	raise AssertionError("wrong number of normals returned by the tesselator")
+	raise AssertionError("wrong number of normals returned by the tessellator")
 
 # if HAVE_NUMPY, we try to reshape the tuple so that it is of
 # a ndarray such as [[x1, y1, z1], [x2, y2, z2], ...]

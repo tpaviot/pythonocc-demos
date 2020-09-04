@@ -27,7 +27,7 @@ from OCC.Display.SimpleGui import init_display
 
 class InheritEdge(TopoDS_Edge):
     def __init__(self, edge):
-        # following constructor creates an empy TopoDS_Edge
+        # following constructor creates an empty TopoDS_Edge
         super(InheritEdge, self).__init__()
         # we need to copy the base shape using the following three lines
         print(self.IsNull())

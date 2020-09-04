@@ -28,7 +28,7 @@ sphere = BRepPrimAPI_MakeSphere(orig, 50.).Solid()
 
 # be careful that the following scale numbers are "not too big",
 # otherwise boolean operations can be buggy
-# see isue
+# see issue
 a1 = 17.1
 a2 = 17.1
 a3 = 3.5

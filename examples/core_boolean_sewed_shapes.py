@@ -32,7 +32,7 @@ def MakeSolidFromShell(shell):
 
 
 def make_face_from_4_points(pnt1, pnt2, pnt3, pnt4):
-    # frist create a closed polygon
+    # first create a closed polygon
     poly = BRepBuilderAPI_MakePolygon(pnt1, pnt2, pnt3, pnt4, True).Wire()
     # then build the face from the closed wire
     return BRepBuilderAPI_MakeFace(poly).Face()

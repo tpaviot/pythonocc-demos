@@ -52,7 +52,7 @@ def project_point_on_curve():
     pstring = "N : at Distance : %f" % projection.LowerDistance()
     display.DisplayMessage(projected_point, pstring)
 
-    # thre maybe many different possible solutions
+    # there maybe many different possible solutions
     if nb_results > 0:
         for i in range(1, nb_results+1):
             Q = projection.Point(i)
