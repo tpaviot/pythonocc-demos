@@ -99,7 +99,7 @@ def heightmap_from_image(event=None):
     this example requires numpy/matplotlib
     """
     print("opening image")
-    heightmap = Image.open('images/mountain_heightmap.jpg')
+    heightmap = Image.open('../assets/images/mountain_heightmap.jpg')
     heightmap.show()
     width = heightmap.size[0]
     height = heightmap.size[1]
