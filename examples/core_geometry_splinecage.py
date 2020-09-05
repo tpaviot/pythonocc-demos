@@ -65,17 +65,17 @@ def divide_edge_by_nr_of_points(edg, n_pts):
         return tmp
 
 
-def hash_edge_lenght_to_face(faces):
+def hash_edge_length_to_face(faces):
     """
     for every edge in the list `faces`
 
         loop through the edges of the face
-        associate (hash) the edge lenght to point to the face
+        associate (hash) the edge length to point to the face
 
 
     :note: this approach would blow less if you use a tuple ( length, edge-mid-point )
 
-    the TopoDS_Edge entitiy has a HashCode method
+    the TopoDS_Edge entity has a HashCode method
     that might be actually a proper idea
 
     :param faces:
@@ -110,7 +110,7 @@ def build_curve_network(event=None, enforce_tangency=True):
 
     # loop through the imported faces
     # associate the length of each of the faces edges to the corresponding face
-    _edge_length_to_face, _edge_length_to_edge = hash_edge_lenght_to_face(tangent_constraint_faces)
+    _edge_length_to_face, _edge_length_to_edge = hash_edge_length_to_face(tangent_constraint_faces)
 
     # loop through the imported curves, avoiding the imported faces
     # when we've got these filtered out, we retrieved the geometry to build the surface from

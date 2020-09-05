@@ -32,7 +32,7 @@ print("Box (10,10,10) dump:\n", box_dump_string)
 
 # this string can, of course, be saved to a file
 
-#Create another box from the dump
+# Create another box from the dump
 box2 = pickle.loads(box_dump_string)
 assert(not box2.IsNull())
-print("Box sucessfully loaded.")
+print("Box successfully loaded.")

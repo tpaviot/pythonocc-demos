@@ -89,7 +89,7 @@ def run(n_procs, compare_by_number_of_processors=False):
                 _str_slices.append(':'+str(i*n)+' ')
             elif i == n_procs:
                 # does a little extra work if the number of slices
-                # isnt divisible by n_procs
+                # isn't divisible by n_procs
                 slices.append(z_slices[(i-1)*n:])
                 _str_slices.append(str((i-1)*n)+': ')
                 print('last slice', len(z_slices[(i-1)*n:]))
