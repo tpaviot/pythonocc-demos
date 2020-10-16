@@ -35,4 +35,4 @@ write_stl_file(my_torus, stl_low_resolution_file)
 # then we change the mesh resolution, and export as binary
 stl_high_resolution_file = os.path.join(stl_output_dir, "torus_high_resolution.stl")
 # we set the format to binary
-write_stl_file(my_torus, stl_low_resolution_file, mode="binary", linear_deflection=0.5, angular_deflection=0.3)
+write_stl_file(my_torus, stl_high_resolution_file, mode="binary", linear_deflection=0.5, angular_deflection=0.3)
