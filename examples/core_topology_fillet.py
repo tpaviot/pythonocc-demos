@@ -29,6 +29,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def fillet(event=None):
+    display.EraseAll()
     box = BRepPrimAPI_MakeBox(gp_Pnt(-400, 0, 0), 200, 230, 180).Shape()
     fillet = BRepFilletAPI_MakeFillet(box)
     # Add fillet on each edge
@@ -53,47 +54,50 @@ def fillet(event=None):
 
     blended_fused_solids = fill.Shape()
 
-    display.EraseAll()
     display.DisplayShape(blended_box)
-    display.DisplayShape(blended_fused_solids)
-    display.FitAll()
+    display.DisplayShape(blended_fused_solids, update=True)
 
 
-def variable_filleting(event=None):
+def rake(event=None):
     display.EraseAll()
     # Create Box
     box = BRepPrimAPI_MakeBox(200, 200, 200).Shape()
     # Fillet
     rake = BRepFilletAPI_MakeFillet(box)
-    expl = TopologyExplorer(box).edges()
-    next(expl)
-    next(expl)
-    next(expl)
+    expl = list(TopologyExplorer(box).edges())
 
-    rake.Add(8, 50, next(expl))
+    rake.Add(8, 50, expl[3])
     rake.Build()
     if rake.IsDone():
         evolved_box = rake.Shape()
-        display.DisplayShape(evolved_box)
+        display.DisplayShape(evolved_box, update=True)
     else:
         print("Rake not done.")
+
+
+def fillet_cylinder(event=None):
+    display.EraseAll()
     # Create Cylinder
     cylinder = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(-300, 0, 0), gp_Dir(0, 0, 1)), 100, 200).Shape()
     fillet = BRepFilletAPI_MakeFillet(cylinder)
-
+    display.DisplayShape(cylinder, update=True)
     tab_point_2 = TColgp_Array1OfPnt2d(0, 20)
     for i in range(0, 20):
         point_2d = gp_Pnt2d(i * 2 * pi / 19, 60 * cos(i * pi / 19 - pi / 2) + 10)
         tab_point_2.SetValue(i, point_2d)
+        display.DisplayShape(point_2d)
 
     expl2 = TopologyExplorer(cylinder).edges()
     fillet.Add(tab_point_2, next(expl2))
     fillet.Build()
     if fillet.IsDone():
         law_evolved_cylinder = fillet.Shape()
-        display.DisplayShape(law_evolved_cylinder)
+        display.DisplayShape(law_evolved_cylinder, update=True)
     else:
         print("fillet not done.")
+
+
+def variable_filleting(event=None):
     a_pnt = gp_Pnt(350, 0, 0)
     box_2 = BRepPrimAPI_MakeBox(a_pnt, 200, 200, 200).Shape()
     a_fillet = BRepFilletAPI_MakeFillet(box_2)
@@ -112,12 +116,9 @@ def variable_filleting(event=None):
     tab_point.SetValue(5, p_5)
     tab_point.SetValue(6, p_6)
 
-    expl3 = TopologyExplorer(box_2).edges()
-    next(expl3)
-    next(expl3)
-    next(expl3)
+    expl3 = list(TopologyExplorer(box_2).edges())
 
-    a_fillet.Add(tab_point, next(expl3))
+    a_fillet.Add(tab_point, expl3[9])
     a_fillet.Build()
     if a_fillet.IsDone():
         law_evolved_box = a_fillet.Shape()
@@ -134,6 +135,8 @@ def exit(event=None):
 if __name__ == '__main__':
     add_menu('topology fillet operations')
     add_function_to_menu('topology fillet operations', fillet)
+    add_function_to_menu('topology fillet operations', rake)
     add_function_to_menu('topology fillet operations', variable_filleting)
+    add_function_to_menu('topology fillet operations', fillet_cylinder)
     add_function_to_menu('topology fillet operations', exit)
     start_display()
