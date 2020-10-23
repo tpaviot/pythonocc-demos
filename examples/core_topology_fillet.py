@@ -29,100 +29,99 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def fillet(event=None):
-    Box = BRepPrimAPI_MakeBox(gp_Pnt(-400, 0, 0), 200, 230, 180).Shape()
-    fillet_ = BRepFilletAPI_MakeFillet(Box)
+    box = BRepPrimAPI_MakeBox(gp_Pnt(-400, 0, 0), 200, 230, 180).Shape()
+    fillet = BRepFilletAPI_MakeFillet(box)
     # Add fillet on each edge
-    for e in TopologyExplorer(Box).edges():
-        fillet_.Add(20, e)
+    for e in TopologyExplorer(box).edges():
+        fillet.Add(20, e)
 
-    blendedBox = fillet_.Shape()
+    blended_box = fillet.Shape()
 
-    P1 = gp_Pnt(250, 150, 75)
-    S1 = BRepPrimAPI_MakeBox(300, 200, 200).Shape()
-    S2 = BRepPrimAPI_MakeBox(P1, 120, 180, 70).Shape()
-    Fuse = BRepAlgoAPI_Fuse(S1, S2)
-    FusedShape = Fuse.Shape()
+    p_1 = gp_Pnt(250, 150, 75)
+    s_1 = BRepPrimAPI_MakeBox(300, 200, 200).Shape()
+    s_2 = BRepPrimAPI_MakeBox(p_1, 120, 180, 70).Shape()
+    fused_shape = BRepAlgoAPI_Fuse(s_1, s_2).Shape()
 
-    fill = BRepFilletAPI_MakeFillet(FusedShape)
-    for e in TopologyExplorer(FusedShape).edges():
+    fill = BRepFilletAPI_MakeFillet(fused_shape)
+    for e in TopologyExplorer(fused_shape).edges():
         fill.Add(e)
 
     for i in range(1, fill.NbContours() + 1):
         length = fill.Length(i)
-        Rad = 0.15 * length
-        fill.SetRadius(Rad, i, 1)
+        radius = 0.15 * length
+        fill.SetRadius(radius, i, 1)
 
-    blendedFusedSolids = fill.Shape()
+    blended_fused_solids = fill.Shape()
 
     display.EraseAll()
-    display.DisplayShape(blendedBox)
-    display.DisplayShape(blendedFusedSolids)
+    display.DisplayShape(blended_box)
+    display.DisplayShape(blended_fused_solids)
     display.FitAll()
 
 
 def variable_filleting(event=None):
     display.EraseAll()
     # Create Box
-    Box = BRepPrimAPI_MakeBox(200, 200, 200).Shape()
+    box = BRepPrimAPI_MakeBox(200, 200, 200).Shape()
     # Fillet
-    Rake = BRepFilletAPI_MakeFillet(Box)
-    ex = TopologyExplorer(Box).edges()
-    next(ex)
-    next(ex)
-    next(ex)
+    rake = BRepFilletAPI_MakeFillet(box)
+    expl = TopologyExplorer(box).edges()
+    next(expl)
+    next(expl)
+    next(expl)
 
-    Rake.Add(8, 50, next(ex))
-    Rake.Build()
-    if Rake.IsDone():
-        evolvedBox = Rake.Shape()
-        display.DisplayShape(evolvedBox)
+    rake.Add(8, 50, next(expl))
+    rake.Build()
+    if rake.IsDone():
+        evolved_box = rake.Shape()
+        display.DisplayShape(evolved_box)
     else:
         print("Rake not done.")
     # Create Cylinder
-    Cylinder = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(-300, 0, 0), gp_Dir(0, 0, 1)), 100, 200).Shape()
-    fillet_ = BRepFilletAPI_MakeFillet(Cylinder)
+    cylinder = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(-300, 0, 0), gp_Dir(0, 0, 1)), 100, 200).Shape()
+    fillet = BRepFilletAPI_MakeFillet(cylinder)
 
-    TabPoint2 = TColgp_Array1OfPnt2d(0, 20)
+    tab_point_2 = TColgp_Array1OfPnt2d(0, 20)
     for i in range(0, 20):
-        Point2d = gp_Pnt2d(i * 2 * pi / 19, 60 * cos(i * pi / 19 - pi / 2) + 10)
-        TabPoint2.SetValue(i, Point2d)
+        point_2d = gp_Pnt2d(i * 2 * pi / 19, 60 * cos(i * pi / 19 - pi / 2) + 10)
+        tab_point_2.SetValue(i, point_2d)
 
-    exp2 = TopologyExplorer(Cylinder).edges()
-    fillet_.Add(TabPoint2, next(exp2))
-    fillet_.Build()
-    if fillet_.IsDone():
-        LawEvolvedCylinder = fillet_.Shape()
-        display.DisplayShape(LawEvolvedCylinder)
+    expl2 = TopologyExplorer(cylinder).edges()
+    fillet.Add(tab_point_2, next(expl2))
+    fillet.Build()
+    if fillet.IsDone():
+        law_evolved_cylinder = fillet.Shape()
+        display.DisplayShape(law_evolved_cylinder)
     else:
-        print("fillet not done.")  ## TODO : fillet not done
-    P = gp_Pnt(350, 0, 0)
-    Box2 = BRepPrimAPI_MakeBox(P, 200, 200, 200).Shape()
-    afillet = BRepFilletAPI_MakeFillet(Box2)
+        print("fillet not done.")
+    a_pnt = gp_Pnt(350, 0, 0)
+    box_2 = BRepPrimAPI_MakeBox(a_pnt, 200, 200, 200).Shape()
+    a_fillet = BRepFilletAPI_MakeFillet(box_2)
 
-    TabPoint = TColgp_Array1OfPnt2d(1, 6)
-    P1 = gp_Pnt2d(0., 8.)
-    P2 = gp_Pnt2d(0.2, 16.)
-    P3 = gp_Pnt2d(0.4, 25.)
-    P4 = gp_Pnt2d(0.6, 55.)
-    P5 = gp_Pnt2d(0.8, 28.)
-    P6 = gp_Pnt2d(1., 20.)
-    TabPoint.SetValue(1, P1)
-    TabPoint.SetValue(2, P2)
-    TabPoint.SetValue(3, P3)
-    TabPoint.SetValue(4, P4)
-    TabPoint.SetValue(5, P5)
-    TabPoint.SetValue(6, P6)
+    tab_point = TColgp_Array1OfPnt2d(1, 6)
+    p_1 = gp_Pnt2d(0., 8.)
+    p_2 = gp_Pnt2d(0.2, 16.)
+    p_3 = gp_Pnt2d(0.4, 25.)
+    p_4 = gp_Pnt2d(0.6, 55.)
+    p_5 = gp_Pnt2d(0.8, 28.)
+    p_6 = gp_Pnt2d(1., 20.)
+    tab_point.SetValue(1, p_1)
+    tab_point.SetValue(2, p_2)
+    tab_point.SetValue(3, p_3)
+    tab_point.SetValue(4, p_4)
+    tab_point.SetValue(5, p_5)
+    tab_point.SetValue(6, p_6)
 
-    exp = TopologyExplorer(Box2).edges()
-    next(exp)
-    next(exp)
-    next(exp)
+    expl3 = TopologyExplorer(box_2).edges()
+    next(expl3)
+    next(expl3)
+    next(expl3)
 
-    afillet.Add(TabPoint, next(exp))
-    afillet.Build()
-    if afillet.IsDone():
-        LawEvolvedBox = afillet.Shape()
-        display.DisplayShape(LawEvolvedBox)
+    a_fillet.Add(tab_point, next(expl3))
+    a_fillet.Build()
+    if a_fillet.IsDone():
+        law_evolved_box = a_fillet.Shape()
+        display.DisplayShape(law_evolved_box)
     else:
         print("aFillet not done.")
     display.FitAll()
