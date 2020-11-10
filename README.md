@@ -7,10 +7,10 @@ Some pythonocc related code snippets, examples, jupter notebooks etc.
 
 Requirements :
 
-* pythonocc-core 7.4.0
+* pythonocc-core 7.4.1
 
 ````
-conda install -c conda-forge pythonocc-core=7.4.0
+conda install -c conda-forge pythonocc-core=7.4.1
 ````
 
 * jupyter if you want to test the jupyter notebooks, as well as pythreejs.
