@@ -23,7 +23,7 @@ from OCC.Core.Graphic3d import Graphic3d_NOM_PLASTIC, Graphic3d_NOM_ALUMINIUM
 from OCC.Core.V3d import V3d_SpotLight, V3d_XnegYnegZpos
 from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_WHITE, Quantity_NOC_CORAL2, Quantity_NOC_BROWN
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.Core.gp import gp_Vec
+from OCC.Core.gp import gp_Vec, gp_Pnt
 
 from OCC.Extend.ShapeFactory import translate_shp
 
@@ -39,7 +39,7 @@ translated_glass = translate_shp(glass, gp_Vec(-30, -30, 0))
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # create one spotlight
-spot_light = V3d_SpotLight(display.Viewer, -100, -100, 100,
+spot_light = V3d_SpotLight(gp_Pnt(-100, -100, 100),
                            V3d_XnegYnegZpos, Quantity_Color(Quantity_NOC_WHITE))
 ## display the spotlight in rasterized mode
 display.Viewer.AddLight(spot_light)
