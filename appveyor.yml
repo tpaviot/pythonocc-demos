@@ -1,4 +1,4 @@
-version: pythonocc-demos-7.4.1-dev.{build}
+version: pythonocc-demos-7.5.1.{build}
 
 environment:
 
@@ -12,30 +12,24 @@ environment:
     PYTHONIOENCODING: "UTF-8"
 
   matrix:
-    - PYTHON: "C:\\Python36_32"
-      PYTHON_VERSION: "3.6"
-      PYTHON_ARCH: "32"
-      CONDA_PY: "36"
-      CONDA_NPY: "18"
-      CONDA_INSTALL_LOCN: "C:\\Miniconda36"
-    - PYTHON: "C:\\Python36_64"
-      PYTHON_VERSION: "3.6"
-      PYTHON_ARCH: "64"
-      CONDA_PY: "36"
-      CONDA_NPY: "18"
-      CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
-    - PYTHON: "C:\\Python37_32"
-      PYTHON_VERSION: "3.7"
-      PYTHON_ARCH: "32"
-      CONDA_PY: "37"
-      CONDA_NPY: "18"
-      CONDA_INSTALL_LOCN: "C:\\Miniconda37"
     - PYTHON: "C:\\Python37_64"
       PYTHON_VERSION: "3.7"
       PYTHON_ARCH: "64"
       CONDA_PY: "37"
       CONDA_NPY: "18"
       CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
+    - PYTHON: "C:\\Python38_64"
+      PYTHON_VERSION: "3.8"
+      PYTHON_ARCH: "64"
+      CONDA_PY: "38"
+      CONDA_NPY: "18"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda38-x64"
+    - PYTHON: "C:\\Python39_64"
+      PYTHON_VERSION: "3.9"
+      PYTHON_ARCH: "64"
+      CONDA_PY: "39"
+      CONDA_NPY: "18"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda39-x64"
 
 # We always use a 64-bit machine, but can build x86 distributions
 # with the TARGET_ARCH variable (which is used by CMD_IN_ENV).
@@ -63,7 +57,7 @@ install:
     - cmd: conda config --set show_channel_urls true
     - cmd: conda config --add channels https://conda.anaconda.org/dlr-sc
     - cmd: conda config --add channels https://conda.anaconda.org/tpaviot
-    - cmd: conda install -c tpaviot pythonocc-core==7.4.1
+    - cmd: conda install -c conda-forge pythonocc-core==7.5.1
     #- cmd: conda install pyqt
     #- cmd: conda install wxpython
     - cmd: conda install numpy
