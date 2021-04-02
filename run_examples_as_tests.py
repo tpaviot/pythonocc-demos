@@ -17,26 +17,14 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 # look for all example names
 import os
 import glob
 import sys
 import subprocess
-import multiprocessing as mp
 import time
-try:
-    from threading import TIMEOUT_MAX
-except ImportError:
-    TIMEOUT_MAX = 60 * 60 * 24 * 49
-
-def init(args):
-    ''' store the counter for later use '''
-    global failed
-    failed = args
 
 def worker(example_name):
-    global failed
     # += operation is not atomic, so we need to get a lock:
     print("running %s ..." % example_name, end="")
     try:
@@ -44,11 +32,11 @@ def worker(example_name):
                                 stderr=subprocess.STDOUT,
                                 universal_newlines=True)
         print("[passed]")
+        return True
     except subprocess.CalledProcessError as cpe:
         print("%s" % cpe.output)
-        with failed.get_lock():
-            failed.value += 1
         print("[failed]")
+        return False
 
 if __name__ == "__main__":
     init_time = time.time()
@@ -59,7 +47,7 @@ if __name__ == "__main__":
     examples_directory = os.path.join(test_dirname, 'examples')
     os.chdir(examples_directory)
     all_examples_file_names = glob.glob('core_*.py')
-    print(all_examples_file_names)
+
     # some tests have to be excluded from the automatic
     # run. For instance, qt based examples
     tests_to_exclude = ['core_display_signal_slots.py',
@@ -76,20 +64,20 @@ if __name__ == "__main__":
     os.environ["PYTHONOCC_OFFSCREEN_RENDERER_DUMP_IMAGE"] = "1"
     os.environ["PYTHONOCC_SHUNT_WEB_SERVER"] = "1"
 
-    failed = mp.Value('i', 0)
-
-    pool = mp.Pool(initializer = init, initargs = (failed, ))
-    pool.map_async(worker, all_examples_file_names).get(TIMEOUT_MAX)
-    pool.close()
-    pool.join()
+    # loop over each example
+    failed = 0
+    for example_file_name in all_examples_file_names:
+        test_result = worker(example_file_name)
+        if not test_result:
+            failed += 1
 
     print("Test examples results :")
-    print("\t %i/%i tests passed" % ((nbr_examples - failed.value), nbr_examples))
+    print("\t %i/%i tests passed" % ((nbr_examples - failed), nbr_examples))
+
+    if failed > 0:
+        print("%i tests failed" % failed)
+
+    print("Total time to run all examples: %fs" %(time.time() - init_time))
 
     del os.environ["PYTHONOCC_OFFSCREEN_RENDERER"]
     del os.environ["PYTHONOCC_SHUNT_WEB_SERVER"]
-
-    if failed.value > 0:
-        print("%i tests failed" % (failed.value))
-
-    print("Total time to run all examples: %fs" %(time.time() - init_time))
