@@ -18,7 +18,8 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.gp import gp_Dir, gp_Ax2, gp_Circ, gp_Pnt
-from OCC.Core.AIS import AIS_Shape, AIS_RadiusDimension
+from OCC.Core.AIS import AIS_Shape
+from OCC.Core.PrsDim import PrsDim_RadiusDimension
 from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_BLACK
 from OCC.Core.Prs3d import Prs3d_DimensionAspect
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
@@ -31,7 +32,7 @@ ec = BRepBuilderAPI_MakeEdge(c).Edge()
 ais_shp = AIS_Shape(ec)
 display.Context.Display(ais_shp, True)
 
-rd = AIS_RadiusDimension(ec)
+rd = PrsDim_RadiusDimension(ec)
 the_aspect = Prs3d_DimensionAspect()
 the_aspect.SetCommonColor(Quantity_Color(Quantity_NOC_BLACK))
 rd.SetDimensionAspect(the_aspect)
