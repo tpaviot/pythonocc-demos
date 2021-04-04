@@ -23,9 +23,9 @@
 #
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.Prs3d import Prs3d_Drawer
 from OCC.Display.SimpleGui import init_display
 display, start_display, add_menu, add_function_to_menu = init_display()
-
 
 #
 # Get Context
@@ -34,28 +34,30 @@ ais_context = display.GetContext()
 #
 # Display current quality
 dc = ais_context.DeviationCoefficient()
-dc_hlr = ais_context.HLRDeviationCoefficient()
 da = ais_context.DeviationAngle()
-da_hlr = ais_context.HLRAngle()
-print("Default display quality settings:")
+print("Default AISInteractiveContext display quality settings:")
 print("Deviation Coefficient: %f" % dc)
-print("Deviation Coefficient Hidden Line Removal: %f" % dc_hlr)
 print("Deviation Angle: %f" % da)
-print("Deviation Angle Hidden Line Removal: %f" % da_hlr)
 #
 # Improve quality by a factor 10
 #
-factor = 20
-ais_context.SetDeviationCoefficient(dc/factor)
-ais_context.SetDeviationAngle(da/factor)
-ais_context.SetHLRDeviationCoefficient(dc_hlr/factor)
-ais_context.SetHLRAngle(da_hlr/factor)
+factor = 10
+ais_context.SetDeviationCoefficient(dc / factor)
+ais_context.SetDeviationAngle(da / factor)
+
 print("Quality display improved by a factor {0}".format(factor))
 #
 # Displays a cylinder
 #
 s = BRepPrimAPI_MakeCylinder(50., 50.).Shape()
-display.DisplayShape(s)
+ais_shp = display.DisplayShape(s)[0]
+
+drawer = Prs3d_Drawer()
+da_hlr = drawer.HLRAngle()
+print("Deviation Angle Hidden Line Removal: %f" % da_hlr)
+drawer.SetHLRAngle(da_hlr / factor)
+ais_shp.SetAttributes(drawer)
+
 #
 # Display settings and display loop
 #
