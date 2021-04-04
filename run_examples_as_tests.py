@@ -79,5 +79,6 @@ if __name__ == "__main__":
 
     print("Total time to run all examples: %fs" %(time.time() - init_time))
 
-    del os.environ["PYTHONOCC_OFFSCREEN_RENDERER"]
-    del os.environ["PYTHONOCC_SHUNT_WEB_SERVER"]
+    # if failed, exit with error
+    if failed > 0:
+        sys.exit(1)
