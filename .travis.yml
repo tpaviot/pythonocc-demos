@@ -13,13 +13,17 @@ services:
 jobs:
   include:
 # Linux
-    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
     - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
+    - env: PYTHON="3.8" CONDA_PY=38 ARCH="x86_64"
+    - env: PYTHON="3.9" CONDA_PY=39 ARCH="x86_64"
 # OSX
-    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
       os: osx
       osx_image: xcode9.4
-    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
+    - env: PYTHON="3.8" CONDA_PY=38 ARCH="x86_64"
+      os: osx
+      osx_image: xcode9.4
+    - env: PYTHON="3.9" CONDA_PY=39 ARCH="x86_64"
       os: osx
       osx_image: xcode9.4
 # Windows
@@ -53,15 +57,14 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  # download/install OCE from DLR-SC channel
-  - conda config --add channels https://conda.anaconda.org/dlr-sc
   # create a test environment
   - conda create -n test_pythonocc python=$PYTHON
   # switch to this environment
   - source activate test_pythonocc
-  - conda install -c tpaviot pythonocc-core=7.4.0
+  - conda install -c conda-forge pythonocc-core=7.5.1
   - conda install pyqt
   - conda install numpy
 
 script:
+  - python -c "import OCC.Core.gp"
   - sh run_examples.sh
