@@ -101,11 +101,6 @@ def build_curve_network(event=None, enforce_tangency=True):
     root_compound_shape = read_step_file("../assets/models/splinecage.stp")
     topology_explorer = TopologyExplorer(root_compound_shape)
 
-    # approximate the hell out of all surfaces and curves
-    # I wanna see it in its full glory
-    display.Context.SetDeviationAngle(0.00001)  # 0.001 -> default
-    display.Context.SetDeviationCoefficient(0.0001)  # 0.001 -> default
-
     tangent_constraint_faces = [f for f in topology_explorer.faces()]
 
     # loop through the imported faces
@@ -132,10 +127,10 @@ def build_curve_network(event=None, enforce_tangency=True):
     brep_plate_builder = BRepOffsetAPI_MakeFilling()
 
     if enforce_tangency:
-        print("going for surface quality")
-        brep_plate_builder.SetConstrParam(0.0001, 0.001, 0.01, 0.01) # ?!!! Tol2d=1.0, Tol3d=1.0, TolAng=1.0, TolCurv=1.0
+        print('going for surface quality...')
+        brep_plate_builder.SetConstrParam(0.0001, 0.001, 0.01, 0.01) # Tol2d=1.0, Tol3d=1.0, TolAng=1.0, TolCurv=1.0
         brep_plate_builder.SetApproxParam(8, 240) # MaxDeg=8, MaxSegments=9
-        brep_plate_builder.SetResolParam(3, 64, 3) # Degree=3, NbPtsOnCur=15, NbIter=2, Anisotropie=0
+        print('done.')
     else:
         print("quick and dirty")
 
@@ -144,30 +139,21 @@ def build_curve_network(event=None, enforce_tangency=True):
         display.DisplayShape(i, color=random_color())
         constraint_edg, support_face = i
         if constraint_edg.IsNull() or support_face.IsNull():
-            print("OMG null")
+            print("Edge of face is null")
         brep_plate_builder.Add(constraint_edg, support_face, GeomAbs_G1)
 
-    # not entirely sure why this fails... how is that different from adding from points?
-    # for e in edges_no_adjacent_face:
-    #     brep_plate_builder.Add(e, GeomAbs_C0)
-
-    # libc++abi.dylib: terminating with uncaught exception of type Standard_OutOfRange
     for e in edges_no_adjacent_face:
         display.DisplayShape(e)
         for pt in divide_edge_by_nr_of_points(e, 12)[2:-2]:
             brep_plate_builder.Add(pt[1])
 
     brep_plate_builder.Build()
+
     if brep_plate_builder.IsDone():
         face = brep_plate_builder.Shape()
         display.DisplayColoredShape(face, "ORANGE")
     else:
         print("constructing the surface failed")
-
-    #export_fname = os.path.join(pth, fname + "_pyocc_face.stp")
-    #step_export = STEPExporter(export_fname)
-    #step_export.add_shape(face)
-    #step_export.write_file()
 
 
 if __name__ == "__main__":
