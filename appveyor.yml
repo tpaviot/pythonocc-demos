@@ -15,7 +15,8 @@ install:
     - cmd: conda create -n testenv python="%PYTHON_VERSION%"
     - cmd: activate testenv
     - cmd: conda install -c conda-forge pythonocc-core==7.5.1
-    - cmd: conda install numpy
+    - cmd: conda install numpy pip
+    - cmd: pip install PyQt5
 
 build: off
 
