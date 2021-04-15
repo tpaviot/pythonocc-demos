@@ -21,10 +21,8 @@
 # Explanations for this script can be found at
 # http://pythonocc.wordpress.com/2013/04/01/using-external-airfoil-data-to-create-a-solid-wing/
 #
-try:
-    import urllib.request as urllib2  # Python3
-except ImportError:
-    import urllib2  # Python2
+import ssl
+import urllib.request as urllib2
 
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism
@@ -50,6 +48,8 @@ class UiucAirfoil(object):
     def make_shape(self):
         # 1 - retrieve the data from the UIUC airfoil data page
         foil_dat_url = 'http://m-selig.ae.illinois.edu/ads/coord_seligFmt/%s.dat' % self.profile
+        # explicitly tell to not use ssl verification
+        ssl._create_default_https_context = ssl._create_unverified_context
         print("Connecting to m-selig, retrieving foil data")
         f = urllib2.urlopen(foil_dat_url)
         print("Building foil geometry")
