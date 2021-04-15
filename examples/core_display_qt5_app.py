@@ -1,5 +1,6 @@
 ##Author github user @Tanneguydv, 2021
 
+import os
 import sys
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
@@ -62,4 +63,5 @@ class App(QDialog):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    sys.exit(app.exec_())
+    if os.getenv('APPVEYOR') is None:
+        sys.exit(app.exec_())
