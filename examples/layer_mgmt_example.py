@@ -42,7 +42,7 @@ layer3 = Layer(display, box2, 76)
 layer3.add(box3)
 layer3.add(box6)
 
-layer3.join(layer1, True)
+layer3.merge(layer1, True)
 layer3.show()
 layer3_shapes = layer3.get_shapes()
 layer4 = Layer(display, color=32)
