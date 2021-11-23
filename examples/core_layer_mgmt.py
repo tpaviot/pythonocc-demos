@@ -19,7 +19,7 @@ from OCC.Display.SimpleGui import init_display
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Trsf
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
-from OCC.Extend.LayerMgmt import Layer
+from OCC.Extend.LayerManager import Layer
 display,start_display, add_menu,add_functionto_menu = init_display()
 
 box1 = BRepPrimAPI_MakeBox(gp_Pnt(0, 0, 10), 10, 10, 100).Shape()
