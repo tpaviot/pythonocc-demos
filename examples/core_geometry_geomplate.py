@@ -27,8 +27,11 @@ from OCC.Core.BRepFill import BRepFill_CurveConstraint
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GeomAbs import GeomAbs_C0
 from OCC.Core.GeomLProp import GeomLProp_SLProps
-from OCC.Core.GeomPlate import (GeomPlate_BuildPlateSurface, GeomPlate_PointConstraint,
-	                            GeomPlate_MakeApprox)
+from OCC.Core.GeomPlate import (
+    GeomPlate_BuildPlateSurface,
+    GeomPlate_PointConstraint,
+    GeomPlate_MakeApprox,
+)
 from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepFill import BRepFill_Filling
@@ -43,7 +46,7 @@ try:
     HAS_SCIPY = True
     from scipy.optimize import fsolve
 except ImportError:
-    print('scipy not installed, will not be able to run the geomplate example')
+    print("scipy not installed, will not be able to run the geomplate example")
     HAS_SCIPY = False
 
 # TODO:
@@ -99,7 +102,6 @@ def make_closed_polygon(*args):
     return result
 
 
-
 def geom_plate(event=None):
     display.EraseAll()
     p1 = gp_Pnt(0, 0, 0)
@@ -121,11 +123,11 @@ def geom_plate(event=None):
 
 
 def build_plate(polygon, points):
-    '''
+    """
     build a surface from a constraining polygon(s) and point(s)
     @param polygon:     list of polygons ( TopoDS_Shape)
     @param points:      list of points ( gp_Pnt )
-    '''
+    """
     # plate surface
     bpSrf = GeomPlate_BuildPlateSurface(3, 15, 2)
 
@@ -154,41 +156,41 @@ def build_plate(polygon, points):
 
 
 def radius_at_uv(face, u, v):
-    '''
+    """
     returns the mean radius at a u,v coordinate
     @param face:    surface input
     @param u,v:     u,v coordinate
-    '''
+    """
     h_srf = BRep_Tool().Surface(face)
-    #uv_domain = GeomLProp_SurfaceTool().Bounds(h_srf)
+    # uv_domain = GeomLProp_SurfaceTool().Bounds(h_srf)
     curvature = GeomLProp_SLProps(h_srf, u, v, 1, 1e-6)
     try:
-        _crv_min = 1. / curvature.MinCurvature()
+        _crv_min = 1.0 / curvature.MinCurvature()
     except ZeroDivisionError:
-        _crv_min = 0.
+        _crv_min = 0.0
 
     try:
-        _crv_max = 1. / curvature.MaxCurvature()
+        _crv_max = 1.0 / curvature.MaxCurvature()
     except ZeroDivisionError:
-        _crv_max = 0.
-    return abs((_crv_min + _crv_max) / 2.)
+        _crv_max = 0.0
+    return abs((_crv_min + _crv_max) / 2.0)
 
 
 def uv_from_projected_point_on_face(face, pt):
-    '''
+    """
     returns the uv coordinate from a projected point on a face
-    '''
+    """
     srf = BRep_Tool().Surface(face)
     sas = ShapeAnalysis_Surface(srf)
     uv = sas.ValueOfUV(pt, 1e-2)
-    print('distance ', sas.Value(uv).Distance(pt))
+    print("distance ", sas.Value(uv).Distance(pt))
     return uv.Coord()
 
 
-class RadiusConstrainedSurface():
-    '''
+class RadiusConstrainedSurface:
+    """
     returns a surface that has `radius` at `pt`
-    '''
+    """
 
     def __init__(self, display, poly, pnt, targetRadius):
         self.display = display
@@ -198,9 +200,9 @@ class RadiusConstrainedSurface():
         self.plate = self.build_surface()
 
     def build_surface(self):
-        '''
+        """
         builds and renders the plate
-        '''
+        """
         self.plate = build_plate([self.poly], [self.pnt])
         self.display.EraseAll()
         self.display.DisplayShape(self.plate)
@@ -208,10 +210,10 @@ class RadiusConstrainedSurface():
         self.display.DisplayShape(vert, update=True)
 
     def radius(self, z):
-        '''
+        """
         sets the height of the point constraining the plate, returns
         the radius at this point
-        '''
+        """
         if isinstance(z, float):
             self.pnt.SetX(z)
         else:
@@ -219,7 +221,7 @@ class RadiusConstrainedSurface():
         self.build_surface()
         uv = uv_from_projected_point_on_face(self.plate, self.pnt)
         radius = radius_at_uv(self.plate, uv[0], uv[1])
-        print('z: ', z, 'radius: ', radius)
+        print("z: ", z, "radius: ", radius)
         self.curr_radius = radius
         return self.targetRadius - abs(radius)
 
@@ -239,10 +241,10 @@ def solve_radius(event=None):
     p4 = gp_Pnt(0, 0, 10)
     p5 = gp_Pnt(5, 5, 5)
     poly = make_closed_polygon([p1, p2, p3, p4])
-    for i in (0.1, 0.5, 1.5, 2., 3., 0.2):
+    for i in (0.1, 0.5, 1.5, 2.0, 3.0, 0.2):
         rcs = RadiusConstrainedSurface(display, poly, p5, i)
         rcs.solve()
-        print('Goal: %s radius: %s' % (i, rcs.curr_radius))
+        print("Goal: %s radius: %s" % (i, rcs.curr_radius))
         time.sleep(0.1)
 
 
@@ -252,7 +254,7 @@ def build_geom_plate(edges):
     # add curve constraints
     for edg in edges:
         c = BRepAdaptor_HCurve()
-        print('edge:', edg)
+        print("edge:", edg)
         c.ChangeCurve().Initialize(edg)
         constraint = BRepFill_CurveConstraint(c, 0)
         bpSrf.Add(constraint)
@@ -261,7 +263,7 @@ def build_geom_plate(edges):
     try:
         bpSrf.Perform()
     except RuntimeError:
-        print('failed to build the geom plate surface ')
+        print("failed to build the geom plate surface ")
 
     srf = bpSrf.Surface()
     plate = GeomPlate_MakeApprox(srf, 0.01, 10, 5, 0.01, 0, GeomAbs_C0)
@@ -272,23 +274,23 @@ def build_geom_plate(edges):
 
 
 def build_curve_network(event=None):
-    '''
+    """
     mimic the curve network surfacing command from rhino
-    '''
-    print('Importing IGES file...')
-    iges_file = os.path.join('..', 'assets', 'models', 'curve_geom_plate.igs')
+    """
+    print("Importing IGES file...")
+    iges_file = os.path.join("..", "assets", "models", "curve_geom_plate.igs")
     iges = read_iges_file(iges_file)
 
-    print('Building geomplate...')
+    print("Building geomplate...")
     topo = TopologyExplorer(iges)
     edges_list = list(topo.edges())
     face = build_geom_plate(edges_list)
-    print('done.')
+    print("done.")
     display.EraseAll()
     display.DisplayShape(edges_list)
     display.DisplayShape(face)
     display.FitAll()
-    print('Cutting out of edges...')
+    print("Cutting out of edges...")
 
 
 def exit(event=None):
@@ -296,11 +298,11 @@ def exit(event=None):
 
 
 if __name__ == "__main__":
-    add_menu('geom plate')
-    add_function_to_menu('geom plate', geom_plate)
-    add_function_to_menu('geom plate', solve_radius)
-    add_function_to_menu('geom plate', build_curve_network)
-    add_function_to_menu('geom plate', exit)
+    add_menu("geom plate")
+    add_function_to_menu("geom plate", geom_plate)
+    add_function_to_menu("geom plate", solve_radius)
+    add_function_to_menu("geom plate", build_curve_network)
+    add_function_to_menu("geom plate", exit)
 
     build_curve_network()
     start_display()

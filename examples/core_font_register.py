@@ -24,7 +24,7 @@ from OCC.Core.Addons import text_to_brep, register_font, Font_FA_Regular
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # register the Respective font
-register_font(os.path.join('..', 'assets', 'fonts', 'Respective.ttf'))
+register_font(os.path.join("..", "assets", "fonts", "Respective.ttf"))
 
 # Poetry from Paul Verlaine, Chanson d'Automne
 text = """Les sanglots longs
@@ -47,7 +47,7 @@ Deçà, delà,
 Pareil à la
 Feuille morte."""
 ## create a basic string
-arialbold_brep_string = text_to_brep(text, "Respective", Font_FA_Regular, 12., True)
+arialbold_brep_string = text_to_brep(text, "Respective", Font_FA_Regular, 12.0, True)
 
 ## Then display the string
 display.DisplayColoredShape(arialbold_brep_string, update=True)

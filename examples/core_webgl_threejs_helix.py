@@ -27,11 +27,11 @@ from OCC.Display.WebGl import threejs_renderer
 
 # First build a helix
 aCylinder = Geom_CylindricalSurface(gp_Ax3(gp_XOY()), 6.0)
-aLine2d = gp_Lin2d (gp_Pnt2d(0.0, 0.0), gp_Dir2d(1.0, 1.0))
+aLine2d = gp_Lin2d(gp_Pnt2d(0.0, 0.0), gp_Dir2d(1.0, 1.0))
 aSegment = GCE2d_MakeSegment(aLine2d, 0.0, pi * 2.0)
 
 helix_edge = BRepBuilderAPI_MakeEdge(aSegment.Value(), aCylinder, 0.0, 6.0 * pi).Edge()
 
 display = threejs_renderer.ThreejsRenderer()
-display.DisplayShape(helix_edge, color=(1, 0, 0), line_width=1.)
+display.DisplayShape(helix_edge, color=(1, 0, 0), line_width=1.0)
 display.render()

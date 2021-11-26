@@ -28,13 +28,14 @@ from OCC.Core.Prs3d import Prs3d_LineAspect, Prs3d_Drawer
 from OCC.Core.Quantity import Quantity_Color
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def line():
     # create a line
-    p1 = gp_Pnt(2., 3., 4.)
-    d1 = gp_Dir(4., 5., 6.)
+    p1 = gp_Pnt(2.0, 3.0, 4.0)
+    d1 = gp_Dir(4.0, 5.0, 6.0)
     line1 = Geom_Line(p1, d1)
 
     ais_line1 = AIS_Line(line1)
@@ -50,8 +51,8 @@ def line():
     display.Context.Display(ais_line1, False)
     # we can apply the same rule for other lines by just doing a for loop
     for i in range(1, 5):
-        p2 = gp_Pnt(i, 2., 5.)
-        d2 = gp_Dir(4*i, 6., 9.)
+        p2 = gp_Pnt(i, 2.0, 5.0)
+        d2 = gp_Dir(4 * i, 6.0, 9.0)
         line2 = Geom_Line(p2, d2)
 
         ais_line2 = AIS_Line(line2)
@@ -59,7 +60,7 @@ def line():
         width = float(i)
         drawer = ais_line2.Attributes()
         # asp : first parameter color, second type, last width
-        asp = Prs3d_LineAspect(Quantity_Color(9*i), i, width)
+        asp = Prs3d_LineAspect(Quantity_Color(9 * i), i, width)
         drawer.SetLineAspect(asp)
         ais_line2.SetAttributes(drawer)
 
@@ -70,5 +71,6 @@ def line():
 def exit(event=None):
     sys.exit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     line()

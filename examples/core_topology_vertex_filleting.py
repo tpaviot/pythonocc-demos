@@ -23,16 +23,21 @@
 from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.TopExp import (TopExp_Explorer,
-                        topexp_MapShapesAndAncestors,
-                        topexp_FirstVertex,
-                        topexp_LastVertex)
+from OCC.Core.TopExp import (
+    TopExp_Explorer,
+    topexp_MapShapesAndAncestors,
+    topexp_FirstVertex,
+    topexp_LastVertex,
+)
 from OCC.Core.TopAbs import TopAbs_VERTEX, TopAbs_EDGE
-from OCC.Core.TopTools import (TopTools_IndexedDataMapOfShapeListOfShape,
-                          TopTools_ListIteratorOfListOfShape)
+from OCC.Core.TopTools import (
+    TopTools_IndexedDataMapOfShapeListOfShape,
+    TopTools_ListIteratorOfListOfShape,
+)
 from OCC.Core.TopoDS import topods_Vertex, topods_Edge
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # create shape
@@ -59,10 +64,14 @@ def vertex_fillet(cube_shp, vert):
         edge = topods_Edge(topology_iterator.Value())
         topology_iterator.Next()
         first, last = topexp_FirstVertex(edge), topexp_LastVertex(edge)
-        vertex, first_vert, last_vert = BRep_Tool().Pnt(vert), BRep_Tool().Pnt(first), BRep_Tool().Pnt(last)
+        vertex, first_vert, last_vert = (
+            BRep_Tool().Pnt(vert),
+            BRep_Tool().Pnt(first),
+            BRep_Tool().Pnt(last),
+        )
         if edge.Orientation():
             if not vertex.IsEqual(first_vert, 0.001):
-                afillet.Add(0, 20., edge)
+                afillet.Add(0, 20.0, edge)
             else:
                 afillet.Add(20, 0, edge)
         cnt += 1
@@ -70,7 +79,8 @@ def vertex_fillet(cube_shp, vert):
     if afillet.IsDone():
         return afillet.Shape()
     else:
-        raise AssertionError('you failed on me you fool!')
+        raise AssertionError("you failed on me you fool!")
+
 
 filleted_vertA = vertex_fillet(cube, vertA)
 

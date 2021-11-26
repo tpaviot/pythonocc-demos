@@ -24,6 +24,7 @@ from OCC.Core.Geom2dAPI import Geom2dAPI_Interpolate, Geom2dAPI_PointsToBSpline
 from OCC.Core.TColgp import TColgp_HArray1OfPnt2d, TColgp_Array1OfPnt2d
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -60,17 +61,18 @@ def bspline():
     anInterpolation2.Perform()
     bspline_3 = anInterpolation2.Curve()
 
-    for j in range(array.Lower(), array.Upper()+1):
+    for j in range(array.Lower(), array.Upper() + 1):
         p = array.Value(j)
         display.DisplayShape(p, update=False)
-    for j in range(harray.Lower(), harray.Upper()+1):
+    for j in range(harray.Lower(), harray.Upper() + 1):
         p = harray.Value(j)
         display.DisplayShape(p, update=False)
 
     display.DisplayShape(bspline_1, update=False)
-    display.DisplayShape(bspline_2, update=False, color='GREEN')
-    display.DisplayShape(bspline_3, update=True, color='BLUE')
+    display.DisplayShape(bspline_2, update=False, color="GREEN")
+    display.DisplayShape(bspline_3, update=True, color="BLUE")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     bspline()
     start_display()

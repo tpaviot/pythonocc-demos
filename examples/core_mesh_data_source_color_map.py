@@ -22,12 +22,17 @@ from OCC.Core.MeshDS import MeshDS_DataSource
 from OCC.Core.RWStl import rwstl_ReadFile
 from OCC.Core.MeshVS import *
 from OCC.Core.Aspect import Aspect_SequenceOfColor
-from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_RED, Quantity_NOC_BLUE1, Quantity_NOC_BLACK
+from OCC.Core.Quantity import (
+    Quantity_Color,
+    Quantity_NOC_RED,
+    Quantity_NOC_BLUE1,
+    Quantity_NOC_BLACK,
+)
 from OCC.Core.TColStd import TColStd_DataMapOfIntegerReal
 
 from OCC.Display.SimpleGui import init_display
 
-stl_filename = os.path.join('..', 'assets', 'models', 'fan.stl')
+stl_filename = os.path.join("..", "assets", "models", "fan.stl")
 
 # read the stl file
 a_stl_mesh = rwstl_ReadFile(stl_filename)
@@ -40,7 +45,9 @@ a_mesh = MeshVS_Mesh()
 a_mesh.SetDataSource(a_data_source)
 
 # assign nodal builder to the mesh
-a_builder = MeshVS_NodalColorPrsBuilder(a_mesh, MeshVS_DMF_NodalColorDataPrs | MeshVS_DMF_OCCMask)
+a_builder = MeshVS_NodalColorPrsBuilder(
+    a_mesh, MeshVS_DMF_NodalColorDataPrs | MeshVS_DMF_OCCMask
+)
 a_builder.UseTexture(True)
 
 # prepare color map
@@ -55,8 +62,8 @@ aScaleMap = TColStd_DataMapOfIntegerReal()
 # an appropriate value to the map
 # color should be from 0. to 1.
 for anId in range(1000):  # TODO use the mesh number of nodes
-	aValue = random.uniform(0, 1)
-	aScaleMap.Bind(anId, aValue)
+    aValue = random.uniform(0, 1)
+    aScaleMap.Bind(anId, aValue)
 
 # pass color map and color scale values to the builder
 a_builder.SetColorMap(aColorMap)

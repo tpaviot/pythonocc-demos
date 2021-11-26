@@ -24,7 +24,9 @@ from OCC.Display.WebGl import threejs_renderer
 
 # opens a big step file
 # render the whole assembly as a single shape
-big_shp = read_step_file(os.path.join('..', 'assets', 'models', 'RC_Buggy_2_front_suspension.stp'))
+big_shp = read_step_file(
+    os.path.join("..", "assets", "models", "RC_Buggy_2_front_suspension.stp")
+)
 
 my_renderer = threejs_renderer.ThreejsRenderer()
 my_renderer.DisplayShape(big_shp)

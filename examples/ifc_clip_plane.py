@@ -34,11 +34,13 @@ except ModuleNotFoundError:
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 settings = ifcopenshell.geom.settings()
-settings.set(settings.USE_PYTHON_OPENCASCADE, True)  # tells ifcopenshell to use pythonocc
+settings.set(
+    settings.USE_PYTHON_OPENCASCADE, True
+)  # tells ifcopenshell to use pythonocc
 
 # read the ifc file
 print("Loading ifc file ...", end="")
-ifc_filename = os.path.join('..', 'assets', 'ifc_models', 'IFC Schependomlaan.ifc')
+ifc_filename = os.path.join("..", "assets", "ifc_models", "IFC Schependomlaan.ifc")
 assert os.path.isfile(ifc_filename)
 ifc_file = ifcopenshell.open(ifc_filename)
 print("done.")
@@ -63,35 +65,43 @@ aMat.SetDiffuseColor(aColor)
 clip_plane_1.SetCappingMaterial(aMat)
 
 # and display each subshape
-products = ifc_file.by_type("IfcProduct") # traverse all IfcProducts
+products = ifc_file.by_type("IfcProduct")  # traverse all IfcProducts
 nb_of_products = len(products)
 for i, product in enumerate(products):
-    if product.Representation is not None:  # some IfcProducts don't have any 3d representation
+    if (
+        product.Representation is not None
+    ):  # some IfcProducts don't have any 3d representation
         try:
             print(i)
             pdct_shape = ifcopenshell.geom.create_shape(settings, inst=product)
-            r, g, b, a = pdct_shape.styles[0] # the shape color
+            r, g, b, a = pdct_shape.styles[0]  # the shape color
             color = Quantity_Color(abs(r), abs(g), abs(b), Quantity_TOC_RGB)
             # speed up rendering, don't update rendering for each shape
             # only update all 50 shapes
             to_update = i % 50 == 0
-            new_ais_shp = display.DisplayShape(pdct_shape.geometry, color=color, transparency=abs(1 -a), update=to_update)[0]
+            new_ais_shp = display.DisplayShape(
+                pdct_shape.geometry,
+                color=color,
+                transparency=abs(1 - a),
+                update=to_update,
+            )[0]
             new_ais_shp.AddClipPlane(clip_plane_1)
         except RuntimeError:
             print("Failed to process shape geometry")
+
 
 def animate_translate_clip_plane(event=None):
     clip_plane_1.SetOn(True)
     plane_definition = clip_plane_1.ToPlane()  # it's a gp_Pln
     h = 0.01
     for _ in range(1000):
-        plane_definition.Translate(gp_Vec(0., 0., h))
+        plane_definition.Translate(gp_Vec(0.0, 0.0, h))
         clip_plane_1.SetEquation(plane_definition)
         display.Context.UpdateCurrentViewer()
 
 
-if __name__ == '__main__':
-    add_menu('IFC clip plane')
-    add_function_to_menu('IFC clip plane', animate_translate_clip_plane)
+if __name__ == "__main__":
+    add_menu("IFC clip plane")
+    add_function_to_menu("IFC clip plane", animate_translate_clip_plane)
     display.FitAll()
     start_display()

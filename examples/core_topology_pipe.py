@@ -26,6 +26,7 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_Make
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipe
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -56,6 +57,7 @@ def pipe():
     display.DisplayShape(path_wire, update=False)
     display.DisplayShape(pipe, update=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pipe()
     start_display()

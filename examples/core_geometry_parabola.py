@@ -24,6 +24,7 @@ from OCC.Core.GCE2d import GCE2d_MakeParabola
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -46,6 +47,6 @@ def parabola(event=None):
     display.DisplayShape(aTrimmedCurve, update=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parabola()
     start_display()

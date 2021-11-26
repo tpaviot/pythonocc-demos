@@ -24,6 +24,7 @@ import sys
 
 from OCC.Core.Tesselator import ShapeTesselator
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+
 try:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import pyplot as plt
@@ -31,6 +32,7 @@ try:
 except ImportError:
     print("This example requires matplotlib.")
     sys.exit(0)
+
 
 def draw_shape_mpl(shape):
     """
@@ -64,7 +66,7 @@ def draw_shape_mpl(shape):
     ax = Axes3D(fig)
 
     ax.add_collection3d(Poly3DCollection(triangles, linewidths=0.2, alpha=0.5))
-    ax.add_collection3d(Line3DCollection(edges, colors='w', linewidths=1.0))
+    ax.add_collection3d(Line3DCollection(edges, colors="w", linewidths=1.0))
 
     ax.get_xaxis().set_visible(True)
     ax.get_yaxis().set_visible(True)
@@ -72,5 +74,5 @@ def draw_shape_mpl(shape):
     plt.show()
 
 
-box = BRepPrimAPI_MakeBox(1,1,1).Shape()
+box = BRepPrimAPI_MakeBox(1, 1, 1).Shape()
 draw_shape_mpl(box)

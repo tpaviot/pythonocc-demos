@@ -55,9 +55,11 @@ def on_select(shapes):
         com_y = centre_of_mass.Y()
         com_z = centre_of_mass.Z()
         static_moments = g1.StaticMoments()
-        print("shape {shape}: \n mass: {mass}"
-              "\n center of mass: {com_x}, {com_y}, {com_z}"
-              "\n static moments: {static_moments}".format(**vars()))
+        print(
+            "shape {shape}: \n mass: {mass}"
+            "\n center of mass: {com_x}, {com_y}, {com_z}"
+            "\n static moments: {static_moments}".format(**vars())
+        )
 
 
 def also_on_select(shapes):
@@ -69,11 +71,13 @@ def also_on_select(shapes):
         if shape.ShapeType() == TopAbs_FACE:
             print("face selected")
 
+
 def location_from_vector(x, y, z):
     trsf = gp_Trsf()
     trsf.SetTranslation(gp_Vec(x, y, z))
     loc = TopLoc_Location(trsf)
     return loc
+
 
 cube = BRepPrimAPI_MakeBox(100, 100, 100).Shape()
 sphere = BRepPrimAPI_MakeSphere(100).Shape()

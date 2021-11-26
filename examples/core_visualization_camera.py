@@ -23,7 +23,7 @@ from OCC.Extend.DataExchange import read_step_file
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 # load step file
-the_shape = read_step_file('../assets/models/as1_pe_203.stp')
+the_shape = read_step_file("../assets/models/as1_pe_203.stp")
 display.DisplayShape(the_shape)
 
 

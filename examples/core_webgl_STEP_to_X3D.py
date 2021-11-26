@@ -18,7 +18,7 @@
 from OCC.Extend.DataExchange import read_step_file_with_names_colors
 from OCC.Display.WebGl import x3dom_renderer
 
-filename = '../assets/models/as1-oc-214.stp'
+filename = "../assets/models/as1-oc-214.stp"
 shapes_labels_colors = read_step_file_with_names_colors(filename)
 
 # create the x3dom renderer
@@ -27,6 +27,8 @@ my_renderer = x3dom_renderer.X3DomRenderer()
 # traverse shapes, render in "face" mode
 for shp in shapes_labels_colors:
     label, c = shapes_labels_colors[shp]
-    my_renderer.DisplayShape(shp, color=(c.Red(), c.Green(), c.Blue()), export_edges=False)
+    my_renderer.DisplayShape(
+        shp, color=(c.Red(), c.Green(), c.Blue()), export_edges=False
+    )
 
 my_renderer.render()

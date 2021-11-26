@@ -26,13 +26,13 @@ from OCC.Core.BRepTools import breptools_Read
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Core.BRep import BRep_Builder
 from OCC.Display.SimpleGui import init_display
-display, start_display, add_menu, add_function_to_menu = init_display()
 
+display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
+breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 
 ais_shp = display.DisplayShape(cylinder_head)[0]
 
@@ -70,7 +70,7 @@ def animate_translate_clip_plane(event=None):
     plane_definition = clip_plane_1.ToPlane()  # it's a gp_Pln
     h = 0.2
     for i in range(100):
-        plane_definition.Translate(gp_Vec(0., 0., h))
+        plane_definition.Translate(gp_Vec(0.0, 0.0, h))
         clip_plane_1.SetEquation(plane_definition)
         display.Context.UpdateCurrentViewer()
 
@@ -79,10 +79,10 @@ def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
-    add_menu('clip plane')
-    add_function_to_menu('clip plane', enable_clip_plane)
-    add_function_to_menu('clip plane', disable_clip_plane)
-    add_function_to_menu('clip plane', animate_translate_clip_plane)
+if __name__ == "__main__":
+    add_menu("clip plane")
+    add_function_to_menu("clip plane", enable_clip_plane)
+    add_function_to_menu("clip plane", disable_clip_plane)
+    add_function_to_menu("clip plane", animate_translate_clip_plane)
     display.FitAll()
     start_display()

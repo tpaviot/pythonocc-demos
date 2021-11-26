@@ -26,7 +26,7 @@ base_shape = BRepPrimAPI_MakeTorus(30, 10).Shape()
 
 # conversion to a nurbs representation
 nurbs_converter = BRepBuilderAPI_NurbsConvert(base_shape, True)
-#nurbs_converter.Perform()
+# nurbs_converter.Perform()
 converted_shape = nurbs_converter.Shape()
 
 # now, all edges should be BSpline curves and surfaces BSpline surfaces

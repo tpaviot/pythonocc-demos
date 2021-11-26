@@ -25,6 +25,7 @@
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
 from OCC.Core.Prs3d import Prs3d_Drawer
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 #
@@ -49,7 +50,7 @@ print("Quality display improved by a factor {0}".format(factor))
 #
 # Displays a cylinder
 #
-s = BRepPrimAPI_MakeCylinder(50., 50.).Shape()
+s = BRepPrimAPI_MakeCylinder(50.0, 50.0).Shape()
 ais_shp = display.DisplayShape(s)[0]
 
 drawer = Prs3d_Drawer()

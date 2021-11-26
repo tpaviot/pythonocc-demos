@@ -19,10 +19,10 @@ from OCC.Extend.DataExchange import read_step_file_with_names_colors
 from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Display.SimpleGui import init_display
 
-filename = '../assets/models/as1-oc-214.stp'
-#filename = '../assets/models/Personal_Computer.stp'
-#filename = '../assets/models/KR600_R2830-4.stp'
-#filename = '../assets/models/mod-mpu9150.step'
+filename = "../assets/models/as1-oc-214.stp"
+# filename = '../assets/models/Personal_Computer.stp'
+# filename = '../assets/models/KR600_R2830-4.stp'
+# filename = '../assets/models/mod-mpu9150.step'
 shapes_labels_colors = read_step_file_with_names_colors(filename)
 
 # init graphic display
@@ -30,8 +30,8 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 for shpt_lbl_color in shapes_labels_colors:
     label, c = shapes_labels_colors[shpt_lbl_color]
-    display.DisplayColoredShape(shpt_lbl_color, color=Quantity_Color(c.Red(),
-    	                                                             c.Green(),
-    	                                                             c.Blue(),
-    	                                                             Quantity_TOC_RGB))
+    display.DisplayColoredShape(
+        shpt_lbl_color,
+        color=Quantity_Color(c.Red(), c.Green(), c.Blue(), Quantity_TOC_RGB),
+    )
 start_display()

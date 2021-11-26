@@ -23,7 +23,7 @@ from OCC.Core.MeshVS import *
 
 from OCC.Display.SimpleGui import init_display
 
-stl_filename = os.path.join('..', 'assets', 'models', 'fan.stl')
+stl_filename = os.path.join("..", "assets", "models", "fan.stl")
 
 a_stl_mesh = rwstl_ReadFile(stl_filename)
 
@@ -33,10 +33,12 @@ a_mesh_prs = MeshVS_Mesh()
 a_mesh_prs.SetDataSource(a_data_source)
 a_builder = MeshVS_MeshPrsBuilder(a_mesh_prs)
 
-a_mesh_prs.AddBuilder (a_builder, True)
+a_mesh_prs.AddBuilder(a_builder, True)
 
 # assign nodal builder to the mesh
-a_builder = MeshVS_NodalColorPrsBuilder (a_mesh_prs, MeshVS_DMF_NodalColorDataPrs | MeshVS_DMF_OCCMask)
+a_builder = MeshVS_NodalColorPrsBuilder(
+    a_mesh_prs, MeshVS_DMF_NodalColorDataPrs | MeshVS_DMF_OCCMask
+)
 a_builder.UseTexture(True)
 
 display, start_display, add_menu, add_function_to_menu = init_display()

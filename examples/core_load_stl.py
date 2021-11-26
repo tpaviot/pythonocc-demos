@@ -20,7 +20,7 @@ import os
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_stl_file
 
-stl_filename = os.path.join('..', 'assets', 'models', 'fan.stl')
+stl_filename = os.path.join("..", "assets", "models", "fan.stl")
 stl_shp = read_stl_file(stl_filename)
 
 display, start_display, add_menu, add_function_to_menu = init_display()

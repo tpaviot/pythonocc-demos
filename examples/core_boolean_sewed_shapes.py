@@ -16,8 +16,12 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.gp import gp_Pnt
-from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeFace, BRepBuilderAPI_MakePolygon,
-                                     BRepBuilderAPI_Sewing, BRepBuilderAPI_MakeSolid)
+from OCC.Core.BRepBuilderAPI import (
+    BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_MakePolygon,
+    BRepBuilderAPI_Sewing,
+    BRepBuilderAPI_MakeSolid,
+)
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse, BRepAlgoAPI_Common, BRepAlgoAPI_Cut
 from OCC.Core.TopoDS import topods
@@ -40,17 +44,17 @@ def make_face_from_4_points(pnt1, pnt2, pnt3, pnt4):
 
 def get_faceted_L_shape(x, y, z):
     pnt_A = gp_Pnt(x + 0, y + 0, z + 0)
-    pnt_B = gp_Pnt(x +20, y + 0, z + 0)
-    pnt_C = gp_Pnt(x +20, y +10, z + 0)
-    pnt_D = gp_Pnt(x + 0, y +10, z + 0)
-    pnt_E = gp_Pnt(x + 0, y + 0, z +20)
-    pnt_F = gp_Pnt(x +10, y + 0, z +20)
-    pnt_G = gp_Pnt(x +10, y +10, z +20)
-    pnt_H = gp_Pnt(x +0, y +10, z +20)
-    pnt_I = gp_Pnt(x +10, y + 0, z +10)
-    pnt_J = gp_Pnt(x +10, y +10, z +10)
-    pnt_K = gp_Pnt(x +20, y + 0, z +10)
-    pnt_L = gp_Pnt(x +20, y +10, z +10)
+    pnt_B = gp_Pnt(x + 20, y + 0, z + 0)
+    pnt_C = gp_Pnt(x + 20, y + 10, z + 0)
+    pnt_D = gp_Pnt(x + 0, y + 10, z + 0)
+    pnt_E = gp_Pnt(x + 0, y + 0, z + 20)
+    pnt_F = gp_Pnt(x + 10, y + 0, z + 20)
+    pnt_G = gp_Pnt(x + 10, y + 10, z + 20)
+    pnt_H = gp_Pnt(x + 0, y + 10, z + 20)
+    pnt_I = gp_Pnt(x + 10, y + 0, z + 10)
+    pnt_J = gp_Pnt(x + 10, y + 10, z + 10)
+    pnt_K = gp_Pnt(x + 20, y + 0, z + 10)
+    pnt_L = gp_Pnt(x + 20, y + 10, z + 10)
 
     face_1 = make_face_from_4_points(pnt_A, pnt_B, pnt_C, pnt_D)
     face_2 = make_face_from_4_points(pnt_B, pnt_C, pnt_L, pnt_K)
@@ -85,6 +89,7 @@ def get_faceted_L_shape(x, y, z):
     sew.Perform()
 
     return sew.SewedShape()
+
 
 spacing = 30
 # cut (box - box)

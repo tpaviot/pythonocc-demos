@@ -31,6 +31,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 def boolean_cut(shapeToCutFrom, cuttingShape):
     from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+
     cut = BRepAlgoAPI_Cut(shapeToCutFrom, cuttingShape)
 
     shp = cut.Shape()

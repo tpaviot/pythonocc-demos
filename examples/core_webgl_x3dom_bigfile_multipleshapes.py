@@ -26,10 +26,12 @@ from OCC.Display.WebGl import x3dom_renderer
 
 # opens a big step file
 # render each part of the assembly as a shape
-stp_file = os.path.join('..', 'assets', 'models', '3864470050F1.stp')
+stp_file = os.path.join("..", "assets", "models", "3864470050F1.stp")
 if not os.path.isfile(stp_file):
-	print("File 3864470050F1.stp not found. First unzip 3864470050F1.zip file from the assets folder")
-	sys.exit(0)
+    print(
+        "File 3864470050F1.stp not found. First unzip 3864470050F1.zip file from the assets folder"
+    )
+    sys.exit(0)
 
 # file exist, we can load the file
 big_shp = read_step_file(stp_file)
@@ -38,6 +40,6 @@ all_subshapes = TopologyExplorer(big_shp).solids()
 
 my_renderer = x3dom_renderer.X3DomRenderer()
 for single_shape in all_subshapes:
-	my_renderer.DisplayShape(single_shape)
+    my_renderer.DisplayShape(single_shape)
 # then call the renderer
 my_renderer.render()

@@ -20,7 +20,7 @@
 from OCC.Display.WebGl import threejs_renderer
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 
-torus_shp = BRepPrimAPI_MakeTorus(20., 10.).Shape()
+torus_shp = BRepPrimAPI_MakeTorus(20.0, 10.0).Shape()
 my_renderer = threejs_renderer.ThreejsRenderer()
 my_renderer.DisplayShape(torus_shp)
 my_renderer.render()

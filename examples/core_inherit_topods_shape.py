@@ -40,11 +40,11 @@ class InheritEdge(TopoDS_Edge):
     def get_curve(self):
         return BRep_Tool.Curve(self)
 
+
 if __name__ == "__main__":
-    base_edge = BRepBuilderAPI_MakeEdge(gp_Pnt(), gp_Pnt(100., 0., 0.)).Edge()
+    base_edge = BRepBuilderAPI_MakeEdge(gp_Pnt(), gp_Pnt(100.0, 0.0, 0.0)).Edge()
     inherited_edge = InheritEdge(base_edge)
     print(inherited_edge.get_curve())
     display, start_display, add_menu, add_function_to_menu = init_display()
     display.DisplayShape(inherited_edge, update=True)
     start_display()
-

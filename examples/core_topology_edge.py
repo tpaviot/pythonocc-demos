@@ -18,30 +18,29 @@
 import math
 
 from OCC.Core.gp import gp_Pnt, gp_Lin, gp_Ax1, gp_Dir, gp_Elips, gp_Ax2
-from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                     BRepBuilderAPI_MakeVertex)
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeVertex
 from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.Geom import Geom_BezierCurve
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def edge(event=None):
     # The blud edge
-    BlueEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(-80, -50, -20),
-                                       gp_Pnt(-30, -60, -60))
+    BlueEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(-80, -50, -20), gp_Pnt(-30, -60, -60))
     V1 = BRepBuilderAPI_MakeVertex(gp_Pnt(-20, 10, -30))
     V2 = BRepBuilderAPI_MakeVertex(gp_Pnt(10, 7, -25))
     YellowEdge = BRepBuilderAPI_MakeEdge(V1.Vertex(), V2.Vertex())
 
-    #The white edge
+    # The white edge
     line = gp_Lin(gp_Ax1(gp_Pnt(10, 10, 10), gp_Dir(1, 0, 0)))
     WhiteEdge = BRepBuilderAPI_MakeEdge(line, -20, 10)
 
-    #The red edge
+    # The red edge
     Elips = gp_Elips(gp_Ax2(gp_Pnt(10, 0, 0), gp_Dir(1, 1, 1)), 60, 30)
-    RedEdge = BRepBuilderAPI_MakeEdge(Elips, 0, math.pi/2)
+    RedEdge = BRepBuilderAPI_MakeEdge(Elips, 0, math.pi / 2)
 
     # The green edge and the both extreme vertex
     P1 = gp_Pnt(-15, 200, 10)
@@ -67,16 +66,17 @@ def edge(event=None):
     V3 = ME.Vertex1()
     V4 = ME.Vertex2()
 
-    display.DisplayColoredShape(BlueEdge.Edge(), 'BLUE')
+    display.DisplayColoredShape(BlueEdge.Edge(), "BLUE")
     display.DisplayShape(V1.Vertex())
     display.DisplayShape(V2.Vertex())
-    display.DisplayColoredShape(WhiteEdge.Edge(), 'WHITE')
-    display.DisplayColoredShape(YellowEdge.Edge(), 'YELLOW')
-    display.DisplayColoredShape(RedEdge.Edge(), 'RED')
-    display.DisplayColoredShape(GreenEdge.Edge(), 'GREEN')
+    display.DisplayColoredShape(WhiteEdge.Edge(), "WHITE")
+    display.DisplayColoredShape(YellowEdge.Edge(), "YELLOW")
+    display.DisplayColoredShape(RedEdge.Edge(), "RED")
+    display.DisplayColoredShape(GreenEdge.Edge(), "GREEN")
     display.DisplayShape(V3)
     display.DisplayShape(V4, update=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     edge()
     start_display()

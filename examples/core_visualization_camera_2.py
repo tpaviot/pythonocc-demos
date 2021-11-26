@@ -32,9 +32,9 @@ def animate_viewpoint():
 
     center = cam.Center()
     eye = cam.Eye()
-    eye.SetX(0.)
-    eye.SetZ(0.)
-    eye.SetZ(0.)
+    eye.SetX(0.0)
+    eye.SetZ(0.0)
+    eye.SetZ(0.0)
     cam.SetEye(eye)
 
     display.FitAll()
@@ -44,6 +44,7 @@ def animate_viewpoint():
         eye.SetY(eye.Y() + i)
         cam.SetEye(eye)
         display.Context.UpdateCurrentViewer()
+
 
 add_menu("camera")
 add_function_to_menu("camera", animate_viewpoint)

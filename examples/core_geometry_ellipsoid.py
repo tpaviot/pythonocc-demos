@@ -23,8 +23,8 @@ from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Common
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
-orig = gp_Pnt(0., 0., 0.)
-sphere = BRepPrimAPI_MakeSphere(orig, 50.).Solid()
+orig = gp_Pnt(0.0, 0.0, 0.0)
+sphere = BRepPrimAPI_MakeSphere(orig, 50.0).Solid()
 
 # be careful that the following scale numbers are "not too big",
 # otherwise boolean operations can be buggy
@@ -32,16 +32,18 @@ sphere = BRepPrimAPI_MakeSphere(orig, 50.).Solid()
 a1 = 17.1
 a2 = 17.1
 a3 = 3.5
-gTrsf = gp_GTrsf(gp_Mat(a1, 0, 0, 0, a2, 0, 0, 0, a3), gp_XYZ(0., 112.2, 0.))
+gTrsf = gp_GTrsf(gp_Mat(a1, 0, 0, 0, a2, 0, 0, 0, a3), gp_XYZ(0.0, 112.2, 0.0))
 ellipsoid = BRepBuilderAPI_GTransform(sphere, gTrsf).Shape()
 
 # then perform a boolean intersection with a box
-box = BRepPrimAPI_MakeBox(gp_Pnt(-1000, -1000, -1000), gp_Pnt(1000, 112.2, 1000)).Shape()
+box = BRepPrimAPI_MakeBox(
+    gp_Pnt(-1000, -1000, -1000), gp_Pnt(1000, 112.2, 1000)
+).Shape()
 common = BRepAlgoAPI_Common(box, ellipsoid).Shape()
 if common.IsNull():
-	raise AssertionError("common result is Null.")
+    raise AssertionError("common result is Null.")
 
-display.DisplayShape(box, color = "BLACK", transparency = 0.8)
-display.DisplayShape(ellipsoid, color = "BLACK", transparency = 0.8)
-display.DisplayShape(common, color = "BLACK", transparency = 0.8, update=True)
+display.DisplayShape(box, color="BLACK", transparency=0.8)
+display.DisplayShape(ellipsoid, color="BLACK", transparency=0.8)
+display.DisplayShape(common, color="BLACK", transparency=0.8, update=True)
 start_display()

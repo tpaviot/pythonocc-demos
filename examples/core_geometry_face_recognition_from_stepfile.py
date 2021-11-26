@@ -47,8 +47,7 @@ from OCC.Extend.TopologyUtils import TopologyExplorer
 
 
 def read_step_file(filename):
-    """ read the STEP file and returns a compound
-    """
+    """read the STEP file and returns a compound"""
     step_reader = STEPControl_Reader()
     status = step_reader.ReadFile(filename)
 
@@ -65,14 +64,14 @@ def read_step_file(filename):
 
 
 def recognize_face(a_face):
-    """ Takes a TopoDS shape and tries to identify its nature
+    """Takes a TopoDS shape and tries to identify its nature
     whether it is a plane a cylinder a torus etc.
     if a plane, returns the normal
     if a cylinder, returns the radius
     """
     surf = BRepAdaptor_Surface(a_face, True)
     surf_type = surf.GetType()
-    if  surf_type == GeomAbs_Plane:
+    if surf_type == GeomAbs_Plane:
         print("--> plane")
         # look for the properties of the plane
         # first get the related gp_Pln
@@ -80,7 +79,12 @@ def recognize_face(a_face):
         location = gp_pln.Location()  # a point of the plane
         normal = gp_pln.Axis().Direction()  # the plane normal
         # then export location and normal to the console output
-        print("--> Location (global coordinates)", location.X(), location.Y(), location.Z())
+        print(
+            "--> Location (global coordinates)",
+            location.X(),
+            location.Y(),
+            location.Z(),
+        )
         print("--> Normal (global coordinates)", normal.X(), normal.Y(), normal.Z())
     elif surf_type == GeomAbs_Cylinder:
         print("--> cylinder")
@@ -90,7 +94,12 @@ def recognize_face(a_face):
         location = gp_cyl.Location()  # a point of the axis
         axis = gp_cyl.Axis().Direction()  # the cylinder axis
         # then export location and normal to the console output
-        print("--> Location (global coordinates)", location.X(), location.Y(), location.Z())
+        print(
+            "--> Location (global coordinates)",
+            location.X(),
+            location.Y(),
+            location.Z(),
+        )
         print("--> Axis (global coordinates)", axis.X(), axis.Y(), axis.Z())
     else:
         # TODO there are plenty other type that can be checked
@@ -100,7 +109,7 @@ def recognize_face(a_face):
 
 
 def recognize_clicked(shp, *kwargs):
-    """ This is the function called every time
+    """This is the function called every time
     a face is clicked in the 3d view
     """
     for shape in shp:  # this should be a TopoDS_Face TODO check it is
@@ -109,8 +118,7 @@ def recognize_clicked(shp, *kwargs):
 
 
 def recognize_batch(event=None):
-    """ Menu item : process all the faces of a single shape
-    """
+    """Menu item : process all the faces of a single shape"""
     # then traverse the topology using the Topo class
     t = TopologyExplorer(shp)
     # loop over faces only
@@ -123,13 +131,15 @@ def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     display, start_display, add_menu, add_function_to_menu = init_display()
     display.SetSelectionModeFace()  # switch to Face selection mode
     display.register_select_callback(recognize_clicked)
     # first loads the STEP file and display
-    shp = read_step_file(os.path.join('..', 'assets', 'models', 'face_recognition_sample_part.stp'))
+    shp = read_step_file(
+        os.path.join("..", "assets", "models", "face_recognition_sample_part.stp")
+    )
     display.DisplayShape(shp, update=True)
-    add_menu('recognition')
-    add_function_to_menu('recognition', recognize_batch)
+    add_menu("recognition")
+    add_function_to_menu("recognition", recognize_batch)
     start_display()

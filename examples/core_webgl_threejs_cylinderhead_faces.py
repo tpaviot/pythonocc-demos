@@ -27,7 +27,7 @@ from OCC.Extend.TopologyUtils import TopologyExplorer
 # loads brep shape
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
+breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 
 # render cylinder head in x3dom
 my_renderer = threejs_renderer.ThreejsRenderer()
@@ -35,5 +35,5 @@ my_renderer = threejs_renderer.ThreejsRenderer()
 all_faces = TopologyExplorer(cylinder_head).faces()
 # display each face
 for face in all_faces:
-	my_renderer.DisplayShape(face)
+    my_renderer.DisplayShape(face)
 my_renderer.render()

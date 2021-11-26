@@ -15,10 +15,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-''' Example for shape overlapping detection.
+""" Example for shape overlapping detection.
 See pythonocc-core issue #628 at
 https://github.com/tpaviot/pythonocc-core/issues/628
-'''
+"""
 
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
@@ -27,7 +27,7 @@ from OCC.Core.BRepExtrema import BRepExtrema_ShapeProximity
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
- 
+
 # create two boxes that intersect
 box1 = BRepPrimAPI_MakeBox(gp_Pnt(0, 0, 0), gp_Pnt(20, 20, 20)).Shape()
 box2 = BRepPrimAPI_MakeBox(gp_Pnt(10, 10, 10), gp_Pnt(30, 30, 30)).Shape()
@@ -63,7 +63,7 @@ for ind in face_indices2:
 # display both boxes and intersecting faces, in RED
 display.DisplayShape(box1, transparency=0.5)
 display.DisplayShape(box2, transparency=0.5)
-display.DisplayShape(shape_1_faces + shape_2_faces, color='RED')
+display.DisplayShape(shape_1_faces + shape_2_faces, color="RED")
 
 display.FitAll()
 start_display()

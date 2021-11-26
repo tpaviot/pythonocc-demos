@@ -27,11 +27,12 @@ from OCC.Core.Geom import Geom_Plane
 from OCC.Core.TopoDS import topods_Face
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def draft_angle(event=None):
-    S = BRepPrimAPI_MakeBox(200., 300., 150.).Shape()
+    S = BRepPrimAPI_MakeBox(200.0, 300.0, 150.0).Shape()
     adraft = BRepOffsetAPI_DraftAngle(S)
     topExp = TopExp_Explorer()
     topExp.Init(S, TopAbs_FACE)
@@ -47,6 +48,6 @@ def draft_angle(event=None):
     display.DisplayShape(adraft.Shape(), update=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     draft_angle()
     start_display()

@@ -21,6 +21,7 @@
 from OCC.Core.AIS import AIS_Shape
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 #
