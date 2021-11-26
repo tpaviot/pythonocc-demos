@@ -18,7 +18,7 @@
 import os
 import random
 
-from OCC.Core.MeshDataSource import Mesh_DataSource
+from OCC.Core.MeshDS import MeshDS_DataSource
 from OCC.Core.RWStl import rwstl_ReadFile
 from OCC.Core.MeshVS import *
 from OCC.Core.Aspect import Aspect_SequenceOfColor
@@ -33,7 +33,7 @@ stl_filename = os.path.join('..', 'assets', 'models', 'fan.stl')
 a_stl_mesh = rwstl_ReadFile(stl_filename)
 
 # create the data source
-a_data_source = Mesh_DataSource(a_stl_mesh)
+a_data_source = MeshDS_DataSource(a_stl_mesh)
 
 # create a mesh from the data source
 a_mesh = MeshVS_Mesh()
