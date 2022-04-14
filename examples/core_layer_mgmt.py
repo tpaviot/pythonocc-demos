@@ -35,7 +35,7 @@ trns.SetTranslation(gp_Vec(0, 0, 110))
 layer1 = Layer(display, color=123)
 layer1.add(box1)
 
-layer2 = Layer(display, box4, 86)
+layer2 = Layer(display, box4, 86, transparency=0.6)
 layer2.add(box5)
 layer2.show()
 
