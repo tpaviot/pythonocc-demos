@@ -78,7 +78,9 @@ def rake(event=None):
 def fillet_cylinder(event=None):
     display.EraseAll()
     # Create Cylinder
-    cylinder = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(-300, 0, 0), gp_Dir(0, 0, 1)), 100, 200).Shape()
+    cylinder = BRepPrimAPI_MakeCylinder(
+        gp_Ax2(gp_Pnt(-300, 0, 0), gp_Dir(0, 0, 1)), 100, 200
+    ).Shape()
     fillet = BRepFilletAPI_MakeFillet(cylinder)
     display.DisplayShape(cylinder, update=True)
     tab_point_2 = TColgp_Array1OfPnt2d(0, 20)
@@ -103,12 +105,12 @@ def variable_filleting(event=None):
     a_fillet = BRepFilletAPI_MakeFillet(box_2)
 
     tab_point = TColgp_Array1OfPnt2d(1, 6)
-    p_1 = gp_Pnt2d(0., 8.)
-    p_2 = gp_Pnt2d(0.2, 16.)
-    p_3 = gp_Pnt2d(0.4, 25.)
-    p_4 = gp_Pnt2d(0.6, 55.)
-    p_5 = gp_Pnt2d(0.8, 28.)
-    p_6 = gp_Pnt2d(1., 20.)
+    p_1 = gp_Pnt2d(0.0, 8.0)
+    p_2 = gp_Pnt2d(0.2, 16.0)
+    p_3 = gp_Pnt2d(0.4, 25.0)
+    p_4 = gp_Pnt2d(0.6, 55.0)
+    p_5 = gp_Pnt2d(0.8, 28.0)
+    p_6 = gp_Pnt2d(1.0, 20.0)
     tab_point.SetValue(1, p_1)
     tab_point.SetValue(2, p_2)
     tab_point.SetValue(3, p_3)
@@ -132,11 +134,11 @@ def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
-    add_menu('topology fillet operations')
-    add_function_to_menu('topology fillet operations', fillet)
-    add_function_to_menu('topology fillet operations', rake)
-    add_function_to_menu('topology fillet operations', variable_filleting)
-    add_function_to_menu('topology fillet operations', fillet_cylinder)
-    add_function_to_menu('topology fillet operations', exit)
+if __name__ == "__main__":
+    add_menu("topology fillet operations")
+    add_function_to_menu("topology fillet operations", fillet)
+    add_function_to_menu("topology fillet operations", rake)
+    add_function_to_menu("topology fillet operations", variable_filleting)
+    add_function_to_menu("topology fillet operations", fillet_cylinder)
+    add_function_to_menu("topology fillet operations", exit)
     start_display()

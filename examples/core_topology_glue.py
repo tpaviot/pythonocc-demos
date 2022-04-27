@@ -14,7 +14,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def get_faces(_shape):
-    """ return the faces from `_shape`
+    """return the faces from `_shape`
 
     :param _shape: TopoDS_Shape, or a subclass like TopoDS_Solid
     :return: a list of faces found in `_shape`
@@ -32,7 +32,7 @@ def get_faces(_shape):
 
 
 def tag_faces(_shape, _color, shape_name):
-    """ tag the faces of a shape
+    """tag the faces of a shape
 
     in this example, this easy to see which faces of the 2 shapes we need to glue together
     so by reading the tagged faces, its easy to find the correct index for the
@@ -52,8 +52,7 @@ def tag_faces(_shape, _color, shape_name):
 
 
 def tag_edge(_edge, msg, _color=(1, 0, 0)):
-    """ tag an edge
-    """
+    """tag an edge"""
     center_pt = get_aligned_boundingbox(_edge)[0]
     display.DisplayMessage(center_pt, msg, None, _color, False)
 
@@ -62,14 +61,18 @@ def glue_solids(event=None):
     display.EraseAll()
     display.Context.RemoveAll(True)
     # Without common edges
-    S1 = BRepPrimAPI_MakeBox(gp_Pnt(500., 500., 0.), gp_Pnt(100., 250., 300.)).Shape()
+    S1 = BRepPrimAPI_MakeBox(
+        gp_Pnt(500.0, 500.0, 0.0), gp_Pnt(100.0, 250.0, 300.0)
+    ).Shape()
     facesA = get_faces(S1)
     tag_faces(facesA, "BLUE", "facesA")
 
     # the face to glue
     F1 = facesA[5]
 
-    S2 = BRepPrimAPI_MakeBox(gp_Pnt(400., 400., 300.), gp_Pnt(200., 300., 500.)).Shape()
+    S2 = BRepPrimAPI_MakeBox(
+        gp_Pnt(400.0, 400.0, 300.0), gp_Pnt(200.0, 300.0, 500.0)
+    ).Shape()
     facesB = get_faces(S2)
 
     tag_faces(facesB, "GREEN", "facesB")
@@ -102,8 +105,10 @@ def glue_solids_edges(event=None):
     display.Context.RemoveAll(True)
 
     # With common edges
-    S3 = BRepPrimAPI_MakeBox(500., 400., 300.).Shape()
-    S4 = BRepPrimAPI_MakeBox(gp_Pnt(0., 0., 300.), gp_Pnt(200., 200., 500.)).Shape()
+    S3 = BRepPrimAPI_MakeBox(500.0, 400.0, 300.0).Shape()
+    S4 = BRepPrimAPI_MakeBox(
+        gp_Pnt(0.0, 0.0, 300.0), gp_Pnt(200.0, 200.0, 500.0)
+    ).Shape()
 
     faces_S3 = get_faces(S3)
     faces_S4 = get_faces(S4)
@@ -145,7 +150,7 @@ def glue_solids_edges(event=None):
 
 
 if __name__ == "__main__":
-    menu_name = 'glue topology'
+    menu_name = "glue topology"
     add_menu(menu_name)
     add_function_to_menu(menu_name, glue_solids)
     add_function_to_menu(menu_name, glue_solids_edges)

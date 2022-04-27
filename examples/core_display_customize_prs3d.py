@@ -49,7 +49,7 @@ drawer.SetWireAspect(line_aspect)
 #
 # Displays a cylinder
 #
-s = BRepPrimAPI_MakeCylinder(50., 50.).Shape()
+s = BRepPrimAPI_MakeCylinder(50.0, 50.0).Shape()
 display.DisplayShape(s)
 #
 # Display settings and display loop

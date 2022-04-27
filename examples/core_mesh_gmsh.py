@@ -30,7 +30,7 @@ from OCC.Extend.DataExchange import read_stl_file
 
 
 def mesh_shape(a_topods_shape):
-    """ Takes a BRep filename (extension .brep) and returns
+    """Takes a BRep filename (extension .brep) and returns
     a topods_shp ready to be displayed
     """
     # dump the geometry to a brep file
@@ -51,14 +51,15 @@ def mesh_shape(a_topods_shape):
     # call gmsh
     gmsh_success = os.system("gmsh shape.geo -2 -o shape.stl -format stl")
     # load the stl file
-    if gmsh_success != 0 and os.path.isfile("shape.stl") :
+    if gmsh_success != 0 and os.path.isfile("shape.stl"):
         return read_stl_file("shape.stl")
     else:
         print("Be sure gmsh is in your PATH")
         sys.exit()
 
+
 # First example, a simple torus
-torus_shp = BRepPrimAPI_MakeTorus(40., 10.).Shape()
+torus_shp = BRepPrimAPI_MakeTorus(40.0, 10.0).Shape()
 torus_mesh_shp = mesh_shape(torus_shp)
 
 display, start_display, add_menu, add_function_to_menu = init_display()

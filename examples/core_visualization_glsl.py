@@ -18,8 +18,12 @@
 
 from OCC.Core.AIS import AIS_Shape
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
-from OCC.Core.Graphic3d import (Graphic3d_ShaderProgram, Graphic3d_TOS_VERTEX,
-	                            Graphic3d_TOS_FRAGMENT, Graphic3d_ShaderObject)
+from OCC.Core.Graphic3d import (
+    Graphic3d_ShaderProgram,
+    Graphic3d_TOS_VERTEX,
+    Graphic3d_TOS_FRAGMENT,
+    Graphic3d_ShaderObject,
+)
 from OCC.Core.TCollection import TCollection_AsciiString
 from OCC.Display.SimpleGui import init_display
 
@@ -46,8 +50,12 @@ void main()
 """
 
 # construct the shader, load, compile and attach the GLSL programs
-vs_shader = Graphic3d_ShaderObject.CreateFromSource(Graphic3d_TOS_VERTEX, TCollection_AsciiString(vs))
-fs_shader = Graphic3d_ShaderObject.CreateFromSource(Graphic3d_TOS_FRAGMENT, TCollection_AsciiString(fs))
+vs_shader = Graphic3d_ShaderObject.CreateFromSource(
+    Graphic3d_TOS_VERTEX, TCollection_AsciiString(vs)
+)
+fs_shader = Graphic3d_ShaderObject.CreateFromSource(
+    Graphic3d_TOS_FRAGMENT, TCollection_AsciiString(fs)
+)
 aProgram = Graphic3d_ShaderProgram()
 aProgram.AttachShader(fs_shader)
 aProgram.AttachShader(vs_shader)

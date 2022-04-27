@@ -30,13 +30,13 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def compute_minimal_distance_between_cubes():
-    """ compute the minimal distance between 2 cubes
+    """compute the minimal distance between 2 cubes
 
     the line between the 2 points is rendered in cyan
 
     """
-    b1 = BRepPrimAPI_MakeBox(gp_Pnt(100, 0, 0), 10., 10., 10.).Shape()
-    b2 = BRepPrimAPI_MakeBox(gp_Pnt(45, 45, 45), 10., 10., 10.).Shape()
+    b1 = BRepPrimAPI_MakeBox(gp_Pnt(100, 0, 0), 10.0, 10.0, 10.0).Shape()
+    b2 = BRepPrimAPI_MakeBox(gp_Pnt(45, 45, 45), 10.0, 10.0, 10.0).Shape()
     display.DisplayShape([b1, b2])
 
     dss = BRepExtrema_DistShapeShape()
@@ -53,7 +53,7 @@ def compute_minimal_distance_between_cubes():
 
 
 def compute_minimal_distance_between_circles():
-    """ compute the minimal distance between 2 circles
+    """compute the minimal distance between 2 circles
 
     here the minimal distance overlaps the intersection of the circles
     the points are rendered to indicate the locations
@@ -81,10 +81,14 @@ def compute_minimal_distance_between_circles():
     # the minimal distance here matches the intersection of the circles
     dss = BRepExtrema_DistShapeShape(l_circle, m_circle)
 
-    print("intersection parameters on l_circle:",
-          [dss.ParOnEdgeS1(i) for i in range(1, dss.NbSolution() + 1)])
-    print("intersection parameters on m_circle:",
-          [dss.ParOnEdgeS2(i) for i in range(1, dss.NbSolution() + 1)])
+    print(
+        "intersection parameters on l_circle:",
+        [dss.ParOnEdgeS1(i) for i in range(1, dss.NbSolution() + 1)],
+    )
+    print(
+        "intersection parameters on m_circle:",
+        [dss.ParOnEdgeS2(i) for i in range(1, dss.NbSolution() + 1)],
+    )
 
     for i in range(1, dss.NbSolution() + 1):
         pnt = dss.PointOnShape1(i)

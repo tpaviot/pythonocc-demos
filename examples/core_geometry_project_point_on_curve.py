@@ -24,14 +24,14 @@ from OCC.Core.GeomAPI import GeomAPI_ProjectPointOnCurve
 from OCC.Core.Geom import Geom_Circle
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def project_point_on_curve():
-    '''
-    '''
-    point_to_project = gp_Pnt(1., 2., 3.)
-    radius = 5.
+    """ """
+    point_to_project = gp_Pnt(1.0, 2.0, 3.0)
+    radius = 5.0
 
     # create a circle, centered at origin with a given radius
     circle = Geom_Circle(gp_XOY(), radius)
@@ -40,8 +40,7 @@ def project_point_on_curve():
     display.DisplayMessage(point_to_project, "P")
 
     # project the point P on the circle
-    projection = GeomAPI_ProjectPointOnCurve(point_to_project,
-                                             circle)
+    projection = GeomAPI_ProjectPointOnCurve(point_to_project, circle)
     # get the results of the projection
     # the point
     projected_point = projection.NearestPoint()
@@ -54,7 +53,7 @@ def project_point_on_curve():
 
     # there maybe many different possible solutions
     if nb_results > 0:
-        for i in range(1, nb_results+1):
+        for i in range(1, nb_results + 1):
             Q = projection.Point(i)
             distance = projection.Distance(i)
             pstring = "Q%i: at Distance :%f" % (i, distance)
@@ -62,6 +61,6 @@ def project_point_on_curve():
             display.DisplayMessage(Q, pstring)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     project_point_on_curve()
     start_display()

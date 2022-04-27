@@ -21,4 +21,4 @@ d = gp_Dir(0, 0, 1)
 try:
     d.Coord(-1)  # should raise Standard_OutOfRange
 except RuntimeError:
-	print("Exception successfully raised.")
+    print("Exception successfully raised.")

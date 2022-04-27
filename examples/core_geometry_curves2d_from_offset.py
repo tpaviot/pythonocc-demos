@@ -25,13 +25,14 @@ from OCC.Core.Geom2dAPI import Geom2dAPI_PointsToBSpline
 from OCC.Core.Geom2d import Geom2d_OffsetCurve
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def curves2d_from_offset(event=None):
-    '''
+    """
     @param display:
-    '''
+    """
     pnt2d_array = TColgp_Array1OfPnt2d(1, 5)
     pnt2d_array.SetValue(1, gp_Pnt2d(-4, 0))
     pnt2d_array.SetValue(2, gp_Pnt2d(-7, 2))
@@ -51,10 +52,10 @@ def curves2d_from_offset(event=None):
     print("Offset curve blue is C2: %r" % result2)
 
     display.DisplayShape(spline_1)
-    display.DisplayShape(offset_curve1, color='YELLOW')
-    display.DisplayShape(offset_curve2, color='BLUE', update=True)
+    display.DisplayShape(offset_curve1, color="YELLOW")
+    display.DisplayShape(offset_curve2, color="BLUE", update=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     curves2d_from_offset()
     start_display()

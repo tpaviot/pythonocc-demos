@@ -23,12 +23,13 @@ from OCC.Core.Geom2dAdaptor import Geom2dAdaptor_Curve
 from OCC.Core.GCPnts import GCPnts_UniformAbscissa
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def points_from_curve():
-    radius = 5.
-    abscissa = 3.
+    radius = 5.0
+    abscissa = 3.0
     circle = Geom2d_Circle(gp_OX2d(), radius, True)
     gac = Geom2dAdaptor_Curve(circle)
     ua = GCPnts_UniformAbscissa(gac, abscissa)
@@ -44,12 +45,13 @@ def points_from_curve():
     i = 0
     for p in a_sequence:
         i = i + 1
-        pstring = 'P%i : parameter %f' % (i, ua.Parameter(i))
+        pstring = "P%i : parameter %f" % (i, ua.Parameter(i))
         pnt = gp_Pnt(p.X(), p.Y(), 0)
         # display points
         display.DisplayShape(pnt, update=True)
         display.DisplayMessage(pnt, pstring)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     points_from_curve()
     start_display()

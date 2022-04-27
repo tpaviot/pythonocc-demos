@@ -18,12 +18,15 @@
 # based on https://www.cnblogs.com/opencascade/p/MakeFaceWithHoles.html
 
 from OCC.Core.gp import gp_Circ, gp_Pln, gp_XOY, gp_Pnt
-from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
-                                     BRepBuilderAPI_MakeWire,
-                                     BRepBuilderAPI_MakeFace)
+from OCC.Core.BRepBuilderAPI import (
+    BRepBuilderAPI_MakeEdge,
+    BRepBuilderAPI_MakeWire,
+    BRepBuilderAPI_MakeFace,
+)
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
+
 
 def holes_in_face():
     aPlane = gp_Pln()
@@ -67,6 +70,7 @@ def holes_in_face():
         raise AssertionError("shape not Done.")
 
     return aFaceMaker.Shape()
+
 
 if __name__ == "__main__":
     face = holes_in_face()

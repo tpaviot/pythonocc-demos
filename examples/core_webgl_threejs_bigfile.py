@@ -22,7 +22,9 @@ import os
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Display.WebGl import threejs_renderer
 
-big_shp = read_step_file(os.path.join('..', 'assets', 'models', 'RC_Buggy_2_front_suspension.stp'))
+big_shp = read_step_file(
+    os.path.join("..", "assets", "models", "RC_Buggy_2_front_suspension.stp")
+)
 
 my_renderer = threejs_renderer.ThreejsRenderer()
 my_renderer.DisplayShape(big_shp)

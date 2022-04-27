@@ -26,23 +26,24 @@ from OCC.Core.GC import GC_MakePlane, GC_MakeEllipse
 from OCC.Core.Geom import Geom_RectangularTrimmedSurface
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def points_from_intersection():
-    '''
+    """
     @param display:
-    '''
+    """
     plane = gp_Pln(gp_Ax3(gp_XOY()))
-    minor_radius, major_radius = 5., 8.
+    minor_radius, major_radius = 5.0, 8.0
     ellips = gp_Elips(gp_YOZ(), major_radius, minor_radius)
-    intersection = IntAna_IntConicQuad(ellips,
-                                       plane,
-                                       precision_Angular(),
-                                       precision_Confusion())
+    intersection = IntAna_IntConicQuad(
+        ellips, plane, precision_Angular(), precision_Confusion()
+    )
     a_plane = GC_MakePlane(plane).Value()
-    a_surface = Geom_RectangularTrimmedSurface(a_plane, - 8., 8., - 12., 12.,
-                                               True, True)
+    a_surface = Geom_RectangularTrimmedSurface(
+        a_plane, -8.0, 8.0, -12.0, 12.0, True, True
+    )
     display.DisplayShape(a_surface, update=True)
 
     anEllips = GC_MakeEllipse(ellips).Value()
@@ -58,6 +59,6 @@ def points_from_intersection():
                 display.DisplayMessage(P, pstring)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     points_from_intersection()
     start_display()

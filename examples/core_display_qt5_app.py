@@ -4,17 +4,26 @@ import os
 import sys
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QGroupBox, QDialog, QVBoxLayout
+from PyQt5.QtWidgets import (
+    QApplication,
+    QWidget,
+    QPushButton,
+    QHBoxLayout,
+    QGroupBox,
+    QDialog,
+    QVBoxLayout,
+)
 
 from OCC.Display.backend import load_backend
-load_backend('qt-pyqt5')
+
+load_backend("qt-pyqt5")
 import OCC.Display.qtDisplay as qtDisplay
 
-class App(QDialog):
 
+class App(QDialog):
     def __init__(self):
         super().__init__()
-        self.title = 'PyQt5 / pythonOCC'
+        self.title = "PyQt5 / pythonOCC"
         self.left = 300
         self.top = 300
         self.width = 800
@@ -35,11 +44,11 @@ class App(QDialog):
         self.horizontalGroupBox = QGroupBox("Display PythonOCC")
         layout = QHBoxLayout()
 
-        disp = QPushButton('Display Box', self)
+        disp = QPushButton("Display Box", self)
         disp.clicked.connect(self.displayBOX)
         layout.addWidget(disp)
 
-        eras = QPushButton('Erase Box', self)
+        eras = QPushButton("Erase Box", self)
         eras.clicked.connect(self.eraseBOX)
         layout.addWidget(eras)
 
@@ -51,7 +60,7 @@ class App(QDialog):
         self.horizontalGroupBox.setLayout(layout)
 
     def displayBOX(self):
-        a_box = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
+        a_box = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape()
         self.ais_box = self.display.DisplayShape(a_box)[0]
         self.display.FitAll()
 
@@ -59,9 +68,8 @@ class App(QDialog):
         self.display.Context.Erase(self.ais_box, True)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = App()
-    if os.getenv('APPVEYOR') is None:
+    if os.getenv("APPVEYOR") is None:
         sys.exit(app.exec_())

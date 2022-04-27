@@ -23,15 +23,24 @@
 from math import atan, cos, sin, pi
 
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
-from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_Transform, BRepBuilderAPI_MakeWire,
-                                BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeFace)
+from OCC.Core.BRepBuilderAPI import (
+    BRepBuilderAPI_Transform,
+    BRepBuilderAPI_MakeWire,
+    BRepBuilderAPI_MakeEdge,
+    BRepBuilderAPI_MakeFace,
+)
 from OCC.Core.BRepFeat import BRepFeat_MakeCylindricalHole
-from OCC.Core.BRepPrimAPI import (BRepPrimAPI_MakeSphere, BRepPrimAPI_MakeCylinder,
-                             BRepPrimAPI_MakeTorus, BRepPrimAPI_MakeRevol)
+from OCC.Core.BRepPrimAPI import (
+    BRepPrimAPI_MakeSphere,
+    BRepPrimAPI_MakeCylinder,
+    BRepPrimAPI_MakeTorus,
+    BRepPrimAPI_MakeRevol,
+)
 from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.gp import gp_Ax2, gp_Pnt, gp_Dir, gp_Ax1, gp_Trsf, gp_Vec
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -40,8 +49,9 @@ def generate_shape():
     sphere_radius = 1.0
     sphere_angle = atan(0.5)
     sphere_origin = gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1))
-    sphere = BRepPrimAPI_MakeSphere(sphere_origin, sphere_radius,
-                                    -sphere_angle, sphere_angle).Shape()
+    sphere = BRepPrimAPI_MakeSphere(
+        sphere_origin, sphere_radius, -sphere_angle, sphere_angle
+    ).Shape()
     return sphere
 
 
@@ -61,8 +71,12 @@ def boolean_cut(base):
     # Create a cylinder
     cylinder_radius = 0.25
     cylinder_height = 2.0
-    cylinder_origin = gp_Ax2(gp_Pnt(0.0, 0.0, - cylinder_height / 2.0), gp_Dir(0.0, 0.0, 1.0))
-    cylinder = BRepPrimAPI_MakeCylinder(cylinder_origin, cylinder_radius, cylinder_height)
+    cylinder_origin = gp_Ax2(
+        gp_Pnt(0.0, 0.0, -cylinder_height / 2.0), gp_Dir(0.0, 0.0, 1.0)
+    )
+    cylinder = BRepPrimAPI_MakeCylinder(
+        cylinder_origin, cylinder_radius, cylinder_height
+    )
 
     # Repeatedly move and subtract it from the input shape
     move = gp_Trsf()
@@ -70,9 +84,11 @@ def boolean_cut(base):
     clone_radius = 1.0
 
     for clone in range(8):
-        angle = clone *  pi / 4.0
+        angle = clone * pi / 4.0
         # Move the cylinder
-        move.SetTranslation(gp_Vec(cos(angle) * clone_radius, sin(angle) * clone_radius, 0.0))
+        move.SetTranslation(
+            gp_Vec(cos(angle) * clone_radius, sin(angle) * clone_radius, 0.0)
+        )
         moved_cylinder = BRepBuilderAPI_Transform(cylinder.Shape(), move, True).Shape()
         # Subtract the moved cylinder from the drilled sphere
         boolean_result = BRepAlgoAPI_Cut(boolean_result, moved_cylinder).Shape()
@@ -109,7 +125,9 @@ def revolved_cut(base):
     hexwire = BRepBuilderAPI_MakeWire()
 
     for i in range(1, 7):
-        hexedge = BRepBuilderAPI_MakeEdge(face_points.Value(i), face_points.Value(i + 1)).Edge()
+        hexedge = BRepBuilderAPI_MakeEdge(
+            face_points.Value(i), face_points.Value(i + 1)
+        ).Edge()
         hexwire.Add(hexedge)
 
     # Turn the wire into a 6 sided face

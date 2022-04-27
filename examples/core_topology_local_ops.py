@@ -19,13 +19,25 @@ from math import pi
 
 from OCC.Core.BRep import BRep_Tool_Surface
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section, BRepAlgoAPI_Fuse
-from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeWire, BRepBuilderAPI_MakeEdge,
-	                                 BRepBuilderAPI_MakeFace, BRepBuilderAPI_GTransform)
-from OCC.Core.BRepFeat import (BRepFeat_MakePrism, BRepFeat_MakeDPrism, BRepFeat_SplitShape,
-                               BRepFeat_MakeLinearForm, BRepFeat_MakeRevol)
+from OCC.Core.BRepBuilderAPI import (
+    BRepBuilderAPI_MakeWire,
+    BRepBuilderAPI_MakeEdge,
+    BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_GTransform,
+)
+from OCC.Core.BRepFeat import (
+    BRepFeat_MakePrism,
+    BRepFeat_MakeDPrism,
+    BRepFeat_SplitShape,
+    BRepFeat_MakeLinearForm,
+    BRepFeat_MakeRevol,
+)
 from OCC.Core.BRepLib import breplib_BuildCurves3d
 from OCC.Core.BRepOffset import BRepOffset_Skin
-from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeThickSolid, BRepOffsetAPI_MakeOffsetShape
+from OCC.Core.BRepOffsetAPI import (
+    BRepOffsetAPI_MakeThickSolid,
+    BRepOffsetAPI_MakeOffsetShape,
+)
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakePrism
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.GCE2d import GCE2d_MakeLine
@@ -34,8 +46,18 @@ from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.TopTools import TopTools_ListOfShape
 from OCC.Core.TopoDS import TopoDS_Face
-from OCC.Core.gp import (gp_Pnt2d, gp_Circ2d, gp_Ax2d, gp_Dir2d, gp_Pnt, gp_Pln,
-	                     gp_Vec, gp_OX, gp_Trsf, gp_GTrsf)
+from OCC.Core.gp import (
+    gp_Pnt2d,
+    gp_Circ2d,
+    gp_Ax2d,
+    gp_Dir2d,
+    gp_Pnt,
+    gp_Pln,
+    gp_Vec,
+    gp_OX,
+    gp_Trsf,
+    gp_GTrsf,
+)
 
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
@@ -44,7 +66,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 def extrusion(event=None):
     # Make a box
-    Box = BRepPrimAPI_MakeBox(400., 250., 300.)
+    Box = BRepPrimAPI_MakeBox(400.0, 250.0, 300.0)
     S = Box.Shape()
 
     # Choose the first Face of the box
@@ -53,7 +75,7 @@ def extrusion(event=None):
 
     #  Make a plane from this face
     Pln = Geom_Plane.DownCast(surf)
-   
+
     # Get the normal of this plane. This will be the direction of extrusion.
     D = Pln.Axis().Direction()
 
@@ -62,25 +84,25 @@ def extrusion(event=None):
 
     # Create the 2D planar sketch
     MW = BRepBuilderAPI_MakeWire()
-    p1 = gp_Pnt2d(200., -100.)
-    p2 = gp_Pnt2d(100., -100.)
+    p1 = gp_Pnt2d(200.0, -100.0)
+    p2 = gp_Pnt2d(100.0, -100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    Edge1 = BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2))
+    Edge1 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge1.Edge())
     p1 = p2
-    p2 = gp_Pnt2d(100., -200.)
+    p2 = gp_Pnt2d(100.0, -200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    Edge2 = BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2))
+    Edge2 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge2.Edge())
     p1 = p2
-    p2 = gp_Pnt2d(200., -200.)
+    p2 = gp_Pnt2d(200.0, -200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    Edge3 = BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2))
+    Edge3 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge3.Edge())
     p1 = p2
-    p2 = gp_Pnt2d(200., -100.)
+    p2 = gp_Pnt2d(200.0, -100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    Edge4 = BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2))
+    Edge4 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge4.Edge())
 
     #  Build Face from Wire. NB: a face is required to generate a solid.
@@ -91,13 +113,13 @@ def extrusion(event=None):
     breplib_BuildCurves3d(FP)
 
     MKP = BRepFeat_MakePrism(S, FP, F, D, False, True)
-    MKP.Perform(200.)
+    MKP.Perform(200.0)
     # TODO MKP completes, seeing a split operation but no extrusion
     assert MKP.IsDone()
     res1 = MKP.Shape()
 
     display.EraseAll()
-    display.DisplayColoredShape(res1, 'BLUE')
+    display.DisplayColoredShape(res1, "BLUE")
     display.FitAll()
 
 
@@ -110,14 +132,13 @@ def brepfeat_prism(event=None):
 
     srf = BRep_Tool_Surface(face)
 
-    c = gp_Circ2d(gp_Ax2d(gp_Pnt2d(200, 130),
-                          gp_Dir2d(1, 0)), 75)
+    c = gp_Circ2d(gp_Ax2d(gp_Pnt2d(200, 130), gp_Dir2d(1, 0)), 75)
 
     circle = Geom2d_Circle(c)
 
     wire = BRepBuilderAPI_MakeWire()
-    wire.Add(BRepBuilderAPI_MakeEdge(circle, srf, 0., pi).Edge())
-    wire.Add(BRepBuilderAPI_MakeEdge(circle, srf, pi, 2. * pi).Edge())
+    wire.Add(BRepBuilderAPI_MakeEdge(circle, srf, 0.0, pi).Edge())
+    wire.Add(BRepBuilderAPI_MakeEdge(circle, srf, pi, 2.0 * pi).Edge())
     wire.Build()
 
     display.DisplayShape(wire.Wire())
@@ -138,7 +159,7 @@ def brepfeat_prism(event=None):
     assert prism.IsDone()
     display.EraseAll()
     display.DisplayShape(prism.Shape())
-    display.DisplayColoredShape(wire.Wire(), 'RED')
+    display.DisplayColoredShape(wire.Wire(), "RED")
     display.FitAll()
 
 
@@ -160,10 +181,12 @@ def thick_solid(event=None):
 
 def offset_cube(event=None):
     S2 = BRepPrimAPI_MakeBox(gp_Pnt(300, 0, 0), 220, 140, 180).Shape()
-    offsetB = BRepOffsetAPI_MakeOffsetShape(S2, -20, 0.01, BRepOffset_Skin, False, False, GeomAbs_Arc)
-    offB = display.DisplayColoredShape(S2, 'BLUE')[0]
+    offsetB = BRepOffsetAPI_MakeOffsetShape(
+        S2, -20, 0.01, BRepOffset_Skin, False, False, GeomAbs_Arc
+    )
+    offB = display.DisplayColoredShape(S2, "BLUE")[0]
     display.Context.SetTransparency(offB, 0.3, True)
-    display.DisplayColoredShape(offsetB.Shape(), 'GREEN')
+    display.DisplayColoredShape(offsetB.Shape(), "GREEN")
     display.FitAll()
 
 
@@ -191,34 +214,64 @@ def split_shape(event=None):
 def brep_feat_rib(event=None):
     mkw = BRepBuilderAPI_MakeWire()
 
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(0., 0., 0.), gp_Pnt(200., 0., 0.)).Edge())
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(200., 0., 0.), gp_Pnt(200., 0., 50.)).Edge())
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(200., 0., 50.), gp_Pnt(50., 0., 50.)).Edge())
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(50., 0., 50.), gp_Pnt(50., 0., 200.)).Edge())
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(50., 0., 200.), gp_Pnt(0., 0., 200.)).Edge())
-    mkw.Add(BRepBuilderAPI_MakeEdge(gp_Pnt(0., 0., 200.), gp_Pnt(0., 0., 0.)).Edge())
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(200.0, 0.0, 0.0)).Edge()
+    )
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(
+            gp_Pnt(200.0, 0.0, 0.0), gp_Pnt(200.0, 0.0, 50.0)
+        ).Edge()
+    )
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(
+            gp_Pnt(200.0, 0.0, 50.0), gp_Pnt(50.0, 0.0, 50.0)
+        ).Edge()
+    )
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(
+            gp_Pnt(50.0, 0.0, 50.0), gp_Pnt(50.0, 0.0, 200.0)
+        ).Edge()
+    )
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(
+            gp_Pnt(50.0, 0.0, 200.0), gp_Pnt(0.0, 0.0, 200.0)
+        ).Edge()
+    )
+    mkw.Add(
+        BRepBuilderAPI_MakeEdge(gp_Pnt(0.0, 0.0, 200.0), gp_Pnt(0.0, 0.0, 0.0)).Edge()
+    )
 
-    S = BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(mkw.Wire()).Face(),
-                              gp_Vec(gp_Pnt(0., 0., 0.),
-                                     gp_Pnt(0., 100., 0.)))
+    S = BRepPrimAPI_MakePrism(
+        BRepBuilderAPI_MakeFace(mkw.Wire()).Face(),
+        gp_Vec(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(0.0, 100.0, 0.0)),
+    )
     display.EraseAll()
     #    display.DisplayShape(S.Shape())
 
-    W = BRepBuilderAPI_MakeWire(BRepBuilderAPI_MakeEdge(gp_Pnt(50., 45., 100.),
-                                                        gp_Pnt(100., 45., 50.)).Edge())
+    W = BRepBuilderAPI_MakeWire(
+        BRepBuilderAPI_MakeEdge(
+            gp_Pnt(50.0, 45.0, 100.0), gp_Pnt(100.0, 45.0, 50.0)
+        ).Edge()
+    )
 
-    aplane = Geom_Plane(0., 1., 0., -45.)
+    aplane = Geom_Plane(0.0, 1.0, 0.0, -45.0)
 
-    aform = BRepFeat_MakeLinearForm(S.Shape(), W.Wire(), aplane,
-                                    gp_Vec(0., 10., 0.), gp_Vec(0., 0., 0.),
-                                    1, True)
+    aform = BRepFeat_MakeLinearForm(
+        S.Shape(),
+        W.Wire(),
+        aplane,
+        gp_Vec(0.0, 10.0, 0.0),
+        gp_Vec(0.0, 0.0, 0.0),
+        1,
+        True,
+    )
     aform.Perform()
     display.DisplayShape(aform.Shape())
     display.FitAll()
 
 
 def brep_feat_local_revolution(event=None):
-    S = BRepPrimAPI_MakeBox(400., 250., 300.).Shape()
+    S = BRepPrimAPI_MakeBox(400.0, 250.0, 300.0).Shape()
     faces = list(TopologyExplorer(S).faces())
     F1 = faces[2]
     surf = BRep_Tool_Surface(F1)
@@ -226,20 +279,20 @@ def brep_feat_local_revolution(event=None):
     D = gp_OX()
 
     MW1 = BRepBuilderAPI_MakeWire()
-    p1 = gp_Pnt2d(100., 100.)
-    p2 = gp_Pnt2d(200., 100.)
+    p1 = gp_Pnt2d(100.0, 100.0)
+    p2 = gp_Pnt2d(200.0, 100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2)).Edge())
+    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
-    p1 = gp_Pnt2d(200., 100.)
-    p2 = gp_Pnt2d(150., 200.)
+    p1 = gp_Pnt2d(200.0, 100.0)
+    p2 = gp_Pnt2d(150.0, 200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2)).Edge())
+    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
-    p1 = gp_Pnt2d(150., 200.)
-    p2 = gp_Pnt2d(100., 100.)
+    p1 = gp_Pnt2d(150.0, 200.0)
+    p2 = gp_Pnt2d(100.0, 100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0., p1.Distance(p2)).Edge())
+    MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
     MKF1 = BRepBuilderAPI_MakeFace()
     MKF1.Init(surf, False, 1e-6)
@@ -256,7 +309,7 @@ def brep_feat_local_revolution(event=None):
 
 def brep_feat_extrusion_protrusion(event=None):
     # Extrusion
-    S = BRepPrimAPI_MakeBox(400., 250., 300.).Shape()
+    S = BRepPrimAPI_MakeBox(400.0, 250.0, 300.0).Shape()
     faces = TopologyExplorer(S).faces()
     F = next(faces)
     surf1 = BRep_Tool_Surface(F)
@@ -265,21 +318,21 @@ def brep_feat_extrusion_protrusion(event=None):
 
     D1 = Pl1.Pln().Axis().Direction().Reversed()
     MW = BRepBuilderAPI_MakeWire()
-    p1, p2 = gp_Pnt2d(200., -100.), gp_Pnt2d(100., -100.)
+    p1, p2 = gp_Pnt2d(200.0, -100.0), gp_Pnt2d(100.0, -100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0., p1.Distance(p2)).Edge())
+    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
-    p1, p2 = gp_Pnt2d(100., -100.), gp_Pnt2d(100., -200.)
+    p1, p2 = gp_Pnt2d(100.0, -100.0), gp_Pnt2d(100.0, -200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0., p1.Distance(p2)).Edge())
+    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
-    p1, p2 = gp_Pnt2d(100., -200.), gp_Pnt2d(200., -200.)
+    p1, p2 = gp_Pnt2d(100.0, -200.0), gp_Pnt2d(200.0, -200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0., p1.Distance(p2)).Edge())
+    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
-    p1, p2 = gp_Pnt2d(200., -200.), gp_Pnt2d(200., -100.)
+    p1, p2 = gp_Pnt2d(200.0, -200.0), gp_Pnt2d(200.0, -100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0., p1.Distance(p2)).Edge())
+    MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
     MKF = BRepBuilderAPI_MakeFace()
     MKF.Init(surf1, False, 1e-6)
@@ -301,17 +354,17 @@ def brep_feat_extrusion_protrusion(event=None):
     Pl2 = Geom_Plane.DownCast(surf2)
     D2 = Pl2.Pln().Axis().Direction().Reversed()
     MW2 = BRepBuilderAPI_MakeWire()
-    p1, p2 = gp_Pnt2d(100., 100.), gp_Pnt2d(200., 100.)
+    p1, p2 = gp_Pnt2d(100.0, 100.0), gp_Pnt2d(200.0, 100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0., p1.Distance(p2)).Edge())
+    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
-    p1, p2 = gp_Pnt2d(200., 100.), gp_Pnt2d(150., 200.)
+    p1, p2 = gp_Pnt2d(200.0, 100.0), gp_Pnt2d(150.0, 200.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0., p1.Distance(p2)).Edge())
+    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
-    p1, p2 = gp_Pnt2d(150., 200.), gp_Pnt2d(100., 100.)
+    p1, p2 = gp_Pnt2d(150.0, 200.0), gp_Pnt2d(100.0, 100.0)
     aline = GCE2d_MakeLine(p1, p2).Value()
-    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0., p1.Distance(p2)).Edge())
+    MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
     MKF2 = BRepBuilderAPI_MakeFace()
     MKF2.Init(surf2, False, 1e-6)
@@ -336,19 +389,20 @@ def brep_feat_extrusion_protrusion(event=None):
     display.DisplayShape(fused.Shape())
     display.FitAll()
 
+
 def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
-    add_menu('topology local operations')
-    add_function_to_menu('topology local operations', brepfeat_prism)
-    add_function_to_menu('topology local operations', extrusion)
-    add_function_to_menu('topology local operations', thick_solid)
-    add_function_to_menu('topology local operations', offset_cube)
-    add_function_to_menu('topology local operations', split_shape)
-    add_function_to_menu('topology local operations', brep_feat_rib)
-    add_function_to_menu('topology local operations', brep_feat_local_revolution)
-    add_function_to_menu('topology local operations', brep_feat_extrusion_protrusion)
-    add_function_to_menu('topology local operations', exit)
+if __name__ == "__main__":
+    add_menu("topology local operations")
+    add_function_to_menu("topology local operations", brepfeat_prism)
+    add_function_to_menu("topology local operations", extrusion)
+    add_function_to_menu("topology local operations", thick_solid)
+    add_function_to_menu("topology local operations", offset_cube)
+    add_function_to_menu("topology local operations", split_shape)
+    add_function_to_menu("topology local operations", brep_feat_rib)
+    add_function_to_menu("topology local operations", brep_feat_local_revolution)
+    add_function_to_menu("topology local operations", brep_feat_extrusion_protrusion)
+    add_function_to_menu("topology local operations", exit)
     start_display()

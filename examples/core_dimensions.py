@@ -27,7 +27,7 @@ from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
-c = gp_Circ(gp_Ax2(gp_Pnt(200., 200., 0.), gp_Dir(0., 0., 1.)), 80)
+c = gp_Circ(gp_Ax2(gp_Pnt(200.0, 200.0, 0.0), gp_Dir(0.0, 0.0, 1.0)), 80)
 ec = BRepBuilderAPI_MakeEdge(c).Edge()
 ais_shp = AIS_Shape(ec)
 display.Context.Display(ais_shp, True)

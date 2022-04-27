@@ -34,11 +34,10 @@ from OCC.Extend.ShapeFactory import get_aligned_boundingbox
 
 
 def drange(start, stop, step):
-    ''' mimic numpy arange method for float lists
-    '''
+    """mimic numpy arange method for float lists"""
     float_list = []
     r = start
-    while r < stop-step:
+    while r < stop - step:
         float_list.append(r)
         r += step
     return float_list
@@ -47,7 +46,7 @@ def drange(start, stop, step):
 def get_brep():
     cylinder_head = TopoDS_Shape()
     builder = BRep_Builder()
-    breptools_Read(cylinder_head, '../assets/models/cylinder_head.brep', builder)
+    breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
     return cylinder_head
 
 
@@ -56,8 +55,8 @@ def vectorized_slicer(li):
     z_values, shape = li
     _slices = []
     for z in z_values:
-        #print 'slicing index:', z, 'sliced by process:', os.getpid()
-        plane = gp_Pln(gp_Pnt(0., 0., z), gp_Dir(0., 0., 1.))
+        # print 'slicing index:', z, 'sliced by process:', os.getpid()
+        plane = gp_Pln(gp_Pnt(0.0, 0.0, z), gp_Dir(0.0, 0.0, 1.0))
         face = BRepBuilderAPI_MakeFace(plane).Shape()
         # Computes Shape/Plane intersection
         section = BRepAlgoAPI_Section(shape, face)
@@ -76,27 +75,30 @@ def run(n_procs, compare_by_number_of_processors=False):
     init_time = time.time()  # for total time computation
 
     def get_z_coords_for_n_procs(n_slices, n_procs):
-        z_slices = drange(z_min, z_max, dz/n_slices)
+        z_slices = drange(z_min, z_max, dz / n_slices)
 
         slices = []
         n = len(z_slices) // n_procs
-        print('number of slices:', len(z_slices))
+        print("number of slices:", len(z_slices))
 
         _str_slices = []
-        for i in range(1, n_procs+1):
+        for i in range(1, n_procs + 1):
             if i == 1:
-                slices.append(z_slices[:i*n])
-                _str_slices.append(':'+str(i*n)+' ')
+                slices.append(z_slices[: i * n])
+                _str_slices.append(":" + str(i * n) + " ")
             elif i == n_procs:
                 # does a little extra work if the number of slices
                 # isn't divisible by n_procs
-                slices.append(z_slices[(i-1)*n:])
-                _str_slices.append(str((i-1)*n)+': ')
-                print('last slice', len(z_slices[(i-1)*n:]))
+                slices.append(z_slices[(i - 1) * n :])
+                _str_slices.append(str((i - 1) * n) + ": ")
+                print("last slice", len(z_slices[(i - 1) * n :]))
             else:
-                slices.append(z_slices[(i-1)*n:i*n])
-                _str_slices.append(' %s:%s ' % ((i-1)*n, i*n))
-        print('the z-index array is sliced over %s processors like this: \n %s' % (n_procs, _str_slices))
+                slices.append(z_slices[(i - 1) * n : i * n])
+                _str_slices.append(" %s:%s " % ((i - 1) * n, i * n))
+        print(
+            "the z-index array is sliced over %s processors like this: \n %s"
+            % (n_procs, _str_slices)
+        )
         return slices
 
     def arguments(n_slices, n_procs):
@@ -119,21 +121,23 @@ def run(n_procs, compare_by_number_of_processors=False):
             tA = time.time()
             _results = []
             if i == 1:
-                _results = vectorized_slicer([drange(z_min, z_max, dz/n_slice), shape])
+                _results = vectorized_slicer(
+                    [drange(z_min, z_max, dz / n_slice), shape]
+                )
             else:
                 P = multiprocessing.Pool(n_procs)
                 _results = P.map(vectorized_slicer, arguments(n_slice, i))
-            print('slicing took %s seconds for %s processors' % (time.time() - tA, i))
+            print("slicing took %s seconds for %s processors" % (time.time() - tA, i))
         sys.exit()
 
-    print('\n\n\n done slicing on %i cores \n\n\n' % nprocs)
+    print("\n\n\n done slicing on %i cores \n\n\n" % nprocs)
 
     # Display result
     display, start_display, add_menu, add_function_to_menu = init_display()
-    print('displaying original shape')
+    print("displaying original shape")
     display.DisplayShape(shape, update=True)
     for n, result_shp in enumerate(_results):
-        print('displaying results from process {0}'.format(n))
+        print("displaying results from process {0}".format(n))
         display.DisplayShape(result_shp, update=True)
 
     # update viewer when all is added:
@@ -142,7 +146,8 @@ def run(n_procs, compare_by_number_of_processors=False):
     print("%s necessary to perform slice with %s processor(s)." % (total_time, n_procs))
     start_display()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # use compare_by_number_of_processors=True to see speed up
     # per number of processor added
     try:

@@ -21,18 +21,24 @@ from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Extend.DataExchange import write_stl_file
 
 # first, create the shape
-my_torus = BRepPrimAPI_MakeTorus(20., 10.).Shape()
+my_torus = BRepPrimAPI_MakeTorus(20.0, 10.0).Shape()
 
 # set the directory where to output the
 stl_output_dir = os.path.abspath(os.path.join("..", "assets", "models"))
 
 # make sure the path exists otherwise OCE get confused
 if not os.path.isdir(stl_output_dir):
-	raise AssertionError("wrong path provided")
+    raise AssertionError("wrong path provided")
 stl_low_resolution_file = os.path.join(stl_output_dir, "torus_default_resolution.stl")
 write_stl_file(my_torus, stl_low_resolution_file)
 
 # then we change the mesh resolution, and export as binary
 stl_high_resolution_file = os.path.join(stl_output_dir, "torus_high_resolution.stl")
 # we set the format to binary
-write_stl_file(my_torus, stl_high_resolution_file, mode="binary", linear_deflection=0.5, angular_deflection=0.3)
+write_stl_file(
+    my_torus,
+    stl_high_resolution_file,
+    mode="binary",
+    linear_deflection=0.5,
+    angular_deflection=0.3,
+)

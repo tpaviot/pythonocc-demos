@@ -25,12 +25,12 @@ from OCC.Core.BRepGProp import brepgprop_VolumeProperties, brepgprop_SurfaceProp
 
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
+
 def cube_inertia_properties():
-    """ Compute the inertia properties of a shape
-    """
+    """Compute the inertia properties of a shape"""
     # Create and display cube
     print("Creating a cubic box shape (50*50*50)")
-    cube_shape = BRepPrimAPI_MakeBox(50., 50., 50.).Shape()
+    cube_shape = BRepPrimAPI_MakeBox(50.0, 50.0, 50.0).Shape()
     # Compute inertia properties
     props = GProp_GProps()
     brepgprop_VolumeProperties(cube_shape, props)
@@ -46,10 +46,9 @@ def cube_inertia_properties():
 
 
 def shape_faces_surface():
-    """ Compute the surface of each face of a shape
-    """
+    """Compute the surface of each face of a shape"""
     # first create the shape
-    the_shape = BRepPrimAPI_MakeBox(50., 30., 10.).Shape()
+    the_shape = BRepPrimAPI_MakeBox(50.0, 30.0, 10.0).Shape()
     # then loop over faces
     t = TopologyExplorer(the_shape)
     props = GProp_GProps()
@@ -60,6 +59,7 @@ def shape_faces_surface():
         print("Surface for face nbr %i : %f" % (shp_idx, face_surf))
         shp_idx += 1
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cube_inertia_properties()
     shape_faces_surface()

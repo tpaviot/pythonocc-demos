@@ -37,4 +37,4 @@ step_writer.Transfer(box_s, STEPControl_AsIs)
 status = step_writer.Write("box.stp")
 
 if status != IFSelect_RetDone:
-	raise AssertionError("load failed")
+    raise AssertionError("load failed")

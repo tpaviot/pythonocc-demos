@@ -32,7 +32,7 @@ from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.GeomAPI import GeomAPI_ProjectPointOnCurve
 
 # Read wire
-wire_filename = os.path.join('..', 'assets', 'models', 'wire.brep')
+wire_filename = os.path.join("..", "assets", "models", "wire.brep")
 shp = TopoDS_Shape()
 aBuilder = BRep_Builder()
 breptools.Read(shp, wire_filename, aBuilder)
@@ -47,14 +47,14 @@ tol = 1e-7
 max_segments = 200
 max_degrees = 12
 approx = Approx_Curve3d(curve, tol, GeomAbs_C2, max_segments, max_degrees)
-if (approx.IsDone() and approx.HasResult()):
+if approx.IsDone() and approx.HasResult():
     an_approximated_curve = approx.Curve()
 
 # there are two ways to project a point on this curve,
 # they both give the same restult
 
 # 1st solution: using GeomAPI_ProjectPointOnCurve
-point_to_project = gp_Pnt(1., 2., 3.)
+point_to_project = gp_Pnt(1.0, 2.0, 3.0)
 projection = GeomAPI_ProjectPointOnCurve(point_to_project, an_approximated_curve)
 # get the results of the projection
 projected_point = projection.NearestPoint()
@@ -66,6 +66,7 @@ print("Distance :", projection.LowerDistance())
 # 2nd solution : using ShapeAnalysis_Curve().Project
 tolerance = 1e-7
 proj = gp_Pnt()
-distance, parameter = ShapeAnalysis_Curve().Project(an_approximated_curve,
-                                                    point_to_project, tolerance, proj)
+distance, parameter = ShapeAnalysis_Curve().Project(
+    an_approximated_curve, point_to_project, tolerance, proj
+)
 print("Distance :", distance)

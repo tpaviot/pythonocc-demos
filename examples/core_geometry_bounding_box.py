@@ -24,7 +24,7 @@ from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
 
 
 def get_boundingbox(shape, tol=1e-6, use_mesh=True):
-    """ return the bounding box of the TopoDS_Shape `shape`
+    """return the bounding box of the TopoDS_Shape `shape`
     Parameters
     ----------
     shape : TopoDS_Shape or a subclass such as TopoDS_Face
@@ -47,19 +47,20 @@ def get_boundingbox(shape, tol=1e-6, use_mesh=True):
     brepbndlib_Add(shape, bbox, use_mesh)
 
     xmin, ymin, zmin, xmax, ymax, zmax = bbox.Get()
-    return xmin, ymin, zmin, xmax, ymax, zmax, xmax-xmin, ymax-ymin, zmax-zmin
+    return xmin, ymin, zmin, xmax, ymax, zmax, xmax - xmin, ymax - ymin, zmax - zmin
+
 
 print("Box bounding box computation")
-box_shape = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
+box_shape = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape()
 bb1 = get_boundingbox(box_shape)
 print(bb1)
 
 print("Cylinder bounding box computation")
-cyl_shape = BRepPrimAPI_MakeCylinder(10., 20.).Shape()
+cyl_shape = BRepPrimAPI_MakeCylinder(10.0, 20.0).Shape()
 bb2 = get_boundingbox(cyl_shape)
 print(bb2)
 
 print("Torus bounding box computation")
-torus_shape = BRepPrimAPI_MakeCylinder(15., 5.).Shape()
+torus_shape = BRepPrimAPI_MakeCylinder(15.0, 5.0).Shape()
 bb3 = get_boundingbox(torus_shape)
 print(bb3)

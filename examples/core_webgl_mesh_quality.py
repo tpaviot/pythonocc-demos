@@ -38,15 +38,17 @@ torus_shp3 = translate_shp(torus_shp3b, gp_Vec(-60, 0, 0))
 
 # default quality
 print("Computing RED torus: default quality")
-my_ren.DisplayShape(torus_shp1, export_edges=True, color=(1,0,0))  # red
+my_ren.DisplayShape(torus_shp1, export_edges=True, color=(1, 0, 0))  # red
 
 # better mesh quality, i.e. more triangles
 print("Computing GREEN torus: better quality, more time to compute")
-my_ren.DisplayShape(torus_shp2, export_edges=True, color=(0,1,0),  # green
-                    mesh_quality = 0.5)
+my_ren.DisplayShape(
+    torus_shp2, export_edges=True, color=(0, 1, 0), mesh_quality=0.5  # green
+)
 
 # worse quality, i.e. less triangles
 print("Computing BLUE torus: worse quality, faster to compute")
-my_ren.DisplayShape(torus_shp3, export_edges=True, color=(0,0,1),  # blue
-                    mesh_quality= 5.)
+my_ren.DisplayShape(
+    torus_shp3, export_edges=True, color=(0, 0, 1), mesh_quality=5.0  # blue
+)
 my_ren.render()

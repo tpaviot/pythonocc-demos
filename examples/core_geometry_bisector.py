@@ -39,7 +39,7 @@ def bisect_lineline(event=None):
     for i in [li1, li2]:
         display.DisplayShape(make_edge2d(i))
     for i in [bi_li1, bi_li2]:
-        display.DisplayColoredShape(make_edge2d(i), 'BLUE')
+        display.DisplayColoredShape(make_edge2d(i), "BLUE")
     display.FitAll()
 
 
@@ -53,7 +53,7 @@ def bisect_linecircle(event=None):
     bisec = bi.ThisSolution(1)
     pb = bisec.Parabola()
     display.DisplayShape([make_edge2d(ci1), make_edge2d(li1)])
-    display.DisplayColoredShape(make_edge2d(pb), 'BLUE')
+    display.DisplayColoredShape(make_edge2d(pb), "BLUE")
     display.FitAll()
 
 
@@ -67,7 +67,7 @@ def bisect_pnt(event=None):
     p1_ = make_vertex(gp_Pnt(p1.X(), p1.Y(), 0))
     p2_ = make_vertex(gp_Pnt(p2.X(), p2.Y(), 0))
     display.DisplayShape([p1_, p2_])
-    display.DisplayColoredShape(make_edge2d(bisec), 'BLUE')
+    display.DisplayColoredShape(make_edge2d(bisec), "BLUE")
     display.FitAll()
 
 
@@ -77,25 +77,25 @@ def bisect_crvcrv(event=None):
     circ = gp_Circ2d(ax, 5)
     crv1 = GCE2d_MakeCircle(circ).Value()
     edg1 = make_edge2d(crv1, -1.0, 1.0)
-    display.DisplayColoredShape(edg1, 'BLUE')
+    display.DisplayColoredShape(edg1, "BLUE")
 
     p1 = gp_Pnt2d(-10, 0)
     p2 = gp_Pnt2d(-10, 10)
     crv2 = GCE2d_MakeLine(p1, p2).Value()
     edg2 = make_edge2d(crv2, -10.0, 10.0)
-    display.DisplayColoredShape(edg2, 'GREEN')
+    display.DisplayColoredShape(edg2, "GREEN")
 
     bi = Bisector_BisecCC(crv1, crv2, 50, -5, gp_Pnt2d(0, 0))
     crv_bi = bi.Curve(1)
     edg3 = make_edge2d(crv_bi, -1.0, 1.0)
-    display.DisplayColoredShape(edg3, 'RED')
+    display.DisplayColoredShape(edg3, "RED")
     display.FitAll()
 
 
-if __name__ == '__main__':
-    add_menu('bisector')
-    add_function_to_menu('bisector', bisect_lineline)
-    add_function_to_menu('bisector', bisect_linecircle)
-    add_function_to_menu('bisector', bisect_pnt)
-    add_function_to_menu('bisector', bisect_crvcrv)
+if __name__ == "__main__":
+    add_menu("bisector")
+    add_function_to_menu("bisector", bisect_lineline)
+    add_function_to_menu("bisector", bisect_linecircle)
+    add_function_to_menu("bisector", bisect_pnt)
+    add_function_to_menu("bisector", bisect_crvcrv)
     start_display()

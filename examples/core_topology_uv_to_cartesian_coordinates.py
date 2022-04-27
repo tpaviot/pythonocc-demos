@@ -23,6 +23,7 @@ from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface, shapeanalysis_GetFaceUVBounds
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -41,13 +42,12 @@ def build_surf():
     array.SetValue(1, 2, p4)
     array.SetValue(2, 2, p5)
     array.SetValue(3, 2, p6)
-    bspl_surf = GeomAPI_PointsToBSplineSurface(array, 3, 8, GeomAbs_C2,
-                                               0.001).Surface()
+    bspl_surf = GeomAPI_PointsToBSplineSurface(array, 3, 8, GeomAbs_C2, 0.001).Surface()
     return bspl_surf
 
+
 def build_points_network(bspl_srf):
-    """ Creates a list of gp_Pnt points from a bspline surface
-    """
+    """Creates a list of gp_Pnt points from a bspline surface"""
     # first create a face
     face = BRepBuilderAPI_MakeFace(bspl_srf, 1e-6).Face()
     # get face uv bounds
@@ -68,7 +68,8 @@ def build_points_network(bspl_srf):
         u += 0.1
     return pnts
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     surf = build_surf()
     display.DisplayShape(surf, update=True)
     pts = build_points_network(surf)

@@ -27,10 +27,12 @@ from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Core.gp import gp_Pnt
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
+
 def pcd_get_number_of_vertices(pcd_filename):
-    """ open the PCD file, read header and get number of vertices.
+    """open the PCD file, read header and get number of vertices.
     Header looks like:
     # .PCD v.5 - Point Cloud Data file format
     VERSION .5
@@ -43,7 +45,7 @@ def pcd_get_number_of_vertices(pcd_filename):
     POINTS 397
     DATA ascii
     """
-    f = open(pcd_filename, 'r')
+    f = open(pcd_filename, "r")
     # read 8 lines
     for i in range(8):
         f.readline()
@@ -51,6 +53,7 @@ def pcd_get_number_of_vertices(pcd_filename):
     number_of_points = int(f.readline().split()[1])
     f.close()
     return number_of_points
+
 
 def random_points(event=None):
     n_points = 500000
@@ -72,15 +75,16 @@ def random_points(event=None):
     display.View_Iso()
     display.FitAll()
 
+
 def bunny(event=None):
-    pcd_file_name = os.path.join('..', 'assets', 'models', 'bunny.pcd')
+    pcd_file_name = os.path.join("..", "assets", "models", "bunny.pcd")
     # compute number of lines
     nbr_of_vertices = pcd_get_number_of_vertices(pcd_file_name)
     print("Number of vertices :", nbr_of_vertices)
     # create the point_cloud
     pc = Graphic3d_ArrayOfPoints(nbr_of_vertices)
     # fedd it with vertices
-    fp = open(pcd_file_name, 'r')
+    fp = open(pcd_file_name, "r")
     # read 11 lines to skip header
     for i in range(10):
         fp.readline()
@@ -95,14 +99,19 @@ def bunny(event=None):
     display.View_Iso()
     display.FitAll()
 
+
 def tabletop(event=None):
-    pcd_file = open(os.path.join('..', 'assets', 'models', 'tabletop.pcd'), 'r').readlines()[11:]
+    pcd_file = open(
+        os.path.join("..", "assets", "models", "tabletop.pcd"), "r"
+    ).readlines()[11:]
     # create the point_cloud
     pc = Graphic3d_ArrayOfPoints(len(pcd_file), True)
     for line in pcd_file:
         x, y, z, rgb = map(float, line.split())
         r, g, b = unpackRGB(rgb)
-        color = Quantity_Color(r/float(255), g/float(255), b/float(255), Quantity_TOC_RGB)
+        color = Quantity_Color(
+            r / float(255), g / float(255), b / float(255), Quantity_TOC_RGB
+        )
         pc.AddVertex(gp_Pnt(x, y, z), color)
 
     # then build the point cloud
@@ -115,6 +124,7 @@ def tabletop(event=None):
     display.View_Iso()
     display.FitAll()
 
+
 def unpackRGB(rgb):
     """
     Unpack PCL RGB data into r/g/b
@@ -124,17 +134,17 @@ def unpackRGB(rgb):
     :return:    unsigned integer [0 - 255]
     """
     # reinterpret from float to unsigned integer
-    rgb = struct.unpack('I', struct.pack('f', rgb))[0]
+    rgb = struct.unpack("I", struct.pack("f", rgb))[0]
     # unpack rgb into r/g/b
-    r = (rgb >> 16) & 0x0000ff
-    g = (rgb >> 8)  & 0x0000ff
-    b = (rgb)       & 0x0000ff
+    r = (rgb >> 16) & 0x0000FF
+    g = (rgb >> 8) & 0x0000FF
+    b = (rgb) & 0x0000FF
     return r, g, b
 
 
-if __name__ == '__main__':
-    add_menu('pointcloud')
-    add_function_to_menu('pointcloud', random_points)
-    add_function_to_menu('pointcloud', bunny)
-    add_function_to_menu('pointcloud', tabletop)
+if __name__ == "__main__":
+    add_menu("pointcloud")
+    add_function_to_menu("pointcloud", random_points)
+    add_function_to_menu("pointcloud", bunny)
+    add_function_to_menu("pointcloud", tabletop)
     start_display()

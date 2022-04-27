@@ -29,12 +29,12 @@ myBox = BRepPrimAPI_MakeBox(60, 60, 50).Shape()
 colorscale = AIS_ColorScale()
 
 # colorscale properties
-aMinRange    = colorscale.GetMin()
-aMaxRange    = colorscale.GetMax()
+aMinRange = colorscale.GetMin()
+aMaxRange = colorscale.GetMax()
 aNbIntervals = colorscale.GetNumberOfIntervals()
-aTextHeight  = colorscale.GetTextHeight()
+aTextHeight = colorscale.GetTextHeight()
 labPosition = colorscale.GetLabelPosition()
-position =  gp_XY(colorscale.GetXPosition(), colorscale.GetYPosition())
+position = gp_XY(colorscale.GetXPosition(), colorscale.GetYPosition())
 title = colorscale.GetTitle()
 
 # colorscale display
@@ -42,8 +42,8 @@ colorscale.SetSize(300, 300)
 colorscale.SetRange(0.0, 10.0)
 colorscale.SetNumberOfIntervals(10)
 
-colorscale.SetZLayer (Graphic3d_ZLayerId_TopOSD)
-colorscale.SetTransformPersistence(Graphic3d_TMF_2d, gp_Pnt (-1, -1, 0))
+colorscale.SetZLayer(Graphic3d_ZLayerId_TopOSD)
+colorscale.SetTransformPersistence(Graphic3d_TMF_2d, gp_Pnt(-1, -1, 0))
 colorscale.SetToUpdate()
 
 display.Context.Display(colorscale, True)

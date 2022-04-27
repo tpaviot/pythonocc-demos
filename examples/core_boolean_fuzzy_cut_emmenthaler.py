@@ -30,17 +30,19 @@ from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
+
 def random_pnt():
     x, y, z = [random.uniform(0, 1) for i in range(3)]
     return gp_Pnt(x, y, z)
+
 
 def random_vec():
     x, y, z = [random.uniform(-1, 1) for i in range(3)]
     return gp_Vec(x, y, z)
 
+
 def fuzzy_cut(shape_A, shape_B, tol=5e-5, parallel=False):
-    """ returns shape_A - shape_B
-    """
+    """returns shape_A - shape_B"""
     cut = BRepAlgoAPI_Cut()
     L1 = TopTools_ListOfShape()
     L1.Append(shape_A)
@@ -53,17 +55,18 @@ def fuzzy_cut(shape_A, shape_B, tol=5e-5, parallel=False):
     cut.Build()
     return cut.Shape()
 
+
 def emmenthaler(event=None):
     init_time = time.time()
-    scope = 200.
+    scope = 200.0
     nb_iter = 40
     box = BRepPrimAPI_MakeBox(scope, scope, scope).Shape()
 
     def do_cyl():
         axe = gp_Ax2()
-        axe.SetLocation(gp_Pnt((random_vec()*scope).XYZ()))
+        axe.SetLocation(gp_Pnt((random_vec() * scope).XYZ()))
         axe.SetDirection(gp_Dir(random_vec()))
-        cyl = BRepPrimAPI_MakeCylinder(axe, random.uniform(8, 36), 5000.)
+        cyl = BRepPrimAPI_MakeCylinder(axe, random.uniform(8, 36), 5000.0)
         return cyl.Shape()
 
     # perform a recursive fusszy cut
@@ -73,7 +76,7 @@ def emmenthaler(event=None):
         cyl = do_cyl()
         tA = time.time()
         shp = fuzzy_cut(shp, cyl, 1e-4)
-        print('boolean cylinder:', i, 'took', time.time()-tA)
+        print("boolean cylinder:", i, "took", time.time() - tA)
     total_time = time.time() - init_time
     print("Total time : %fs" % total_time)
     display.DisplayShape(shp, update=True)
@@ -83,7 +86,8 @@ def emmenthaler(event=None):
 def exit(event=None):
     sys.exit()
 
-if __name__ == '__main__':
-    add_menu('fuzzy boolean operations')
-    add_function_to_menu('fuzzy boolean operations', emmenthaler)
+
+if __name__ == "__main__":
+    add_menu("fuzzy boolean operations")
+    add_function_to_menu("fuzzy boolean operations", emmenthaler)
     start_display()

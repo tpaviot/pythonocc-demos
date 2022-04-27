@@ -52,10 +52,10 @@ def simple_mesh():
         face = topods_Face(ex.Current())
         transf = face.Location().Transformation()
         location = TopLoc_Location()
-        facing = (bt.Triangulation(face, location))
+        facing = bt.Triangulation(face, location)
         tab = facing.Nodes()
         tri = facing.Triangles()
-        for i in range(1, facing.NbTriangles()+1):
+        for i in range(1, facing.NbTriangles() + 1):
             trian = tri.Value(i)
             index1, index2, index3 = trian.Get()
             for j in range(1, 4):
@@ -75,6 +75,7 @@ def simple_mesh():
     display.DisplayShape(shape)
     display.DisplayShape(comp, update=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     simple_mesh()
     start_display()

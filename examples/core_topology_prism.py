@@ -26,6 +26,7 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism
 
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -41,8 +42,8 @@ def prism():
     profile = BRepBuilderAPI_MakeEdge(bspline).Edge()
 
     # the linear path
-    starting_point = gp_Pnt(0., 0., 0.)
-    end_point = gp_Pnt(0., 0., 6.)
+    starting_point = gp_Pnt(0.0, 0.0, 0.0)
+    end_point = gp_Pnt(0.0, 0.0, 6.0)
     vec = gp_Vec(starting_point, end_point)
     path = BRepBuilderAPI_MakeEdge(starting_point, end_point).Edge()
 
@@ -55,6 +56,7 @@ def prism():
     display.DisplayShape(path, update=False)
     display.DisplayShape(prism, update=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     prism()
     start_display()

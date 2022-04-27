@@ -17,9 +17,19 @@
 import sys
 import time
 
-from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse, BRepAlgoAPI_Common, BRepAlgoAPI_Section, BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import (
+    BRepAlgoAPI_Fuse,
+    BRepAlgoAPI_Common,
+    BRepAlgoAPI_Section,
+    BRepAlgoAPI_Cut,
+)
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeWedge, BRepPrimAPI_MakeSphere, BRepPrimAPI_MakeTorus
+from OCC.Core.BRepPrimAPI import (
+    BRepPrimAPI_MakeBox,
+    BRepPrimAPI_MakeWedge,
+    BRepPrimAPI_MakeSphere,
+    BRepPrimAPI_MakeTorus,
+)
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.gp import gp_Vec, gp_Ax2, gp_Pnt, gp_Dir, gp_Pln, gp_Trsf
 
@@ -27,12 +37,12 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def translate_topods_from_vector(brep_or_iterable, vec, copy=False):
-    '''
+    """
     translate a brep over a vector
     @param brep:    the Topo_DS to translate
     @param vec:     the vector defining the translation
     @param copy:    copies to brep if True
-    '''
+    """
     trns = gp_Trsf()
     trns.SetTranslation(vec)
     brep_trns = BRepBuilderAPI_Transform(brep_or_iterable, trns, copy)
@@ -44,7 +54,7 @@ def fuse(event=None):
     display.EraseAll()
     box1 = BRepPrimAPI_MakeBox(2, 1, 1).Shape()
     box2 = BRepPrimAPI_MakeBox(2, 1, 1).Shape()
-    box1 = translate_topods_from_vector(box1, gp_Vec(.5, .5, 0))
+    box1 = translate_topods_from_vector(box1, gp_Vec(0.5, 0.5, 0))
     fuse_shp = BRepAlgoAPI_Fuse(box1, box2).Shape()
     display.DisplayShape(fuse_shp)
     display.FitAll()
@@ -55,7 +65,7 @@ def common(event=None):
     axe = gp_Ax2(gp_Pnt(10, 10, 10), gp_Dir(1, 2, 1))
     Box = BRepPrimAPI_MakeBox(axe, 60, 80, 100).Shape()
     # Create wedge
-    Wedge = BRepPrimAPI_MakeWedge(60., 100., 80., 20.).Shape()
+    Wedge = BRepPrimAPI_MakeWedge(60.0, 100.0, 80.0, 20.0).Shape()
     # Common surface
     CommonSurface = BRepAlgoAPI_Common(Box, Wedge).Shape()
 
@@ -72,13 +82,13 @@ def slicer(event=None):
     # Param
     Zmin, Zmax, deltaZ = -100, 100, 5
     # Note: the shape can also come from a shape selected from InteractiveViewer
-    if 'display' in dir():
+    if "display" in dir():
         shape = display.GetSelectedShape()
     else:
         # Create the shape to slice
-        shape = BRepPrimAPI_MakeSphere(60.).Shape()
+        shape = BRepPrimAPI_MakeSphere(60.0).Shape()
     # Define the direction
-    D = gp_Dir(0., 0., 1.)  # the z direction
+    D = gp_Dir(0.0, 0.0, 1.0)  # the z direction
     # Perform slice
     sections = []
     init_time = time.time()  # for total time computation
@@ -140,12 +150,12 @@ def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
-    add_menu('topology boolean operations')
-    add_function_to_menu('topology boolean operations', fuse)
-    add_function_to_menu('topology boolean operations', common)
-    add_function_to_menu('topology boolean operations', cut)
-    add_function_to_menu('topology boolean operations', section)
-    add_function_to_menu('topology boolean operations', slicer)
-    add_function_to_menu('topology boolean operations', exit)
+if __name__ == "__main__":
+    add_menu("topology boolean operations")
+    add_function_to_menu("topology boolean operations", fuse)
+    add_function_to_menu("topology boolean operations", common)
+    add_function_to_menu("topology boolean operations", cut)
+    add_function_to_menu("topology boolean operations", section)
+    add_function_to_menu("topology boolean operations", slicer)
+    add_function_to_menu("topology boolean operations", exit)
     start_display()

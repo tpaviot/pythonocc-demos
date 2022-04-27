@@ -24,13 +24,16 @@ def create_ogl_group(display):
 def generate_points(spread, n):
     try:
         import numpy as np
+
         arr = np.random.uniform(-spread / 2.0, spread / 2.0, (n, 3))
         for i in arr:
             yield i
     except ImportError:
         n_ = n / 100
-        warnings.warn("Numpy could not be imported... this example will run very SLOW"
-                      "drawing {} rather than {} lines".format(n_, n))
+        warnings.warn(
+            "Numpy could not be imported... this example will run very SLOW"
+            "drawing {} rather than {} lines".format(n_, n)
+        )
         for i in range(n_):
             a = random.uniform(-spread / 2.0, spread / 2.0)
             b = random.uniform(-spread / 2.0, spread / 2.0)
@@ -69,12 +72,9 @@ def draw_lines(pnt_list, nr_of_points, display):
     black = Quantity_Color(Quantity_NOC_BLACK)
     asp = Graphic3d_AspectLine3d(black, Aspect_TOL_SOLID, 1)
 
-    gg = Graphic3d_ArrayOfPolylines(nr_of_points * 2,
-                                    nr_of_points * 2,
-                                    0,  # maxEdges
-                                    False,  # hasVColors
-                                    True
-                                    )
+    gg = Graphic3d_ArrayOfPolylines(
+        nr_of_points * 2, nr_of_points * 2, 0, False, True  # maxEdges  # hasVColors
+    )
 
     try:
         while 1:

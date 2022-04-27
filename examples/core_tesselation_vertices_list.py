@@ -20,6 +20,7 @@ from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
 try:
     import numpy as np
+
     HAVE_NUMPY = True
 except ImportError:
     HAVE_NUMPY = False
@@ -39,15 +40,15 @@ number_of_vertices = len(vertices_position)
 
 # number of vertices should be a multiple of 3
 if number_of_vertices % 3 != 0:
-	raise AssertionError("wrong number of vertices returned by the teselator")
+    raise AssertionError("wrong number of vertices returned by the teselator")
 if number_of_triangles * 9 != number_of_vertices:
-	raise AssertionError("wrong number of triangles returned by the teselator")
+    raise AssertionError("wrong number of triangles returned by the teselator")
 
 # get normals
 normals = tess.GetNormalsAsTuple()
 number_of_normals = len(normals)
 if not number_of_normals == number_of_vertices:
-	raise AssertionError("wrong number of normals returned by the tessellator")
+    raise AssertionError("wrong number of normals returned by the tessellator")
 
 # if HAVE_NUMPY, we try to reshape the tuple so that it is of
 # a ndarray such as [[x1, y1, z1], [x2, y2, z2], ...]

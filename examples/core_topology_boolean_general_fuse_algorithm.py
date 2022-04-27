@@ -20,8 +20,8 @@ from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.BOPAlgo import BOPAlgo_Builder
 
 display, start_display, add_menu, add_function_to_menu = init_display()
-my_box1 = BRepPrimAPI_MakeBox(10., 20., 30.).Shape()
-my_box2 = BRepPrimAPI_MakeBox(20., 1., 30.).Shape()
+my_box1 = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape()
+my_box2 = BRepPrimAPI_MakeBox(20.0, 1.0, 30.0).Shape()
 
 # use the General Fuse Algorithm
 builder = BOPAlgo_Builder()

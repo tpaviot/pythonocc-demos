@@ -26,6 +26,7 @@ from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt
 
 from OCC.Extend.TopologyUtils import TopologyExplorer
 from OCC.Display.SimpleGui import init_display
+
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
@@ -74,10 +75,10 @@ def split_edge_with_face(event=None):
     while exp.More():
         edges.append(exp.Current())
         exp.Next()
-    print('Number of edges in split shape: ', len(edges))
-    display.DisplayShape(edges[0], color='red')
-    display.DisplayShape(edges[1], color='green')
-    display.DisplayShape(edges[2], color='yellow')
+    print("Number of edges in split shape: ", len(edges))
+    display.DisplayShape(edges[0], color="red")
+    display.DisplayShape(edges[1], color="green")
+    display.DisplayShape(edges[2], color="yellow")
     display.FitAll()
 
 
@@ -85,9 +86,9 @@ def exit(event=None):
     sys.exit()
 
 
-if __name__ == '__main__':
-    add_menu('BOPAlgo Splitter Example')
-    add_function_to_menu('BOPAlgo Splitter Example', split_face_with_edge)
-    add_function_to_menu('BOPAlgo Splitter Example', split_edge_with_face)
-    add_function_to_menu('BOPAlgo Splitter Example', exit)
+if __name__ == "__main__":
+    add_menu("BOPAlgo Splitter Example")
+    add_function_to_menu("BOPAlgo Splitter Example", split_face_with_edge)
+    add_function_to_menu("BOPAlgo Splitter Example", split_edge_with_face)
+    add_function_to_menu("BOPAlgo Splitter Example", exit)
     start_display()

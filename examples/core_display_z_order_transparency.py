@@ -28,7 +28,7 @@ box = BRepPrimAPI_MakeBox(200, 60, 60).Shape()
 # Create Sphere
 sphere = BRepPrimAPI_MakeSphere(gp_Pnt(100, 20, 20), 80).Shape()
 # move the sphere
-moved_sphere = translate_shp(sphere, gp_Vec(0., -200., 0.))
+moved_sphere = translate_shp(sphere, gp_Vec(0.0, -200.0, 0.0))
 
 ais_box = display.DisplayShape(box)[0]
 ais_box.SetTransparency(0.1)
