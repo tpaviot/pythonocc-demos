@@ -185,9 +185,8 @@ def thick_solid(event=None):
 
 def offset_cube(event=None):
     S2 = BRepPrimAPI_MakeBox(gp_Pnt(300, 0, 0), 220, 140, 180).Shape()
-    offsetB = BRepOffsetAPI_MakeOffsetShape(
-        S2, -20, 0.01, BRepOffset_Skin, False, False, GeomAbs_Arc
-    )
+    offsetB = BRepOffsetAPI_MakeOffsetShape()
+    offsetB.PerformByJoin(S2, -20, 0.01, BRepOffset_Skin, False, False, GeomAbs_Arc)
     offB = display.DisplayColoredShape(S2, "BLUE")[0]
     display.Context.SetTransparency(offB, 0.3, True)
     display.DisplayColoredShape(offsetB.Shape(), "GREEN")
