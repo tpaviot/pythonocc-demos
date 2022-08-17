@@ -54,7 +54,7 @@ def tag_faces(_shape, _color, shape_name):
 def tag_edge(_edge, msg, _color=(1, 0, 0)):
     """tag an edge"""
     center_pt = get_aligned_boundingbox(_edge)[0]
-    display.DisplayMessage(center_pt, msg, message_color = _color)
+    display.DisplayMessage(center_pt, msg, message_color=_color)
 
 
 def glue_solids(event=None):

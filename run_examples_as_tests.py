@@ -24,13 +24,16 @@ import sys
 import subprocess
 import time
 
+
 def worker(example_name):
     # += operation is not atomic, so we need to get a lock:
     print("running %s ..." % example_name, end="")
     try:
-        subprocess.check_output([sys.executable, example_name],
-                                stderr=subprocess.STDOUT,
-                                universal_newlines=True)
+        subprocess.check_output(
+            [sys.executable, example_name],
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+        )
         print("[passed]")
         return True
     except subprocess.CalledProcessError as cpe:
@@ -38,21 +41,23 @@ def worker(example_name):
         print("[failed]")
         return False
 
+
 if __name__ == "__main__":
     init_time = time.time()
 
     # find examplessubdir from current file
     path = os.path.abspath(__file__)
     test_dirname = os.path.dirname(path)
-    examples_directory = os.path.join(test_dirname, 'examples')
+    examples_directory = os.path.join(test_dirname, "examples")
     os.chdir(examples_directory)
-    all_examples_file_names = glob.glob('core_*.py')
+    all_examples_file_names = glob.glob("core_*.py")
 
     # some tests have to be excluded from the automatic
     # run. For instance, qt based examples
-    tests_to_exclude = ['core_display_signal_slots.py',
-                        'core_visualization_overpaint_viewer.py'
-                        ]
+    tests_to_exclude = [
+        "core_display_signal_slots.py",
+        "core_visualization_overpaint_viewer.py",
+    ]
 
     # remove examples to excludes
     for test_name in tests_to_exclude:
@@ -77,7 +82,7 @@ if __name__ == "__main__":
     if failed > 0:
         print("%i tests failed" % failed)
 
-    print("Total time to run all examples: %fs" %(time.time() - init_time))
+    print("Total time to run all examples: %fs" % (time.time() - init_time))
 
     # if failed, exit with error
     if failed > 0:
