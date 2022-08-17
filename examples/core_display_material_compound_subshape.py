@@ -18,8 +18,7 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.AIS import AIS_ColoredShape
-from OCC.Core.Graphic3d import (Graphic3d_NOM_ALUMINIUM,
-                                Graphic3d_NOM_STEEL)
+from OCC.Core.Graphic3d import Graphic3d_NOM_ALUMINIUM, Graphic3d_NOM_STEEL
 from OCC.Core.Quantity import Quantity_Color
 from OCC.Core.TopoDS import TopoDS_Compound, TopoDS_Builder
 
@@ -32,11 +31,11 @@ available_materials = [Graphic3d_NOM_ALUMINIUM, Graphic3d_NOM_STEEL]
 
 radius = 30
 s = BRepPrimAPI_MakeCylinder(radius, 200).Shape()
-delta_x = 0.
+delta_x = 0.0
 solids = []
 for mat in available_materials:
-    s2 = translate_shp(s, gp_Vec(delta_x, 0., 0.))
-    delta_x += 2 * radius + 1.
+    s2 = translate_shp(s, gp_Vec(delta_x, 0.0, 0.0))
+    delta_x += 2 * radius + 1.0
     solids.append(s2)
 
 compound = TopoDS_Compound()
