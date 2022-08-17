@@ -52,7 +52,6 @@ def simple_mesh():
         face = topods_Face(ex.Current())
         location = TopLoc_Location()
         facing = bt.Triangulation(face, location)
-        tab = facing.Nodes()
         tri = facing.Triangles()
         for i in range(1, facing.NbTriangles() + 1):
             trian = tri.Value(i)
@@ -65,7 +64,7 @@ def simple_mesh():
                     n = index3
                 elif j == 3:
                     m = index2
-                me = BRepBuilderAPI_MakeEdge(tab.Value(m), tab.Value(n))
+                me = BRepBuilderAPI_MakeEdge(facing.Node(m), facing.Node(n))
                 if me.IsDone():
                     builder.Add(comp, me.Edge())
         ex.Next()
