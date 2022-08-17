@@ -173,9 +173,13 @@ def thick_solid(event=None):
     for f in topo.faces_from_vertex(vert):
         shapes.Append(f)
 
-    _thick_solid = BRepOffsetAPI_MakeThickSolid(S, shapes, 15, 0.01)
+    ts = BRepOffsetAPI_MakeThickSolid()
+    ts.MakeThickSolidByJoin(S, shapes, 15, 0.01)
+    ts.Build()
+    _thick_solid = ts.Shape()
+
     display.EraseAll()
-    display.DisplayShape(_thick_solid.Shape())
+    display.DisplayShape(_thick_solid)
     display.FitAll()
 
 
