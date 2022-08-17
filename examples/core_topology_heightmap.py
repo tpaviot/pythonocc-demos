@@ -111,7 +111,6 @@ def heightmap_from_image(event=None):
     display.EraseAll()
     print("opening image")
     heightmap = Image.open("../assets/images/mountain_heightmap.jpg")
-    heightmap.show()
     width = heightmap.size[0]
     height = heightmap.size[1]
     # create the gp_Pnt array
@@ -151,8 +150,6 @@ def heightmap_from_image(event=None):
         print("%s%%" % int(float(i) / width * 100))
         # display.process_events()
     display.FitAll()
-    # finally display image
-    heightmap.show()
 
 
 if __name__ == "__main__":
