@@ -17,7 +17,12 @@
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.AIS import AIS_ColorScale
-from OCC.Core.Graphic3d import Graphic3d_ZLayerId_TopOSD, Graphic3d_TMF_2d
+from OCC.Core.Aspect import Aspect_TOTP_LEFT_LOWER
+from OCC.Core.Graphic3d import (
+    Graphic3d_ZLayerId_TopOSD,
+    Graphic3d_TMF_2d,
+    Graphic3d_TransformPers,
+)
 from OCC.Core.gp import gp_XY, gp_Pnt
 
 from OCC.Display.SimpleGui import init_display
@@ -43,7 +48,9 @@ colorscale.SetRange(0.0, 10.0)
 colorscale.SetNumberOfIntervals(10)
 
 colorscale.SetZLayer(Graphic3d_ZLayerId_TopOSD)
-colorscale.SetTransformPersistence(Graphic3d_TMF_2d, gp_Pnt(-1, -1, 0))
+colorscale.SetTransformPersistence(
+    Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER)
+)
 colorscale.SetToUpdate()
 
 display.Context.Display(colorscale, True)

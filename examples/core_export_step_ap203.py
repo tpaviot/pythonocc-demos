@@ -30,6 +30,9 @@ box_s = BRepPrimAPI_MakeBox(10, 20, 30).Shape()
 
 # initialize the STEP exporter
 step_writer = STEPControl_Writer()
+dd = step_writer.WS().TransferWriter().FinderProcess()
+print(dd)
+
 Interface_Static_SetCVal("write.step.schema", "AP203")
 
 # transfer shapes and write file

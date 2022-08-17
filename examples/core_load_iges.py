@@ -20,7 +20,7 @@ from __future__ import print_function
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_iges_file
 
-shapes = read_iges_file("../assets/models/surf114.igs")
+shapes = read_iges_file("../../pythonocc-core/test/test_io/example_45_faces.iges")
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 display.DisplayShape(shapes, update=True)

@@ -30,7 +30,7 @@ from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
 from OCC.Core.GeomFill import GeomFill_SimpleBound, GeomFill_ConstrainedFilling
 from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve, BRepAdaptor_HCompCurve
+from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
 
 try:
     from PIL import Image
@@ -62,6 +62,7 @@ def heightmap_from_equation(f, x_min=-1, x_max=1, y_min=-1, y_max=1):
     """takes an equation z= f(x,y)
     and plot the related point cloud as a bspline surface
     """
+    display.EraseAll()
     print("compute surface")
     n = 100
     # initialize x axis
@@ -98,8 +99,7 @@ def boundary_curve_from_2_points(p1, p2):
     w0 = BRepBuilderAPI_MakeWire(e0).Wire()
     # boundary for filling
     adap = BRepAdaptor_CompCurve(w0)
-    p0_h = BRepAdaptor_HCompCurve(adap)
-    boundary = GeomFill_SimpleBound(p0_h, 1e-6, 1e-6)
+    boundary = GeomFill_SimpleBound(adap, 1e-6, 1e-6)
     return boundary
 
 
@@ -108,9 +108,9 @@ def heightmap_from_image(event=None):
     and apply a texture
     this example requires numpy/matplotlib
     """
+    display.EraseAll()
     print("opening image")
     heightmap = Image.open("../assets/images/mountain_heightmap.jpg")
-    heightmap.show()
     width = heightmap.size[0]
     height = heightmap.size[1]
     # create the gp_Pnt array
@@ -150,8 +150,6 @@ def heightmap_from_image(event=None):
         print("%s%%" % int(float(i) / width * 100))
         # display.process_events()
     display.FitAll()
-    # finally display image
-    heightmap.show()
 
 
 if __name__ == "__main__":
