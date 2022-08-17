@@ -21,7 +21,7 @@ import sys
 import time
 
 from OCC.Core.BRep import BRep_Tool
-from OCC.Core.BRepAdaptor import BRepAdaptor_HCurve
+from OCC.Core.BRepAdaptor import BRepAdaptor_Curve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakePolygon
 from OCC.Core.BRepFill import BRepFill_CurveConstraint
 from OCC.Display.SimpleGui import init_display
@@ -29,6 +29,7 @@ from OCC.Core.GeomAbs import GeomAbs_C0
 from OCC.Core.GeomLProp import GeomLProp_SLProps
 from OCC.Core.GeomPlate import (
     GeomPlate_BuildPlateSurface,
+    GeomPlate_CurveConstraint,
     GeomPlate_PointConstraint,
     GeomPlate_MakeApprox,
 )
@@ -134,9 +135,8 @@ def build_plate(polygon, points):
     # add curve constraints
     for poly in polygon:
         for edg in WireExplorer(poly).ordered_edges():
-            c = BRepAdaptor_HCurve()
-            c.ChangeCurve().Initialize(edg)
-            constraint = BRepFill_CurveConstraint(c, 0)
+            c = BRepAdaptor_Curve(edg)
+            constraint = GeomPlate_CurveConstraint(c, 0)
             bpSrf.Add(constraint)
 
     # add point constraint
@@ -253,10 +253,8 @@ def build_geom_plate(edges):
 
     # add curve constraints
     for edg in edges:
-        c = BRepAdaptor_HCurve()
-        print("edge:", edg)
-        c.ChangeCurve().Initialize(edg)
-        constraint = BRepFill_CurveConstraint(c, 0)
+        c = BRepAdaptor_Curve(edg)
+        constraint = GeomPlate_CurveConstraint(c, 0)
         bpSrf.Add(constraint)
 
     # add point constraint

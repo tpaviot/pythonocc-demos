@@ -23,7 +23,7 @@ import os
 
 from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepTools import breptools
-from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve, BRepAdaptor_HCompCurve
+from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
 from OCC.Core.ShapeAnalysis import ShapeAnalysis_Curve
 from OCC.Core.TopoDS import TopoDS_Shape, topods
 from OCC.Core.gp import gp_Pnt
@@ -42,11 +42,10 @@ if wire.IsNull():
 
 # discretize the wire and interpolate using a C2
 wireAdaptor = BRepAdaptor_CompCurve(wire)
-curve = BRepAdaptor_HCompCurve(wireAdaptor)
 tol = 1e-7
 max_segments = 200
 max_degrees = 12
-approx = Approx_Curve3d(curve, tol, GeomAbs_C2, max_segments, max_degrees)
+approx = Approx_Curve3d(wireAdaptor, tol, GeomAbs_C2, max_segments, max_degrees)
 if approx.IsDone() and approx.HasResult():
     an_approximated_curve = approx.Curve()
 
