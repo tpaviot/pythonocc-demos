@@ -18,6 +18,7 @@
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.AIS import AIS_Shape
 from OCC.Display.SimpleGui import init_display
+from OCC.Core.Quantity import Quantity_Color, Quantity_NameOfColor
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
@@ -32,7 +33,8 @@ context.Display(aisShape, True)
 context.SetTransparency(aisShape, 0.6, True)
 owner = aisShape.GetOwner()
 drawer = aisShape.DynamicHilightAttributes()
-# TODO: how do we set the color ? Quantity_NOC_RED
+col = Quantity_Color(Quantity_NameOfColor.Quantity_NOC_RED)
+context.SetColor(aisShape, col, True)
 context.HilightWithColor(aisShape, drawer, True)
 
 display.View_Iso()
