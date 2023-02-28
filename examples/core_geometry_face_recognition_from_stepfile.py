@@ -133,13 +133,13 @@ def exit(event=None):
 
 if __name__ == "__main__":
     display, start_display, add_menu, add_function_to_menu = init_display()
-    display.SetSelectionModeFace()  # switch to Face selection mode
     display.register_select_callback(recognize_clicked)
     # first loads the STEP file and display
     shp = read_step_file(
         os.path.join("..", "assets", "models", "face_recognition_sample_part.stp")
     )
-    display.DisplayShape(shp, update=True)
+    display.DisplayShape(shp, update=True)    
+    display.SetSelectionModeFace()  # switch to Face selection mode
     add_menu("recognition")
     add_function_to_menu("recognition", recognize_batch)
-    start_display()
+    start_display()    
