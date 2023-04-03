@@ -60,7 +60,7 @@ class App(QDialog):
         layout_v.addWidget(self.show_layer_button)
         layout_h.addLayout(layout_v)
 
-        self.canvas = qtDisplay.qtViewer3dManip(self)
+        self.canvas = qtDisplay.qtViewer3dWithManipulator(self)
         layout_h.addWidget(self.canvas)
         self.horizontalGroupBox.setLayout(layout_h)
 
@@ -72,7 +72,6 @@ class App(QDialog):
         sphere = BRepPrimAPI_MakeSphere(gp_Pnt(25, 25, 25), 5).Shape()
         self.layer.add_shape(sphere)
         self.show_layer()
-        self.layer.merge()
 
     def show_layer(self):
         if self.show_layer_button.isChecked():
