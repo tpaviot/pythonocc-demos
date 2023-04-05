@@ -16,7 +16,7 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.TDocStd import TDocStd_Document
-from OCC.Core.TCollection import TCollection_ExtendedString, TCollection_AsciiString
+from OCC.Core.TCollection import TCollection_AsciiString
 from OCC.Core.XCAFDoc import (
     XCAFDoc_DocumentTool_ShapeTool,
     XCAFDoc_DocumentTool_LayerTool,
@@ -34,7 +34,7 @@ from OCC.Core.RWGltf import RWGltf_CafWriter, RWGltf_WriterTrsfFormat
 shp = BRepPrimAPI_MakeSphere(60.0).Shape()
 
 # create a document
-doc = TDocStd_Document(TCollection_ExtendedString("pythonocc-doc"))
+doc = TDocStd_Document("pythonocc-doc")
 shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())
 layer_tool = XCAFDoc_DocumentTool_LayerTool(doc.Main())
 
@@ -60,7 +60,7 @@ a_file_info.Add(
 # Binary export
 #
 binary = True
-binary_rwgltf_writer = RWGltf_CafWriter(TCollection_AsciiString("box.glb"), binary)
+binary_rwgltf_writer = RWGltf_CafWriter("box.glb", binary)
 binary_rwgltf_writer.SetTransformationFormat(a_format)
 binary_rwgltf_writer.SetForcedUVExport(force_uv_export)
 pr = Message_ProgressRange()  # this is required
@@ -70,7 +70,7 @@ binary_rwgltf_writer.Perform(doc, a_file_info, pr)
 # Ascii export
 #
 binary = False
-ascii_rwgltf_writer = RWGltf_CafWriter(TCollection_AsciiString("box.gla"), binary)
+ascii_rwgltf_writer = RWGltf_CafWriter("box.gla", binary)
 ascii_rwgltf_writer.SetTransformationFormat(a_format)
 ascii_rwgltf_writer.SetForcedUVExport(force_uv_export)
 pr = Message_ProgressRange()  # this is required

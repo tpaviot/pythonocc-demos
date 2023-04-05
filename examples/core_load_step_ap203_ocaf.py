@@ -15,11 +15,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
-
-from OCC.Core.TCollection import TCollection_ExtendedString
-
 from OCC.Core.TDocStd import TDocStd_Document
 from OCC.Core.XCAFDoc import (
     XCAFDoc_DocumentTool_ShapeTool,
@@ -37,7 +32,7 @@ filename = "../assets/models/as1_pe_203.stp"
 _shapes = []
 
 # create an handle to a document
-doc = TDocStd_Document(TCollection_ExtendedString("pythonocc-doc"))
+doc = TDocStd_Document("pythonocc-doc")
 
 # Get root assembly
 shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())

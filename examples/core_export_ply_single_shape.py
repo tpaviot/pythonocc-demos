@@ -34,7 +34,7 @@ from OCC.Core.RWPly import RWPly_CafWriter
 shp = BRepPrimAPI_MakeSphere(60.0).Shape()
 
 # create a document
-doc = TDocStd_Document(TCollection_ExtendedString("pythonocc-doc"))
+doc = TDocStd_Document("pythonocc-doc")
 shape_tool = XCAFDoc_DocumentTool_ShapeTool(doc.Main())
 layer_tool = XCAFDoc_DocumentTool_LayerTool(doc.Main())
 
@@ -53,6 +53,6 @@ a_file_info.Add(
     TCollection_AsciiString("Authors"), TCollection_AsciiString("pythonocc")
 )
 
-rwply_writer = RWPly_CafWriter(TCollection_AsciiString("sphere.ply"))
+rwply_writer = RWPly_CafWriter("sphere.ply")
 pr = Message_ProgressRange()
 rwply_writer.Perform(doc, a_file_info, pr)

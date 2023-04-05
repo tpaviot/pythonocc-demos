@@ -24,7 +24,6 @@ from OCC.Core.Graphic3d import (
     Graphic3d_TOS_FRAGMENT,
     Graphic3d_ShaderObject,
 )
-from OCC.Core.TCollection import TCollection_AsciiString
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -50,12 +49,8 @@ void main()
 """
 
 # construct the shader, load, compile and attach the GLSL programs
-vs_shader = Graphic3d_ShaderObject.CreateFromSource(
-    Graphic3d_TOS_VERTEX, TCollection_AsciiString(vs)
-)
-fs_shader = Graphic3d_ShaderObject.CreateFromSource(
-    Graphic3d_TOS_FRAGMENT, TCollection_AsciiString(fs)
-)
+vs_shader = Graphic3d_ShaderObject.CreateFromSource(Graphic3d_TOS_VERTEX, vs)
+fs_shader = Graphic3d_ShaderObject.CreateFromSource(Graphic3d_TOS_FRAGMENT, fs)
 aProgram = Graphic3d_ShaderProgram()
 aProgram.AttachShader(fs_shader)
 aProgram.AttachShader(vs_shader)
