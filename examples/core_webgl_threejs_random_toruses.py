@@ -30,8 +30,7 @@ from OCC.Extend.ShapeFactory import translate_shp, rotate_shp_3_axis
 my_ren = threejs_renderer.ThreejsRenderer()
 n_toruses = 100
 
-idx = 0
-for i in range(n_toruses):
+for idx, _ in enumerate(range(n_toruses)):
     torus_shp = BRepPrimAPI_MakeTorus(
         10 + random.random() * 10, random.random() * 10
     ).Shape()
@@ -49,5 +48,4 @@ for i in range(n_toruses):
         trans_torus, export_edges=True, color=rnd_color, transparency=random.random()
     )
     print("%i%%" % (idx * 100 / n_toruses), end="")
-    idx += 1
 my_ren.render()

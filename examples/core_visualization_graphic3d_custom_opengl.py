@@ -25,16 +25,13 @@ def generate_points(spread, n):
     try:
         import numpy as np
 
-        arr = np.random.uniform(-spread / 2.0, spread / 2.0, (n, 3))
-        for i in arr:
-            yield i
+        yield from np.random.uniform(-spread / 2.0, spread / 2.0, (n, 3))
     except ImportError:
         n_ = n / 100
         warnings.warn(
-            "Numpy could not be imported... this example will run very SLOW"
-            "drawing {} rather than {} lines".format(n_, n)
+            f"Numpy could not be imported... this example will run very SLOWdrawing {n_} rather than {n} lines"
         )
-        for i in range(n_):
+        for _ in range(n_):
             a = random.uniform(-spread / 2.0, spread / 2.0)
             b = random.uniform(-spread / 2.0, spread / 2.0)
             c = random.uniform(-spread / 2.0, spread / 2.0)

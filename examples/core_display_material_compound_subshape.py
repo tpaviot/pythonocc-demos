@@ -33,7 +33,7 @@ radius = 30
 s = BRepPrimAPI_MakeCylinder(radius, 200).Shape()
 delta_x = 0.0
 solids = []
-for mat in available_materials:
+for _ in available_materials:
     s2 = translate_shp(s, gp_Vec(delta_x, 0.0, 0.0))
     delta_x += 2 * radius + 1.0
     solids.append(s2)

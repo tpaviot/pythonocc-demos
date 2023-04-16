@@ -32,12 +32,12 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 
 def random_pnt():
-    x, y, z = [random.uniform(0, 1) for i in range(3)]
+    x, y, z = [random.uniform(0, 1) for _ in range(3)]
     return gp_Pnt(x, y, z)
 
 
 def random_vec():
-    x, y, z = [random.uniform(-1, 1) for i in range(3)]
+    x, y, z = [random.uniform(-1, 1) for _ in range(3)]
     return gp_Vec(x, y, z)
 
 

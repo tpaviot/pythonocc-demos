@@ -61,7 +61,7 @@ def faircurve(event=None):
     pt2 = gp_Pnt2d(0.0, 120.0)
     height = 100.0
     pl = Geom_Plane(gp_Pln())
-    for i in range(0, 40):
+    for i in range(40):
         # TODO: the parameter slope needs to be visualized
         slope = i / 100.0
         bc = batten_curve(pt1, pt2, height, slope, math.radians(i), math.radians(-i))

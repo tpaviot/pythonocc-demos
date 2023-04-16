@@ -34,8 +34,7 @@ def boolean_cut(shapeToCutFrom, cuttingShape):
 
     cut = BRepAlgoAPI_Cut(shapeToCutFrom, cuttingShape)
 
-    shp = cut.Shape()
-    return shp
+    return cut.Shape()
 
 
 def make_face_to_contour_from():
@@ -63,8 +62,7 @@ def make_face_to_contour_from():
     f = make_face(w1)
     w2 = make_wire(e7, e8, e9, e10)
     f2 = make_face(w2)
-    f3 = boolean_cut(f, f2)
-    return f3
+    return boolean_cut(f, f2)
 
 
 def create_offsets(face, nr_of_counters, distance_between_contours):

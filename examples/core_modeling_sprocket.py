@@ -284,9 +284,7 @@ def round_tooth(wedge):
 
     # Cut the wedge using the first and second cutting shape
     cut_1 = BRepAlgoAPI_Cut(wedge, rounding_cut_1).Shape()
-    cut_2 = BRepAlgoAPI_Cut(cut_1, rounding_cut_2).Shape()
-
-    return cut_2
+    return BRepAlgoAPI_Cut(cut_1, rounding_cut_2).Shape()
 
 
 def clone_tooth(base_shape):
@@ -296,7 +294,7 @@ def clone_tooth(base_shape):
     # Find a divisor, between 1 and 8, for the number_of teeth
     multiplier = 1
     max_multiplier = 1
-    for i in range(0, 8):
+    for i in range(8):
         if num_teeth % multiplier == 0:
             max_multiplier = i + 1
 
@@ -329,7 +327,7 @@ def center_hole(base):
 
 def mounting_holes(base):
     result = base
-    for i in range(0, mounting_hole_count):
+    for i in range(mounting_hole_count):
         center = gp_Pnt(
             cos(i * M_PI / 3) * mounting_radius,
             sin(i * M_PI / 3) * mounting_radius,
@@ -373,26 +371,10 @@ def cut_out(base):
     inter_3 = Geom2dAPI_InterCurveCurve(geom_inner, geom_right)
     inter_4 = Geom2dAPI_InterCurveCurve(geom_inner, geom_left)
 
-    if inter_1.Point(1).X() > 0:
-        p1 = inter_1.Point(1)
-    else:
-        p1 = inter_1.Point(2)
-
-    if inter_2.Point(1).X() > 0:
-        p2 = inter_2.Point(1)
-    else:
-        p2 = inter_2.Point(2)
-
-    if inter_3.Point(1).X() > 0:
-        p3 = inter_3.Point(1)
-    else:
-        p3 = inter_3.Point(2)
-
-    if inter_4.Point(1).X() > 0:
-        p4 = inter_4.Point(1)
-    else:
-        p4 = inter_4.Point(2)
-
+    p1 = inter_1.Point(1) if inter_1.Point(1).X() > 0 else inter_1.Point(2)
+    p2 = inter_2.Point(1) if inter_2.Point(1).X() > 0 else inter_2.Point(2)
+    p3 = inter_3.Point(1) if inter_3.Point(1).X() > 0 else inter_3.Point(2)
+    p4 = inter_4.Point(1) if inter_4.Point(1).X() > 0 else inter_4.Point(2)
     trimmed_outer = GCE2d_MakeArcOfCircle(outer, p1, p2).Value()
     trimmed_inner = GCE2d_MakeArcOfCircle(inner, p4, p3).Value()
 
@@ -431,7 +413,7 @@ def cut_out(base):
 
     result = base
     rotate = gp_Trsf()
-    for i in range(0, mounting_hole_count):
+    for i in range(mounting_hole_count):
         rotate.SetRotation(gp_OZ(), i * 2.0 * M_PI / mounting_hole_count)
         rotated_cutout = BRepBuilderAPI_Transform(cutout, rotate, True)
 
@@ -447,8 +429,7 @@ def build_sprocket():
     basic_disk = clone_tooth(rounded_wedge)
     cut_disc = center_hole(basic_disk)
     mountable_disc = mounting_holes(cut_disc)
-    sprocket = cut_out(mountable_disc)
-    return sprocket
+    return cut_out(mountable_disc)
 
 
 sprocket_model = build_sprocket()

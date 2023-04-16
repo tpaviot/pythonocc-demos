@@ -84,7 +84,7 @@ def fillet_cylinder(event=None):
     fillet = BRepFilletAPI_MakeFillet(cylinder)
     display.DisplayShape(cylinder, update=True)
     tab_point_2 = TColgp_Array1OfPnt2d(0, 20)
-    for i in range(0, 20):
+    for i in range(20):
         point_2d = gp_Pnt2d(i * 2 * pi / 19, 60 * cos(i * pi / 19 - pi / 2) + 10)
         tab_point_2.SetValue(i, point_2d)
         display.DisplayShape(point_2d)

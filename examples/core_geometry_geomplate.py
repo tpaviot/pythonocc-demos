@@ -85,22 +85,20 @@ def make_n_sided(edges, points, continuity=GeomAbs_C0):
     for pt in points:
         n_sided.Add(pt)
     n_sided.Build()
-    face = n_sided.Face()
-    return face
+    return n_sided.Face()
 
 
 def make_closed_polygon(*args):
     poly = BRepBuilderAPI_MakePolygon()
     for pt in args:
-        if isinstance(pt, list) or isinstance(pt, tuple):
+        if isinstance(pt, (list, tuple)):
             for i in pt:
                 poly.Add(i)
         else:
             poly.Add(pt)
     poly.Build()
     poly.Close()
-    result = poly.Wire()
-    return result
+    return poly.Wire()
 
 
 def geom_plate(event=None):
@@ -111,7 +109,7 @@ def geom_plate(event=None):
     p4 = gp_Pnt(0, 0, 10)
     p5 = gp_Pnt(5, 5, 5)
     poly = make_closed_polygon([p1, p2, p3, p4])
-    edges = [i for i in TopologyExplorer(poly).edges()]
+    edges = list(TopologyExplorer(poly).edges())
     face = make_n_sided(edges, [p5])
     display.DisplayShape(edges)
     display.DisplayShape(make_vertex(p5))
@@ -244,7 +242,7 @@ def solve_radius(event=None):
     for i in (0.1, 0.5, 1.5, 2.0, 3.0, 0.2):
         rcs = RadiusConstrainedSurface(display, poly, p5, i)
         rcs.solve()
-        print("Goal: %s radius: %s" % (i, rcs.curr_radius))
+        print(f"Goal: {i} radius: {rcs.curr_radius}")
         time.sleep(0.1)
 
 
@@ -267,8 +265,7 @@ def build_geom_plate(edges):
     plate = GeomPlate_MakeApprox(srf, 0.01, 10, 5, 0.01, 0, GeomAbs_C0)
 
     uMin, uMax, vMin, vMax = srf.Bounds()
-    face = make_face(plate.Surface(), uMin, uMax, vMin, vMax, 1e-6)
-    return face
+    return make_face(plate.Surface(), uMin, uMax, vMin, vMax, 1e-6)
 
 
 def build_curve_network(event=None):

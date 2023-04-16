@@ -47,16 +47,16 @@ def draw_shape_mpl(shape):
 
     # get the triangles
     triangle_count = tess.ObjGetTriangleCount()
-    for i_triangle in range(0, triangle_count):
+    for i_triangle in range(triangle_count):
         i1, i2, i3 = tess.GetTriangleIndex(i_triangle)
         triangles.append([tess.GetVertex(i1), tess.GetVertex(i2), tess.GetVertex(i3)])
 
     # get the edges
     edge_count = tess.ObjGetEdgeCount()
-    for i_edge in range(0, edge_count):
+    for i_edge in range(edge_count):
         vertex_count = tess.ObjEdgeGetVertexCount(i_edge)
         edge = []
-        for i_vertex in range(0, vertex_count):
+        for i_vertex in range(vertex_count):
             vertex = tess.GetEdgeVertex(i_edge, i_vertex)
             edge.append(vertex)
         edges.append(edge)

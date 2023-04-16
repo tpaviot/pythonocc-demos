@@ -39,7 +39,7 @@ def cube_inertia_properties():
     cog = props.CentreOfMass()
     matrix_of_inertia = props.MatrixOfInertia()
     # Display inertia properties
-    print("Cube mass = %s" % mass)
+    print(f"Cube mass = {mass}")
     cog_x, cog_y, cog_z = cog.Coord()
     print("Center of mass: x = %f;y = %f;z = %f;" % (cog_x, cog_y, cog_z))
     print("Matrix of inertia", matrix_of_inertia)
@@ -52,12 +52,10 @@ def shape_faces_surface():
     # then loop over faces
     t = TopologyExplorer(the_shape)
     props = GProp_GProps()
-    shp_idx = 1
-    for face in t.faces():
+    for shp_idx, face in enumerate(t.faces(), start=1):
         brepgprop_SurfaceProperties(face, props)
         face_surf = props.Mass()
         print("Surface for face nbr %i : %f" % (shp_idx, face_surf))
-        shp_idx += 1
 
 
 if __name__ == "__main__":

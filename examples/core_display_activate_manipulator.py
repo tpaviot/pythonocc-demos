@@ -76,10 +76,10 @@ class App(QDialog):
     def show_layer(self):
         if self.show_layer_button.isChecked():
             self.layer.show()
-            self.display.FitAll()
         else:
             self.layer.hide()
-            self.display.FitAll()
+
+        self.display.FitAll()
 
     def activate_manipulator(self):
         if self.activate_manip_button.isChecked():

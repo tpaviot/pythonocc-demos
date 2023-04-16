@@ -69,7 +69,7 @@ def disable_clip_plane(event=None):
 def animate_translate_clip_plane(event=None):
     plane_definition = clip_plane_1.ToPlane()  # it's a gp_Pln
     h = 0.2
-    for i in range(100):
+    for _ in range(100):
         plane_definition.Translate(gp_Vec(0.0, 0.0, h))
         clip_plane_1.SetEquation(plane_definition)
         display.Context.UpdateCurrentViewer()

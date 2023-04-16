@@ -27,7 +27,7 @@ import time
 
 def worker(example_name):
     # += operation is not atomic, so we need to get a lock:
-    print("running %s ..." % example_name, end="")
+    print(f"running {example_name} ...", end="")
     try:
         subprocess.check_output(
             [sys.executable, example_name],
@@ -37,7 +37,7 @@ def worker(example_name):
         print("[passed]")
         return True
     except subprocess.CalledProcessError as cpe:
-        print("%s" % cpe.output)
+        print(f"{cpe.output}")
         print("[failed]")
         return False
 
