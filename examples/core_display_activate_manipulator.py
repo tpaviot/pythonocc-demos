@@ -2,14 +2,13 @@
 
 import os
 import sys
-from OCC.Core.BRepPrimAPI import (
-    BRepPrimAPI_MakeBox, 
-    BRepPrimAPI_MakeSphere)
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.AIS import AIS_Manipulator
 from OCC.Extend.LayerManager import Layer
 
 from OCC.Display.backend import load_backend
+
 load_backend("qt-pyqt5")
 import OCC.Display.qtDisplay as qtDisplay
 
@@ -22,6 +21,7 @@ from PyQt5.QtWidgets import (
     QDialog,
     QVBoxLayout,
 )
+
 
 class App(QDialog):
     def __init__(self):
@@ -86,7 +86,10 @@ class App(QDialog):
             selected = self.display.GetSelectedShape()
             if selected is not None:
                 # retrieve the AIS_Shape from the selected TopoDS_Shape
-                self.ais_element_manip, self.index_element_manip = self.layer.get_aisshape_from_topodsshape(selected)
+                (
+                    self.ais_element_manip,
+                    self.index_element_manip,
+                ) = self.layer.get_aisshape_from_topodsshape(selected)
                 self.shape_element_manip = selected
                 # Create and attach a Manipulator to AIS_Shape
                 self.manip = AIS_Manipulator()
@@ -100,8 +103,10 @@ class App(QDialog):
             # Get the transformations done with the manipulator
             trsf = self.canvas.get_trsf_from_manip()
             # Apply the transformation to the TopoDS_Shape and replace it in the layer
-            self.layer.update_trsf_shape(self.shape_element_manip, self.index_element_manip, trsf)
-            self.manip.Detach() 
+            self.layer.update_trsf_shape(
+                self.shape_element_manip, self.index_element_manip, trsf
+            )
+            self.manip.Detach()
 
 
 if __name__ == "__main__":

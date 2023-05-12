@@ -34,7 +34,7 @@ def getMesh(X=100, Y=100):
     x = np.linspace(-5, 5, X)
     y = np.linspace(-5, 5, Y)
     xx, yy = np.meshgrid(x, y, sparse=False)
-    z = np.sin(xx ** 2 + yy ** 2) / (xx ** 2 + yy ** 2)
+    z = np.sin(xx**2 + yy**2) / (xx**2 + yy**2)
     xyz = np.column_stack((xx.flatten(), yy.flatten(), z.flatten()))
     tri = Delaunay(xyz[:, :2])
     return xyz, tri.simplices

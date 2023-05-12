@@ -347,7 +347,6 @@ class GLWidget(qtViewer3d):
         self.update()
 
     def wheelEvent(self, event):
-
         if self._have_pyqt5:
             delta = event.angleDelta().y()
         else:

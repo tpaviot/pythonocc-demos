@@ -138,8 +138,8 @@ if __name__ == "__main__":
     shp = read_step_file(
         os.path.join("..", "assets", "models", "face_recognition_sample_part.stp")
     )
-    display.DisplayShape(shp, update=True)    
+    display.DisplayShape(shp, update=True)
     display.SetSelectionModeFace()  # switch to Face selection mode
     add_menu("recognition")
     add_function_to_menu("recognition", recognize_batch)
-    start_display()    
+    start_display()
