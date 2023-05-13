@@ -127,7 +127,7 @@ def brepfeat_prism(event=None):
     box = BRepPrimAPI_MakeBox(400, 250, 300).Shape()
     faces = TopologyExplorer(box).faces()
 
-    for i in range(5):
+    for _ in range(5):
         face = next(faces)
 
     srf = BRep_Tool_Surface(face)

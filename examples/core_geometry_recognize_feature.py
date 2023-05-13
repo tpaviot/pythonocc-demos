@@ -44,7 +44,7 @@ def recognize_face(a_face):
     if a plane, returns the normal
     if a cylinder, returns the radius
     """
-    if not type(a_face) is TopoDS_Face:
+    if type(a_face) is not TopoDS_Face:
         print("Please hit the 'G' key to switch to face selection mode")
         return False
     surf = BRepAdaptor_Surface(a_face, True)

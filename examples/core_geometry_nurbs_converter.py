@@ -34,16 +34,13 @@ converted_shape = nurbs_converter.Shape()
 
 expl = TopologyExplorer(converted_shape)
 
-# loop over faces
-fc_idx = 1
-
-for face in expl.faces():
+for fc_idx, face in enumerate(expl.faces(), start=1):
     print("=== Face %i ===" % fc_idx)
     surf = BRepAdaptor_Surface(face, True)
     surf_type = surf.GetType()
     # check each of the is a BSpline surface
     # it should be, since we used the nurbs converter before
-    if not surf_type == GeomAbs_BSplineSurface:
+    if surf_type != GeomAbs_BSplineSurface:
         raise AssertionError("the face was not converted to a GeomAbs_BSplineSurface")
     # get the nurbs
     bsrf = surf.BSpline()
@@ -78,4 +75,3 @@ for face in expl.faces():
                 p = poles.Value(i + 1, j + 1)
                 print(p.X(), p.Y(), p.Z(), end=" ")
     print()
-    fc_idx += 1

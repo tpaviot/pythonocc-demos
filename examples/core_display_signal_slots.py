@@ -33,8 +33,7 @@ def get_occ_viewer():
     widgets = app.topLevelWidgets()
     for wi in widgets:
         if hasattr(wi, "_menus"):  # OCC.Display.SimpleGui.MainWindow
-            viewer = wi.findChild(qtViewer3d, "qt_viewer_3d")
-            return viewer
+            return wi.findChild(qtViewer3d, "qt_viewer_3d")
 
 
 def on_select(shapes):
@@ -75,8 +74,7 @@ def also_on_select(shapes):
 def location_from_vector(x, y, z):
     trsf = gp_Trsf()
     trsf.SetTranslation(gp_Vec(x, y, z))
-    loc = TopLoc_Location(trsf)
-    return loc
+    return TopLoc_Location(trsf)
 
 
 cube = BRepPrimAPI_MakeBox(100, 100, 100).Shape()

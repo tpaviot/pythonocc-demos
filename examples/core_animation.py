@@ -32,8 +32,7 @@ ais_boxshp = None
 
 def build_shape():
     boxshp = BRepPrimAPI_MakeBox(50.0, 50.0, 50.0).Shape()
-    ais_boxshp = display.DisplayShape(boxshp, update=True)[0]
-    return ais_boxshp
+    return display.DisplayShape(boxshp, update=True)[0]
 
 
 def rotating_cube_1_axis(event=None):
@@ -44,7 +43,7 @@ def rotating_cube_1_axis(event=None):
     angle = 0.0
     tA = time.time()
     n_rotations = 200
-    for i in range(n_rotations):
+    for _ in range(n_rotations):
         aCubeTrsf.SetRotation(ax1, angle)
         aCubeToploc = TopLoc_Location(aCubeTrsf)
         display.Context.SetLocation(ais_boxshp, aCubeToploc)
@@ -63,7 +62,7 @@ def rotating_cube_2_axis(event=None):
     angle = 0.0
     tA = time.time()
     n_rotations = 200
-    for i in range(n_rotations):
+    for _ in range(n_rotations):
         a_cube_trsf.SetRotation(ax1, angle)
         a_cube_trsf2.SetRotation(ax2, angle)
         aCubeToploc = TopLoc_Location(a_cube_trsf * a_cube_trsf2)

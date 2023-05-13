@@ -42,8 +42,7 @@ def build_surf():
     array.SetValue(1, 2, p4)
     array.SetValue(2, 2, p5)
     array.SetValue(3, 2, p6)
-    bspl_surf = GeomAPI_PointsToBSplineSurface(array, 3, 8, GeomAbs_C2, 0.001).Surface()
-    return bspl_surf
+    return GeomAPI_PointsToBSplineSurface(array, 3, 8, GeomAbs_C2, 0.001).Surface()
 
 
 def build_points_network(bspl_srf):
