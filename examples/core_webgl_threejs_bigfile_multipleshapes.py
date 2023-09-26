@@ -28,10 +28,17 @@ from OCC.Display.WebGl import threejs_renderer
 # render each part of the assembly as a shape
 stp_file = os.path.join("..", "assets", "models", "3864470050F1.stp")
 if not os.path.isfile(stp_file):
-    print(
-        "File 3864470050F1.stp not found. First unzip 3864470050F1.zip file from the assets folder"
-    )
-    sys.exit(0)
+    directory = os.path.join("..", "assets", "models")
+    zip_file_path = os.path.join(directory, "3864470050F1.zip")
+
+    # unzip file
+    import zipfile
+
+    with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
+        zip_ref.extractall(directory)
+    assert os.path.isfile(stp_file)
+    print(f"File {zip_file_path} extracted to {stp_file}")
+
 # file exist, we can load the file
 big_shp = read_step_file(stp_file)
 
