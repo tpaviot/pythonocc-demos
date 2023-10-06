@@ -9,7 +9,7 @@ from OCC.Extend.LayerManager import Layer
 
 from OCC.Display.backend import load_backend
 
-load_backend("qt-pyqt5")
+load_backend("pyqt5")
 import OCC.Display.qtDisplay as qtDisplay
 
 from PyQt5.QtWidgets import (
@@ -42,6 +42,17 @@ class App(QDialog):
         windowLayout.addWidget(self.horizontalGroupBox)
         self.setLayout(windowLayout)
         self.show()
+        self.createGeometry()
+
+    def createGeometry(self):
+        self.canvas.InitDriver()
+        self.display = self.canvas._display
+
+        box = BRepPrimAPI_MakeBox(15.0, 15.0, 15.0).Shape()
+        self.layer = Layer(self.display, box)
+        sphere = BRepPrimAPI_MakeSphere(gp_Pnt(25, 25, 25), 5).Shape()
+        self.layer.add_shape(sphere)
+        self.show_layer()
 
     def createLayout(self):
         self.horizontalGroupBox = QGroupBox("Display PythonOCC")
@@ -63,15 +74,6 @@ class App(QDialog):
         self.canvas = qtDisplay.qtViewer3dWithManipulator(self)
         layout_h.addWidget(self.canvas)
         self.horizontalGroupBox.setLayout(layout_h)
-
-        self.canvas.InitDriver()
-        self.display = self.canvas._display
-
-        box = BRepPrimAPI_MakeBox(15.0, 15.0, 15.0).Shape()
-        self.layer = Layer(self.display, box)
-        sphere = BRepPrimAPI_MakeSphere(gp_Pnt(25, 25, 25), 5).Shape()
-        self.layer.add_shape(sphere)
-        self.show_layer()
 
     def show_layer(self):
         if self.show_layer_button.isChecked():
