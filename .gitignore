@@ -2,7 +2,7 @@
 
 __pycache__/
 *.py[cod]
-
+*.jpeg
 
 # Jupyter Notebook
 .ipynb_checkpoints

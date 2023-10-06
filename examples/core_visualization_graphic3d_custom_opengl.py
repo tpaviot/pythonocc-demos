@@ -6,7 +6,7 @@ import warnings
 from OCC.Core.Aspect import Aspect_TOL_SOLID
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.Graphic3d import Graphic3d_ArrayOfPolylines, Graphic3d_AspectLine3d
-from OCC.Core.Prs3d import Prs3d_Root_CurrentGroup
+from OCC.Core.Prs3d import Prs3d_Root
 from OCC.Core.Quantity import Quantity_NOC_BLACK, Quantity_Color
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.Graphic3d import Graphic3d_Structure
@@ -16,8 +16,8 @@ def create_ogl_group(display):
     """
     create a group that will store an OpenGL buffer
     """
-    aStructure = Graphic3d_Structure(display._struc_mgr)
-    group = Prs3d_Root_CurrentGroup(aStructure)
+    aStructure = Graphic3d_Structure(display.struc_mgr)
+    group = Prs3d_Root.CurrentGroup(aStructure)
     return aStructure, group
 
 

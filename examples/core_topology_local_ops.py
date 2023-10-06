@@ -17,13 +17,13 @@
 import sys
 from math import pi
 
-from OCC.Core.BRep import BRep_Tool_Surface
+from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section, BRepAlgoAPI_Fuse
 from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_MakeEdge,
     BRepBuilderAPI_MakeFace,
-    BRepBuilderAPI_GTransform,
+    BRepBuilderAPI_Transform,
 )
 from OCC.Core.BRepFeat import (
     BRepFeat_MakePrism,
@@ -32,7 +32,7 @@ from OCC.Core.BRepFeat import (
     BRepFeat_MakeLinearForm,
     BRepFeat_MakeRevol,
 )
-from OCC.Core.BRepLib import breplib_BuildCurves3d
+from OCC.Core.BRepLib import breplib
 from OCC.Core.BRepOffset import BRepOffset_Skin
 from OCC.Core.BRepOffsetAPI import (
     BRepOffsetAPI_MakeThickSolid,
@@ -47,6 +47,7 @@ from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.TopTools import TopTools_ListOfShape
 from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Core.gp import (
+    gp,
     gp_Pnt2d,
     gp_Circ2d,
     gp_Ax2d,
@@ -54,7 +55,6 @@ from OCC.Core.gp import (
     gp_Pnt,
     gp_Pln,
     gp_Vec,
-    gp_OX,
     gp_Trsf,
     gp_GTrsf,
 )
@@ -71,7 +71,7 @@ def extrusion(event=None):
 
     # Choose the first Face of the box
     F = next(TopologyExplorer(S).faces())
-    surf = BRep_Tool_Surface(F)
+    surf = BRep_Tool.Surface(F)
 
     #  Make a plane from this face
     Pln = Geom_Plane.DownCast(surf)
@@ -110,7 +110,7 @@ def extrusion(event=None):
     MKF.Init(surf, False, 1e-6)
     MKF.Add(MW.Wire())
     FP = MKF.Face()
-    breplib_BuildCurves3d(FP)
+    breplib.BuildCurves3d(FP)
 
     MKP = BRepFeat_MakePrism(S, FP, F, D, False, True)
     MKP.Perform(200.0)
@@ -130,7 +130,7 @@ def brepfeat_prism(event=None):
     for i in range(5):
         face = next(faces)
 
-    srf = BRep_Tool_Surface(face)
+    srf = BRep_Tool.Surface(face)
 
     c = gp_Circ2d(gp_Ax2d(gp_Pnt2d(200, 130), gp_Dir2d(1, 0)), 75)
 
@@ -149,7 +149,7 @@ def brepfeat_prism(event=None):
     mkf.Build()
 
     new_face = mkf.Face()
-    breplib_BuildCurves3d(new_face)
+    breplib.BuildCurves3d(new_face)
 
     display.DisplayShape(new_face)
 
@@ -277,9 +277,9 @@ def brep_feat_local_revolution(event=None):
     S = BRepPrimAPI_MakeBox(400.0, 250.0, 300.0).Shape()
     faces = list(TopologyExplorer(S).faces())
     F1 = faces[2]
-    surf = BRep_Tool_Surface(F1)
+    surf = BRep_Tool.Surface(F1)
 
-    D = gp_OX()
+    D = gp.OX()
 
     MW1 = BRepBuilderAPI_MakeWire()
     p1 = gp_Pnt2d(100.0, 100.0)
@@ -301,7 +301,7 @@ def brep_feat_local_revolution(event=None):
     MKF1.Init(surf, False, 1e-6)
     MKF1.Add(MW1.Wire())
     FP = MKF1.Face()
-    breplib_BuildCurves3d(FP)
+    breplib.BuildCurves3d(FP)
     MKrev = BRepFeat_MakeRevol(S, FP, F1, D, 1, True)
     F2 = faces[4]
     MKrev.Perform(F2)
@@ -315,7 +315,7 @@ def brep_feat_extrusion_protrusion(event=None):
     S = BRepPrimAPI_MakeBox(400.0, 250.0, 300.0).Shape()
     faces = TopologyExplorer(S).faces()
     F = next(faces)
-    surf1 = BRep_Tool_Surface(F)
+    surf1 = BRep_Tool.Surface(F)
 
     Pl1 = Geom_Plane.DownCast(surf1)
 
@@ -341,7 +341,7 @@ def brep_feat_extrusion_protrusion(event=None):
     MKF.Init(surf1, False, 1e-6)
     MKF.Add(MW.Wire())
     FP = MKF.Face()
-    breplib_BuildCurves3d(FP)
+    breplib.BuildCurves3d(FP)
 
     display.EraseAll()
     MKP = BRepFeat_MakePrism(S, FP, F, D1, 0, True)
@@ -353,7 +353,7 @@ def brep_feat_extrusion_protrusion(event=None):
     # Protrusion
     next(faces)
     F2 = next(faces)
-    surf2 = BRep_Tool_Surface(F2)
+    surf2 = BRep_Tool.Surface(F2)
     Pl2 = Geom_Plane.DownCast(surf2)
     D2 = Pl2.Pln().Axis().Direction().Reversed()
     MW2 = BRepBuilderAPI_MakeWire()
@@ -375,16 +375,14 @@ def brep_feat_extrusion_protrusion(event=None):
     MKF2.Build()
 
     FP = MKF2.Face()
-    breplib_BuildCurves3d(FP)
+    breplib.BuildCurves3d(FP)
     MKP2 = BRepFeat_MakePrism(res1, FP, F2, D2, 0, True)
     MKP2.PerformThruAll()
     display.EraseAll()
 
     trf = gp_Trsf()
     trf.SetTranslation(gp_Vec(0, 0, 300))
-    gtrf = gp_GTrsf()
-    gtrf.SetTrsf(trf)
-    tr = BRepBuilderAPI_GTransform(MKP2.Shape(), gtrf, True)
+    tr = BRepBuilderAPI_Transform(MKP2.Shape(), trf, True)
 
     fused = BRepAlgoAPI_Fuse(tr.Shape(), MKP2.Shape())
     fused.Build()

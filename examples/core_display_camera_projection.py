@@ -18,17 +18,9 @@ import sys
 
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.Graphic3d import Graphic3d_RenderingParams
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Core.BRep import BRep_Builder
-
-display, start_display, add_menu, add_function_to_menu = init_display()
-
-# loads the motor model
-motor_c = TopoDS_Shape()
-builder = BRep_Builder()
-breptools_Read(motor_c, "../assets/models/Motor-c.brep", builder)
-display.DisplayShape(motor_c, update=True)
 
 
 def perspective(event=None):
@@ -66,6 +58,14 @@ def exit(event=None):
 
 
 if __name__ == "__main__":
+    display, start_display, add_menu, add_function_to_menu = init_display()
+
+    # loads the motor model
+    motor_c = TopoDS_Shape()
+    builder = BRep_Builder()
+    breptools.Read(motor_c, "../assets/models/Motor-c.brep", builder)
+    display.DisplayShape(motor_c, update=True)
+
     add_menu("camera projection")
     add_function_to_menu("camera projection", perspective)
     add_function_to_menu("camera projection", orthographic)

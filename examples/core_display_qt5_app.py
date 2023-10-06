@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import (
 
 from OCC.Display.backend import load_backend
 
-load_backend("qt-pyqt5")
+load_backend("pyqt5")
 import OCC.Display.qtDisplay as qtDisplay
 
 
@@ -39,6 +39,9 @@ class App(QDialog):
         windowLayout.addWidget(self.horizontalGroupBox)
         self.setLayout(windowLayout)
         self.show()
+        self.canvas.InitDriver()
+        self.canvas.resize(200, 200)
+        self.display = self.canvas._display
 
     def createHorizontalLayout(self):
         self.horizontalGroupBox = QGroupBox("Display PythonOCC")
@@ -54,9 +57,6 @@ class App(QDialog):
 
         self.canvas = qtDisplay.qtViewer3d(self)
         layout.addWidget(self.canvas)
-        self.canvas.resize(200, 200)
-        self.canvas.InitDriver()
-        self.display = self.canvas._display
         self.horizontalGroupBox.setLayout(layout)
 
     def displayBOX(self):
