@@ -110,7 +110,7 @@ def face():
     ##
     line1 = Geom2d_Line(P12d, gp_Dir2d((0.2 - 0.9), (0.7 - 0.1)))
     line2 = Geom2d_Line(P22d, gp_Dir2d((0.02 - 0.2), (0.1 - 0.7)))
-    line3 = Geom2d_Line(P32d, gp_Dir2d((0.9 - 0.02), (0.1 - 0.1)))
+    line3 = Geom2d_Line(P32d, gp_Dir2d(0.9 - 0.02, 0.0))
     ##
     ##//Edges are on the BSpline surface
     Edge1 = BRepBuilderAPI_MakeEdge(

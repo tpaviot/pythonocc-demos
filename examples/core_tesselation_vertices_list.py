@@ -47,12 +47,12 @@ if number_of_triangles * 9 != number_of_vertices:
 # get normals
 normals = tess.GetNormalsAsTuple()
 number_of_normals = len(normals)
-if not number_of_normals == number_of_vertices:
+if number_of_normals != number_of_vertices:
     raise AssertionError("wrong number of normals returned by the tessellator")
 
 # if HAVE_NUMPY, we try to reshape the tuple so that it is of
 # a ndarray such as [[x1, y1, z1], [x2, y2, z2], ...]
 #
 if HAVE_NUMPY:
-    vertices = np.array(vertices_position).reshape(int(number_of_vertices / 3), 3)
-    normals = np.array(normals).reshape(int(number_of_vertices / 3), 3)
+    vertices = np.array(vertices_position).reshape(number_of_vertices // 3, 3)
+    normals = np.array(normals).reshape(number_of_vertices // 3, 3)

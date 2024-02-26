@@ -42,10 +42,12 @@ def random_color():
 
 def length_from_edge(edg):
     curve_adapt = BRepAdaptor_Curve(edg)
-    length = GCPnts_AbscissaPoint().Length(
-        curve_adapt, curve_adapt.FirstParameter(), curve_adapt.LastParameter(), 1e-6
+    return GCPnts_AbscissaPoint().Length(
+        curve_adapt,
+        curve_adapt.FirstParameter(),
+        curve_adapt.LastParameter(),
+        1e-6,
     )
-    return length
 
 
 def divide_edge_by_nr_of_points(edg, n_pts):
@@ -105,7 +107,7 @@ def build_curve_network(event=None, enforce_tangency=True):
     root_compound_shape = read_step_file("../assets/models/splinecage.stp")
     topology_explorer = TopologyExplorer(root_compound_shape)
 
-    tangent_constraint_faces = [f for f in topology_explorer.faces()]
+    tangent_constraint_faces = list(topology_explorer.faces())
 
     # loop through the imported faces
     # associate the length of each of the faces edges to the corresponding face
@@ -115,12 +117,11 @@ def build_curve_network(event=None, enforce_tangency=True):
 
     # loop through the imported curves, avoiding the imported faces
     # when we've got these filtered out, we retrieved the geometry to build the surface from
-    filtered_edges = [
-        e
-        for e in topology_explorer._loop_topo(
+    filtered_edges = list(
+        topology_explorer._loop_topo(
             TopAbs_EDGE, root_compound_shape, TopAbs_FACE
         )
-    ]
+    )
 
     filtered_length = {}
     for e in filtered_edges:

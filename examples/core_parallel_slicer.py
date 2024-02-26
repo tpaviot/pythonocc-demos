@@ -85,16 +85,16 @@ def run(n_procs, compare_by_number_of_processors=False):
         for i in range(1, n_procs + 1):
             if i == 1:
                 slices.append(z_slices[: i * n])
-                _str_slices.append(":" + str(i * n) + " ")
+                _str_slices.append(f":{str(i * n)} ")
             elif i == n_procs:
                 # does a little extra work if the number of slices
                 # isn't divisible by n_procs
                 slices.append(z_slices[(i - 1) * n :])
-                _str_slices.append(str((i - 1) * n) + ": ")
+                _str_slices.append(f"{str((i - 1) * n)}: ")
                 print("last slice", len(z_slices[(i - 1) * n :]))
             else:
                 slices.append(z_slices[(i - 1) * n : i * n])
-                _str_slices.append(" %s:%s " % ((i - 1) * n, i * n))
+                _str_slices.append(f" {(i - 1) * n}:{i * n} ")
         print(
             "the z-index array is sliced over %s processors like this: \n %s"
             % (n_procs, _str_slices)
@@ -127,7 +127,7 @@ def run(n_procs, compare_by_number_of_processors=False):
             else:
                 P = multiprocessing.Pool(n_procs)
                 _results = P.map(vectorized_slicer, arguments(n_slice, i))
-            print("slicing took %s seconds for %s processors" % (time.time() - tA, i))
+            print(f"slicing took {time.time() - tA} seconds for {i} processors")
         sys.exit()
 
     print("\n\n\n done slicing on %i cores \n\n\n" % nprocs)
@@ -143,7 +143,7 @@ def run(n_procs, compare_by_number_of_processors=False):
     # update viewer when all is added:
     display.Repaint()
     total_time = time.time() - init_time
-    print("%s necessary to perform slice with %s processor(s)." % (total_time, n_procs))
+    print(f"{total_time} necessary to perform slice with {n_procs} processor(s).")
     start_display()
 
 

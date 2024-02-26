@@ -49,7 +49,7 @@ class UiucAirfoil(object):
     def make_shape(self):
         # 1 - retrieve the data from the UIUC airfoil data page
         foil_dat_url = (
-            "http://m-selig.ae.illinois.edu/ads/coord_seligFmt/%s.dat" % self.profile
+            f"http://m-selig.ae.illinois.edu/ads/coord_seligFmt/{self.profile}.dat"
         )
         # explicitly tell to not use ssl verification
         ssl._create_default_https_context = ssl._create_unverified_context

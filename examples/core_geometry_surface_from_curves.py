@@ -41,8 +41,7 @@ def surface_from_curves():
     @param display:
     """
     # First spline
-    array = []
-    array.append(gp_Pnt(-4, 0, 2))
+    array = [gp_Pnt(-4, 0, 2)]
     array.append(gp_Pnt(-7, 2, 2))
     array.append(gp_Pnt(-6, 3, 1))
     array.append(gp_Pnt(-4, 3, -1))
@@ -52,8 +51,7 @@ def surface_from_curves():
     SPL1 = GeomAPI_PointsToBSpline(pt_list1).Curve()
 
     # Second spline
-    a2 = []
-    a2.append(gp_Pnt(-4, 0, 2))
+    a2 = [gp_Pnt(-4, 0, 2)]
     a2.append(gp_Pnt(-2, 2, 0))
     a2.append(gp_Pnt(2, 3, -1))
     a2.append(gp_Pnt(3, 7, -2))

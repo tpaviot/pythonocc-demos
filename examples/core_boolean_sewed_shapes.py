@@ -31,8 +31,7 @@ from OCC.Display.SimpleGui import init_display
 def MakeSolidFromShell(shell):
     ms = BRepBuilderAPI_MakeSolid()
     ms.Add(topods.Shell(shell))
-    solid = ms.Solid()
-    return solid
+    return ms.Solid()
 
 
 def make_face_from_4_points(pnt1, pnt2, pnt3, pnt4):

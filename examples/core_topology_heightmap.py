@@ -67,25 +67,17 @@ def heightmap_from_equation(f, x_min=-1, x_max=1, y_min=-1, y_max=1):
     n = 100
     # initialize x axis
     step_x = (x_max - x_min) / n
-    x_ = []
-    for i in range(n):
-        x_.append(x_min + i * step_x)
+    x_ = [x_min + i * step_x for i in range(n)]
     # initialize y axis
     step_y = (y_max - y_min) / n
-    y_ = []
-    for i in range(n):
-        y_.append(y_min + i * step_y)
+    y_ = [y_min + i * step_y for i in range(n)]
     # compute z
     array = TColgp_Array2OfPnt(1, len(x_), 1, len(y_))
-    i = 1
-    for x in x_:
-        j = 1
-        for y in y_:
+    for i, x in enumerate(x_, start=1):
+        for j, y in enumerate(y_, start=1):
             z = f(x, y)
             point_to_add = gp_Pnt(x, y, z)
             array.SetValue(i, j, point_to_add)
-            j += 1
-        i += 1
     print("bspline surface creation")
     bspl_surface = GeomAPI_PointsToBSplineSurface(
         array, 3, 8, GeomAbs_C2, 0.001
@@ -99,8 +91,7 @@ def boundary_curve_from_2_points(p1, p2):
     w0 = BRepBuilderAPI_MakeWire(e0).Wire()
     # boundary for filling
     adap = BRepAdaptor_CompCurve(w0)
-    boundary = GeomFill_SimpleBound(adap, 1e-6, 1e-6)
-    return boundary
+    return GeomFill_SimpleBound(adap, 1e-6, 1e-6)
 
 
 def heightmap_from_image(event=None):

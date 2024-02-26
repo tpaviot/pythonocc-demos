@@ -28,7 +28,7 @@ def print_xy_click(shp, *kwargs):
 
 
 def compute_bbox(shp, *kwargs):
-    print("Compute bbox for %s " % shp)
+    print(f"Compute bbox for {shp} ")
     for shape in shp:
         bbox = Bnd_Box()
         brepbndlib_Add(shape, bbox)

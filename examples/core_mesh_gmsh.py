@@ -44,18 +44,14 @@ def mesh_shape(a_topods_shape):
 
     a() = ShapeFromFile("shape.brep");
     """
-    gmsh_geo_file = open("shape.geo", "w")
-    gmsh_geo_file.write(gmsh_geo_file_content)
-    gmsh_geo_file.close()
-
+    with open("shape.geo", "w") as gmsh_geo_file:
+        gmsh_geo_file.write(gmsh_geo_file_content)
     # call gmsh
     gmsh_success = os.system("gmsh shape.geo -2 -o shape.stl -format stl")
-    # load the stl file
     if gmsh_success != 0 and os.path.isfile("shape.stl"):
         return read_stl_file("shape.stl")
-    else:
-        print("Be sure gmsh is in your PATH")
-        sys.exit()
+    print("Be sure gmsh is in your PATH")
+    sys.exit()
 
 
 # First example, a simple torus

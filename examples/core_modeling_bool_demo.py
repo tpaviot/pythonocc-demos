@@ -49,10 +49,9 @@ def generate_shape():
     sphere_radius = 1.0
     sphere_angle = atan(0.5)
     sphere_origin = gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1))
-    sphere = BRepPrimAPI_MakeSphere(
+    return BRepPrimAPI_MakeSphere(
         sphere_origin, sphere_radius, -sphere_angle, sphere_angle
     ).Shape()
-    return sphere
 
 
 def add_feature(base):
@@ -63,8 +62,7 @@ def add_feature(base):
     feature_maker.Init(base, feature_origin)
     feature_maker.Build()
     feature_maker.Perform(feature_diameter / 2.0)
-    shape = feature_maker.Shape()
-    return shape
+    return feature_maker.Shape()
 
 
 def boolean_cut(base):
@@ -99,8 +97,7 @@ def boolean_fuse(base):
     ring_radius = 0.25
     torus_radius = 1.0 - ring_radius
     torus = BRepPrimAPI_MakeTorus(torus_radius, ring_radius).Shape()
-    fuse = BRepAlgoAPI_Fuse(base, torus).Shape()
-    return fuse
+    return BRepAlgoAPI_Fuse(base, torus).Shape()
 
 
 def revolved_cut(base):
@@ -142,9 +139,7 @@ def revolved_cut(base):
     move.SetTranslation(gp_Pnt(0, 0, 0), gp_Pnt(0, 0, sin(0.5)))
     moved_shape = BRepBuilderAPI_Transform(revolved_shape, move, False).Shape()
 
-    # Remove the revolved shape
-    cut = BRepAlgoAPI_Cut(base, moved_shape).Shape()
-    return cut
+    return BRepAlgoAPI_Cut(base, moved_shape).Shape()
 
 
 def generate_demo():
@@ -152,8 +147,7 @@ def generate_demo():
     featured_shape = add_feature(basic_shape)
     cut_shape = boolean_cut(featured_shape)
     fused_shape = boolean_fuse(cut_shape)
-    revolved_shape = revolved_cut(fused_shape)
-    return revolved_shape
+    return revolved_cut(fused_shape)
 
 
 if __name__ == "__main__":

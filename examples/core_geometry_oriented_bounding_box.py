@@ -48,8 +48,9 @@ def convert_bnd_to_shape(the_box):
     axes.SetLocation(
         gp_Pnt(point.XYZ() - x_vec * half_x - y_vec * half_y - z_vec * half_z)
     )
-    box = BRepPrimAPI_MakeBox(axes, 2.0 * half_x, 2.0 * half_y, 2.0 * half_z).Shape()
-    return box
+    return BRepPrimAPI_MakeBox(
+        axes, 2.0 * half_x, 2.0 * half_y, 2.0 * half_z
+    ).Shape()
 
 
 # compute the oriented bounding box of a point cloud

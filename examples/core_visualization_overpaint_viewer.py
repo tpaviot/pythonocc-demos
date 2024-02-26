@@ -322,40 +322,32 @@ class GLWidget(qtViewer3d):
         modifiers = event.modifiers()
 
         # rotate
-        if buttons == QtCore.Qt.LeftButton and not modifiers == QtCore.Qt.ShiftModifier:
+        if (
+            buttons == QtCore.Qt.LeftButton
+            and modifiers != QtCore.Qt.ShiftModifier
+        ):
             self.current_action = ON_DYN_ROT
 
-        # dynamic zoom
         elif (
             buttons == QtCore.Qt.RightButton
-            and not modifiers == QtCore.Qt.ShiftModifier
+            and modifiers != QtCore.Qt.ShiftModifier
         ):
             self.current_action = ON_DYN_ZOOM
 
-        # dynamic panning
         elif buttons == QtCore.Qt.MidButton:
             self.current_action = ON_DYN_PAN
 
-        # zoom window, overpaints rectangle
-        elif buttons == QtCore.Qt.RightButton and modifiers == QtCore.Qt.ShiftModifier:
+        elif buttons == QtCore.Qt.RightButton:
             self.current_action = ON_ZOOM_AREA
 
-        # select area
-        elif buttons == QtCore.Qt.LeftButton and modifiers == QtCore.Qt.ShiftModifier:
+        elif buttons == QtCore.Qt.LeftButton:
             self.current_action = ON_SELECT_AREA
 
         self.update()
 
     def wheelEvent(self, event):
-        if self._have_pyqt5:
-            delta = event.angleDelta().y()
-        else:
-            delta = event.delta()
-
-        if delta > 0:
-            self.zoom_factor = 1.3
-        else:
-            self.zoom_factor = 0.7
+        delta = event.angleDelta().y() if self._have_pyqt5 else event.delta()
+        self.zoom_factor = 1.3 if delta > 0 else 0.7
         self.current_action = ON_ZOOM_FACTOR
         self.point_on_mouse_move = event
 
@@ -373,10 +365,7 @@ class GLWidget(qtViewer3d):
         dx, dy = self.delta_mouse_event_pos
 
         tolerance = 2
-        if abs(dx) <= tolerance and abs(dy) <= tolerance:
-            # zooming at a near nil value can segfault the opengl viewer
-            pass
-        else:
+        if abs(dx) > tolerance or abs(dy) > tolerance:
             if not self.is_right_mouse_button_surpressed:
                 coords = [
                     self.point_on_mouse_press[0],
@@ -467,8 +456,6 @@ class GLWidget(qtViewer3d):
             False otherwise
 
         """
-        perform_action = False
-
         if self.current_action:
             print("handling camera action:", self.current_action)
 
@@ -485,7 +472,7 @@ class GLWidget(qtViewer3d):
         finally:
             self.current_action = None
 
-        return perform_action
+        return False
 
     def paintEvent(self, event):
         """handles all actions that redraw the viewport
@@ -595,10 +582,7 @@ class GLWidget(qtViewer3d):
 
         dx, dy = self.delta_mouse_event_pos
 
-        if abs(dx) <= tolerance and abs(dy) <= tolerance:
-            pass
-
-        else:
+        if abs(dx) > tolerance or abs(dy) > tolerance:
             rect = QtCore.QRect(
                 self.point_on_mouse_press[0], self.point_on_mouse_press[1], -dx, -dy
             )
