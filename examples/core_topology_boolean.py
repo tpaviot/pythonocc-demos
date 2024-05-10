@@ -33,7 +33,7 @@ from OCC.Core.BRepPrimAPI import (
 from OCC.Display.SimpleGui import init_display
 from OCC.Core.gp import gp_Vec, gp_Ax2, gp_Pnt, gp_Dir, gp_Pln, gp_Trsf
 
-display, start_display, add_menu, add_function_to_menu = init_display()
+display, start_display, add_menu, add_function_to_menu = init_display("pyqt5")
 
 
 def translate_topods_from_vector(brep_or_iterable, vec, copy=False):

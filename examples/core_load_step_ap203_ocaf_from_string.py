@@ -24,6 +24,10 @@ from OCC.Core.TDF import TDF_LabelSequence
 from OCC.Display.SimpleGui import init_display
 
 filename = "../assets/models/as1_pe_203.stp"
+
+with open(filename, "r", encoding="utf8") as step_file:
+    step_file_as_string = step_file.read()
+
 _shapes = []
 
 # create an handle to a document
@@ -41,7 +45,7 @@ step_reader.SetLayerMode(True)
 step_reader.SetNameMode(True)
 step_reader.SetMatMode(True)
 
-status = step_reader.ReadFile(filename)
+status = step_reader.ReadStream("pyocc_stream", step_file_as_string)
 if status == IFSelect_RetDone:
     step_reader.Transfer(doc)
 

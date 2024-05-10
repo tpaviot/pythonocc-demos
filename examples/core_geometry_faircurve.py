@@ -50,7 +50,7 @@ def batten_curve(pt1, pt2, height, slope, angle1, angle2):
     fc.SetHeight(height)
     fc.SetSlope(slope)
     fc.SetFreeSliding(True)
-    print(fc.DumpToString())
+    print(fc.Dump())
     status = fc.Compute()
     print(error_code(status[0]), error_code(status[1]))
     return fc.Curve()
