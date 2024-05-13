@@ -15,10 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-
 from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.RWStl import rwstl_ReadFile
 from OCC.Core.MeshVS import *
 
 from OCC.Display.SimpleGui import init_display
