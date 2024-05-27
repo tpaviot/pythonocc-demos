@@ -28,7 +28,6 @@ from OCC.Core.Graphic3d import (
     Graphic3d_PBRMaterial,
     Graphic3d_MaterialAspect,
     Graphic3d_BSDF,
-    Graphic3d_Vec3,
 )
 from OCC.Core.V3d import (
     V3d_SpotLight,
@@ -38,7 +37,7 @@ from OCC.Core.V3d import (
 )
 from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_WHITE, Quantity_NOC_CORAL2
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.Core.gp import gp_Vec, gp_Pnt, gp_Dir
+from OCC.Core.gp import gp_Vec, gp_Pnt, gp_Dir, gp_Vec3f
 
 from OCC.Extend.ShapeFactory import translate_shp
 
@@ -81,8 +80,9 @@ pbr_mat_2 = Graphic3d_PBRMaterial()
 glass_pbr_aspect = Graphic3d_MaterialAspect(Graphic3d_NOM_PLASTIC)
 glass_pbr_aspect.SetPBRMaterial(pbr_mat_2)
 # the BSDF glass
-weights = Graphic3d_Vec3(0.5, 6.0, 1.0)
-absorption_color = Graphic3d_Vec3(0.8, 0.8, 0.8)
+
+weights = gp_Vec3f(0.5, 6.0, 1.0)
+absorption_color = gp_Vec3f(0.8, 0.8, 0.8)
 absorption_coef = 0.6
 refraction_index = 2.2
 glass_pbr_aspect.SetBSDF(
