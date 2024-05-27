@@ -277,10 +277,9 @@ def build_curve_network(event=None):
     """
     print("Importing IGES file...")
     iges_file = os.path.join("..", "assets", "models", "curve_geom_plate.igs")
-    iges = read_iges_file(iges_file)
-
+    iges_shapes = read_iges_file(iges_file)
     print("Building geomplate...")
-    topo = TopologyExplorer(iges)
+    topo = TopologyExplorer(iges_shapes[0])
     edges_list = list(topo.edges())
     face = build_geom_plate(edges_list)
     print("done.")
