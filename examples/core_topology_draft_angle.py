@@ -16,15 +16,15 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import math
-from OCC.Core.gp import gp_Dir, gp_Pln, gp_Ax3, gp_XOY
+from OCC.Core.gp import gp_Dir, gp_Pln, gp_Ax3, gp
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_DraftAngle
-from OCC.Core.Precision import precision_Angular
-from OCC.Core.BRep import BRep_Tool_Surface
+from OCC.Core.Precision import precision
+from OCC.Core.BRep import BRep_Tool
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.Geom import Geom_Plane
-from OCC.Core.TopoDS import topods_Face
+from OCC.Core.TopoDS import topods
 
 from OCC.Display.SimpleGui import init_display
 
@@ -37,12 +37,12 @@ def draft_angle(event=None):
     topExp = TopExp_Explorer()
     topExp.Init(S, TopAbs_FACE)
     while topExp.More():
-        face = topods_Face(topExp.Current())
-        surf = Geom_Plane.DownCast(BRep_Tool_Surface(face))
+        face = topods.Face(topExp.Current())
+        surf = Geom_Plane.DownCast(BRep_Tool.Surface(face))
         dirf = surf.Pln().Axis().Direction()
         ddd = gp_Dir(0, 0, 1)
-        if dirf.IsNormal(ddd, precision_Angular()):
-            adraft.Add(face, ddd, math.radians(15), gp_Pln(gp_Ax3(gp_XOY())))
+        if dirf.IsNormal(ddd, precision.Angular()):
+            adraft.Add(face, ddd, math.radians(15), gp_Pln(gp_Ax3(gp.XOY())))
         topExp.Next()
     adraft.Build()
     display.DisplayShape(adraft.Shape(), update=True)
