@@ -17,9 +17,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
-from OCC.Core.gp import gp_Pnt, gp_XOY
+from OCC.Core.gp import gp_Pnt, gp
 from OCC.Core.GeomAPI import GeomAPI_ProjectPointOnCurve
 from OCC.Core.Geom import Geom_Circle
 
@@ -34,7 +32,7 @@ def project_point_on_curve():
     radius = 5.0
 
     # create a circle, centered at origin with a given radius
-    circle = Geom_Circle(gp_XOY(), radius)
+    circle = Geom_Circle(gp.XOY(), radius)
     display.DisplayShape(circle)
     display.DisplayShape(point_to_project, update=True)
     display.DisplayMessage(point_to_project, "P")
