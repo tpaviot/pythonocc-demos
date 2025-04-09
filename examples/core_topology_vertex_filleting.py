@@ -23,18 +23,13 @@
 from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.TopExp import (
-    TopExp_Explorer,
-    topexp_MapShapesAndAncestors,
-    topexp_FirstVertex,
-    topexp_LastVertex,
-)
+from OCC.Core.TopExp import TopExp_Explorer, topexp
 from OCC.Core.TopAbs import TopAbs_VERTEX, TopAbs_EDGE
 from OCC.Core.TopTools import (
     TopTools_IndexedDataMapOfShapeListOfShape,
     TopTools_ListIteratorOfListOfShape,
 )
-from OCC.Core.TopoDS import topods_Vertex, topods_Edge
+from OCC.Core.TopoDS import topods
 
 from OCC.Display.SimpleGui import init_display
 
@@ -46,9 +41,9 @@ cube = BRepPrimAPI_MakeBox(100, 100, 100).Shape()
 topExp = TopExp_Explorer()
 topExp.Init(cube, TopAbs_VERTEX)
 # get two vertices
-vertA = topods_Vertex(topExp.Current())
+vertA = topods.Vertex(topExp.Current())
 topExp.Next()
-vertB = topods_Vertex(topExp.Current())
+vertB = topods.Vertex(topExp.Current())
 
 
 def vertex_fillet(cube_shp, vert):
@@ -57,13 +52,13 @@ def vertex_fillet(cube_shp, vert):
     cnt = 0
     # find edges from vertex
     _map = TopTools_IndexedDataMapOfShapeListOfShape()
-    topexp_MapShapesAndAncestors(cube_shp, TopAbs_VERTEX, TopAbs_EDGE, _map)
+    topexp.MapShapesAndAncestors(cube_shp, TopAbs_VERTEX, TopAbs_EDGE, _map)
     results = _map.FindFromKey(vert)
     topology_iterator = TopTools_ListIteratorOfListOfShape(results)
     while topology_iterator.More():
-        edge = topods_Edge(topology_iterator.Value())
+        edge = topods.Edge(topology_iterator.Value())
         topology_iterator.Next()
-        first, last = topexp_FirstVertex(edge), topexp_LastVertex(edge)
+        first, last = topexp.FirstVertex(edge), topexp.LastVertex(edge)
         vertex, first_vert, last_vert = (
             BRep_Tool().Pnt(vert),
             BRep_Tool().Pnt(first),
