@@ -21,7 +21,7 @@ from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
 from OCC.Core.TopExp import TopExp_Explorer
-from OCC.Core.TopoDS import TopoDS_Compound, topods_Face
+from OCC.Core.TopoDS import TopoDS_Compound, topods
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.gp import gp_Pnt
@@ -49,7 +49,7 @@ def simple_mesh():
     bt = BRep_Tool()
     ex = TopExp_Explorer(shape, TopAbs_FACE)
     while ex.More():
-        face = topods_Face(ex.Current())
+        face = topods.Face(ex.Current())
         location = TopLoc_Location()
         facing = bt.Triangulation(face, location)
         tri = facing.Triangles()

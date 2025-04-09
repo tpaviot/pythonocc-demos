@@ -5,7 +5,7 @@ from OCC.Core.LocOpe import LocOpe_FindEdges
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopLoc import TopLoc_Location
-from OCC.Core.TopoDS import topods_Face
+from OCC.Core.TopoDS import topods
 from OCC.Core.gp import gp_Pnt, gp_Trsf, gp_Vec
 
 from OCC.Extend.ShapeFactory import get_aligned_boundingbox
@@ -24,7 +24,7 @@ def get_faces(_shape):
     _faces = []
 
     while topExp.More():
-        fc = topods_Face(topExp.Current())
+        fc = topods.Face(topExp.Current())
         _faces.append(fc)
         topExp.Next()
 

@@ -15,7 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Loads a STEP file and identify geometrical nature of each face
+"""Loads a STEP file and identify geometrical nature of each face
 (cylindrical face, planar etc.)
 See github issue https://github.com/tpaviot/pythonocc-core/issues/470
 
@@ -39,7 +39,7 @@ import sys
 from OCC.Core.STEPControl import STEPControl_Reader
 from OCC.Core.IFSelect import IFSelect_RetDone, IFSelect_ItemsByEntity
 from OCC.Core.GeomAbs import GeomAbs_Plane, GeomAbs_Cylinder
-from OCC.Core.TopoDS import topods_Face
+from OCC.Core.TopoDS import topods
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
 from OCC.Display.SimpleGui import init_display
 
@@ -114,7 +114,7 @@ def recognize_clicked(shp, *kwargs):
     """
     for shape in shp:  # this should be a TopoDS_Face TODO check it is
         print("Face selected: ", shape)
-        recognize_face(topods_Face(shape))
+        recognize_face(topods.Face(shape))
 
 
 def recognize_batch(event=None):
