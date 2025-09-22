@@ -15,7 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Loads a STEP file and identify geometrical nature of each face
+"""Loads a STEP file and identify geometrical nature of each face
 (cylindrical face, planar etc.)
 See github issue https://github.com/tpaviot/pythonocc-core/issues/470
 Two options in this example:
