@@ -17,21 +17,18 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 import random
 
-from OCC.Display.WebGl import threejs_renderer
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.gp import gp_Vec
-
-from OCC.Extend.ShapeFactory import translate_shp, rotate_shp_3_axis
+from OCC.Display.WebGl import threejs_renderer
+from OCC.Extend.ShapeFactory import rotate_shp_3_axis, translate_shp
 
 my_ren = threejs_renderer.ThreejsRenderer()
 n_toruses = 100
 
-idx = 0
-for i in range(n_toruses):
+for idx in range(n_toruses):
     torus_shp = BRepPrimAPI_MakeTorus(
         10 + random.random() * 10, random.random() * 10
     ).Shape()
@@ -48,6 +45,5 @@ for i in range(n_toruses):
     my_ren.DisplayShape(
         trans_torus, export_edges=True, color=rnd_color, transparency=random.random()
     )
-    print("%i%%" % (idx * 100 / n_toruses), end="")
-    idx += 1
+    print(f"{idx * 100 // n_toruses}%", end="")
 my_ren.render()

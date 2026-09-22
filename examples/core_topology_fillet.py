@@ -20,9 +20,9 @@ from math import cos, pi
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
-from OCC.Display.SimpleGui import init_display
+from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pnt, gp_Pnt2d
 from OCC.Core.TColgp import TColgp_Array1OfPnt2d
-from OCC.Core.gp import gp_Ax2, gp_Pnt, gp_Dir, gp_Pnt2d
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -84,7 +84,7 @@ def fillet_cylinder(event=None):
     fillet = BRepFilletAPI_MakeFillet(cylinder)
     display.DisplayShape(cylinder, update=True)
     tab_point_2 = TColgp_Array1OfPnt2d(0, 20)
-    for i in range(0, 20):
+    for i in range(20):
         point_2d = gp_Pnt2d(i * 2 * pi / 19, 60 * cos(i * pi / 19 - pi / 2) + 10)
         tab_point_2.SetValue(i, point_2d)
         display.DisplayShape(point_2d)

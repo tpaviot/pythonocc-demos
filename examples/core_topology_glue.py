@@ -1,13 +1,12 @@
 from OCC.Core.BRepFeat import BRepFeat_Gluer
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Display.SimpleGui import init_display
+from OCC.Core.gp import gp_Pnt, gp_Trsf, gp_Vec
 from OCC.Core.LocOpe import LocOpe_FindEdges
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.TopoDS import topods
-from OCC.Core.gp import gp_Pnt, gp_Trsf, gp_Vec
-
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.ShapeFactory import get_aligned_boundingbox
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -48,7 +47,7 @@ def tag_faces(_shape, _color, shape_name):
         # displays the face in the viewer
         display.DisplayShape(f, color=_color, transparency=0.9)
         # tag the face in the viewer
-        display.DisplayMessage(center_pt, "{0}_nr_{1}".format(shape_name, n))
+        display.DisplayMessage(center_pt, f"{shape_name}_nr_{n}")
 
 
 def tag_edge(_edge, msg, _color=(1, 0, 0)):
@@ -138,8 +137,8 @@ def glue_solids_edges(event=None):
         edge_from = common_edges.EdgeFrom()
         edge_to = common_edges.EdgeTo()
 
-        tag_edge(edge_from, "edge_{0}_from".format(n))
-        tag_edge(edge_to, "edge_{0}_to".format(n))
+        tag_edge(edge_from, f"edge_{n}_from")
+        tag_edge(edge_to, f"edge_{n}_to")
 
         glue2.Bind(edge_from, edge_to)
         common_edges.Next()

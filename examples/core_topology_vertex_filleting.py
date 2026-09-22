@@ -20,17 +20,16 @@
 # A sample that shows how to generate the gear geometry according
 # to knowledge
 
-from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRep import BRep_Tool
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.TopAbs import TopAbs_EDGE, TopAbs_VERTEX
 from OCC.Core.TopExp import TopExp_Explorer, topexp
-from OCC.Core.TopAbs import TopAbs_VERTEX, TopAbs_EDGE
+from OCC.Core.TopoDS import topods
 from OCC.Core.TopTools import (
     TopTools_IndexedDataMapOfShapeListOfShape,
     TopTools_ListIteratorOfListOfShape,
 )
-from OCC.Core.TopoDS import topods
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -49,7 +48,6 @@ vertB = topods.Vertex(topExp.Current())
 def vertex_fillet(cube_shp, vert):
     # apply a fillet on incident edges on a vertex
     afillet = BRepFilletAPI_MakeFillet(cube_shp)
-    cnt = 0
     # find edges from vertex
     _map = TopTools_IndexedDataMapOfShapeListOfShape()
     topexp.MapShapesAndAncestors(cube_shp, TopAbs_VERTEX, TopAbs_EDGE, _map)
@@ -58,18 +56,13 @@ def vertex_fillet(cube_shp, vert):
     while topology_iterator.More():
         edge = topods.Edge(topology_iterator.Value())
         topology_iterator.Next()
-        first, last = topexp.FirstVertex(edge), topexp.LastVertex(edge)
-        vertex, first_vert, last_vert = (
-            BRep_Tool().Pnt(vert),
-            BRep_Tool().Pnt(first),
-            BRep_Tool().Pnt(last),
-        )
+        first = topexp.FirstVertex(edge)
+        vertex, first_vert = BRep_Tool().Pnt(vert), BRep_Tool().Pnt(first)
         if edge.Orientation():
             if not vertex.IsEqual(first_vert, 0.001):
                 afillet.Add(0, 20.0, edge)
             else:
                 afillet.Add(20, 0, edge)
-        cnt += 1
     afillet.Build()
     if afillet.IsDone():
         return afillet.Shape()

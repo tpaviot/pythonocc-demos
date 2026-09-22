@@ -17,14 +17,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
+from OCC.Core.Geom import Geom_BSplineCurve
 from OCC.Core.gp import gp_Pnt
 from OCC.Core.TColgp import TColgp_Array1OfPnt
-from OCC.Core.TColStd import TColStd_Array1OfReal, TColStd_Array1OfInteger
-from OCC.Core.Geom import Geom_BSplineCurve
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
-
+from OCC.Core.TColStd import TColStd_Array1OfInteger, TColStd_Array1OfReal
 from OCC.Display.SimpleGui import init_display
-
 
 # Initialize the display
 display, start_display, add_menu, add_function_to_menu = init_display()

@@ -17,13 +17,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-
-from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.Core.Interface import Interface_Static_SetCVal
 from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.STEPControl import STEPControl_AsIs, STEPControl_Writer
 
 # creates a basic shape
 box_s = BRepPrimAPI_MakeBox(10, 20, 30).Shape()

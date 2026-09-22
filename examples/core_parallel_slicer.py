@@ -17,19 +17,17 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-import time
-import sys
 import multiprocessing
+import sys
+import time
 
 from OCC.Core.BRep import BRep_Builder
-from OCC.Core.BRepTools import breptools_Read
-from OCC.Core.TopoDS import TopoDS_Shape
-from OCC.Core.gp import gp_Pln, gp_Dir, gp_Pnt
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
-
+from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt
+from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Display.SimpleGui import init_display
-
 from OCC.Extend.ShapeFactory import get_aligned_boundingbox
 
 
@@ -68,7 +66,7 @@ def vectorized_slicer(li):
 
 def run(n_procs, compare_by_number_of_processors=False):
     shape = get_brep()
-    center, [dx, dy, dz], box_shp = get_aligned_boundingbox(shape)
+    center, [_, _, dz], _ = get_aligned_boundingbox(shape)
     z_min = center.Z() - dz / 2
     z_max = center.Z() + dz / 2
 
@@ -94,10 +92,9 @@ def run(n_procs, compare_by_number_of_processors=False):
                 print("last slice", len(z_slices[(i - 1) * n :]))
             else:
                 slices.append(z_slices[(i - 1) * n : i * n])
-                _str_slices.append(" %s:%s " % ((i - 1) * n, i * n))
+                _str_slices.append(f" {(i - 1) * n}:{i * n} ")
         print(
-            "the z-index array is sliced over %s processors like this: \n %s"
-            % (n_procs, _str_slices)
+            f"the z-index array is sliced over {n_procs} processors like this: \n {_str_slices}"
         )
         return slices
 
@@ -127,23 +124,23 @@ def run(n_procs, compare_by_number_of_processors=False):
             else:
                 P = multiprocessing.Pool(n_procs)
                 _results = P.map(vectorized_slicer, arguments(n_slice, i))
-            print("slicing took %s seconds for %s processors" % (time.time() - tA, i))
+            print(f"slicing took {time.time() - tA} seconds for {i} processors")
         sys.exit()
 
-    print("\n\n\n done slicing on %i cores \n\n\n" % nprocs)
+    print(f"\n\n\n done slicing on {n_procs} cores \n\n\n")
 
     # Display result
-    display, start_display, add_menu, add_function_to_menu = init_display()
+    display, start_display, _, _ = init_display()
     print("displaying original shape")
     display.DisplayShape(shape, update=True)
     for n, result_shp in enumerate(_results):
-        print("displaying results from process {0}".format(n))
+        print(f"displaying results from process {n}")
         display.DisplayShape(result_shp, update=True)
 
     # update viewer when all is added:
     display.Repaint()
     total_time = time.time() - init_time
-    print("%s necessary to perform slice with %s processor(s)." % (total_time, n_procs))
+    print(f"{total_time} necessary to perform slice with {n_procs} processor(s).")
     start_display()
 
 
@@ -152,7 +149,7 @@ if __name__ == "__main__":
     # per number of processor added
     try:
         nprocs = multiprocessing.cpu_count()
-    except Exception as ex:  # travis fails to run cpu_count
+    except NotImplementedError as ex:  # travis fails to run cpu_count
         print(ex)
         nprocs = 1
     except SystemExit:

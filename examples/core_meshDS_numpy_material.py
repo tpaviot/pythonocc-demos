@@ -5,20 +5,26 @@ Example provided by Simon Klein (simon.klein@outlook.com) with snippets from oth
 """
 
 import numpy as np
-from scipy.spatial import Delaunay
-from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.MeshVS import *
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.Quantity import (
-    Quantity_NOC_GREEN,
-    Quantity_Color,
-)
-
 from OCC.Core.Graphic3d import (
     Graphic3d_MaterialAspect,
-    Graphic3d_PBRMaterial,
     Graphic3d_NOM_STEEL,
+    Graphic3d_PBRMaterial,
 )
+from OCC.Core.MeshDS import MeshDS_DataSource
+from OCC.Core.MeshVS import (
+    MeshVS_DA_DisplayNodes,
+    MeshVS_DA_FrontMaterial,
+    MeshVS_DA_ShowEdges,
+    MeshVS_DMF_Shading,
+    MeshVS_Mesh,
+    MeshVS_MeshPrsBuilder,
+)
+from OCC.Core.Quantity import (
+    Quantity_Color,
+    Quantity_NOC_GREEN,
+)
+from OCC.Display.SimpleGui import init_display
+from scipy.spatial import Delaunay
 
 
 def getMesh(X=100, Y=100):

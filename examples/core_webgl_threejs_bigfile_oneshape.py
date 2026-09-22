@@ -19,8 +19,8 @@
 
 import os
 
-from OCC.Extend.DataExchange import read_step_file
 from OCC.Display.WebGl import threejs_renderer
+from OCC.Extend.DataExchange import read_step_file
 
 # opens a big step file
 # render the whole assembly as a single shape

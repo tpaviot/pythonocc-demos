@@ -1,15 +1,16 @@
-from __future__ import print_function
-
 import random
 import warnings
 
 from OCC.Core.Aspect import Aspect_TOL_SOLID
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.Graphic3d import Graphic3d_ArrayOfPolylines, Graphic3d_AspectLine3d
-from OCC.Core.Prs3d import Prs3d_Root
-from OCC.Core.Quantity import Quantity_NOC_BLACK, Quantity_Color
 from OCC.Core.gp import gp_Pnt
-from OCC.Core.Graphic3d import Graphic3d_Structure
+from OCC.Core.Graphic3d import (
+    Graphic3d_ArrayOfPolylines,
+    Graphic3d_AspectLine3d,
+    Graphic3d_Structure,
+)
+from OCC.Core.Prs3d import Prs3d_Root
+from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_BLACK
+from OCC.Display.SimpleGui import init_display
 
 
 def create_ogl_group(display):
@@ -26,15 +27,14 @@ def generate_points(spread, n):
         import numpy as np
 
         arr = np.random.uniform(-spread / 2.0, spread / 2.0, (n, 3))
-        for i in arr:
-            yield i
+        yield from arr
     except ImportError:
-        n_ = n / 100
+        n_ = n // 100
         warnings.warn(
-            "Numpy could not be imported... this example will run very SLOW"
-            "drawing {} rather than {} lines".format(n_, n)
+            "Numpy could not be imported... this example will run very SLOW, "
+            f"drawing {n_} rather than {n} lines"
         )
-        for i in range(n_):
+        for _ in range(n_):
             a = random.uniform(-spread / 2.0, spread / 2.0)
             b = random.uniform(-spread / 2.0, spread / 2.0)
             c = random.uniform(-spread / 2.0, spread / 2.0)
@@ -73,7 +73,11 @@ def draw_lines(pnt_list, nr_of_points, display):
     asp = Graphic3d_AspectLine3d(black, Aspect_TOL_SOLID, 1)
 
     gg = Graphic3d_ArrayOfPolylines(
-        nr_of_points * 2, nr_of_points * 2, 0, False, True  # maxEdges  # hasVColors
+        nr_of_points * 2,
+        nr_of_points * 2,
+        0,
+        False,
+        True,  # maxEdges  # hasVColors
     )
 
     try:

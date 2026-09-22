@@ -15,11 +15,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.TDocStd import TDocStd_Document
+from OCC.Core.IFSelect import IFSelect_RetDone
 from OCC.Core.Message import Message_ProgressRange
 from OCC.Core.RWGltf import RWGltf_CafReader
-from OCC.Core.IFSelect import IFSelect_RetDone
-
+from OCC.Core.TDocStd import TDocStd_Document
 from OCC.Display.SimpleGui import init_display
 
 filename = "../assets/models/2CylinderEngine.glb"

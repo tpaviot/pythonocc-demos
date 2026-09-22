@@ -17,19 +17,18 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 import os
 
-from OCC.Core.BRep import BRep_Builder
-from OCC.Core.BRepTools import breptools
-from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
-from OCC.Core.ShapeAnalysis import ShapeAnalysis_Curve
-from OCC.Core.TopoDS import TopoDS_Shape, topods
-from OCC.Core.gp import gp_Pnt
 from OCC.Core.Approx import Approx_Curve3d
+from OCC.Core.BRep import BRep_Builder
+from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
+from OCC.Core.BRepTools import breptools
 from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.GeomAPI import GeomAPI_ProjectPointOnCurve
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.ShapeAnalysis import ShapeAnalysis_Curve
+from OCC.Core.TopoDS import TopoDS_Shape, topods
 
 # Read wire
 wire_filename = os.path.join("..", "assets", "models", "wire.brep")
@@ -46,8 +45,9 @@ tol = 1e-7
 max_segments = 200
 max_degrees = 12
 approx = Approx_Curve3d(wireAdaptor, tol, GeomAbs_C2, max_segments, max_degrees)
-if approx.IsDone() and approx.HasResult():
-    an_approximated_curve = approx.Curve()
+if not (approx.IsDone() and approx.HasResult()):
+    raise AssertionError("Curve approximation failed")
+an_approximated_curve = approx.Curve()
 
 # there are two ways to project a point on this curve,
 # they both give the same restult
@@ -59,7 +59,7 @@ projection = GeomAPI_ProjectPointOnCurve(point_to_project, an_approximated_curve
 projected_point = projection.NearestPoint()
 # the number of possible results
 nb_results = projection.NbPoints()
-print("NbResults : %i" % nb_results)
+print(f"NbResults : {nb_results}")
 print("Distance :", projection.LowerDistance())
 
 # 2nd solution : using ShapeAnalysis_Curve().Project

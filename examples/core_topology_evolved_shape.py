@@ -15,11 +15,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakePolygon
-from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeEvolved
-
+from OCC.Core.GeomAbs import GeomAbs_Arc
+from OCC.Core.gp import gp_Pnt
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

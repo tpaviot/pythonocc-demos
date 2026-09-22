@@ -16,11 +16,11 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.Graphic3d import Graphic3d_RenderingParams
-from OCC.Core.BRepTools import breptools
-from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Core.BRep import BRep_Builder
+from OCC.Core.BRepTools import breptools
+from OCC.Core.Graphic3d import Graphic3d_RenderingParams
+from OCC.Core.TopoDS import TopoDS_Shape
+from OCC.Display.SimpleGui import init_display
 
 
 def perspective(event=None):

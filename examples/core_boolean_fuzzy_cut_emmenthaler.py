@@ -18,14 +18,13 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import random
-import time
 import sys
+import time
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
-from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Ax2, gp_Dir
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
+from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pnt, gp_Vec
 from OCC.Core.TopTools import TopTools_ListOfShape
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -78,7 +77,7 @@ def emmenthaler(event=None):
         shp = fuzzy_cut(shp, cyl, 1e-4)
         print("boolean cylinder:", i, "took", time.time() - tA)
     total_time = time.time() - init_time
-    print("Total time : %fs" % total_time)
+    print(f"Total time : {total_time:f}s")
     display.DisplayShape(shp, update=True)
     start_display()
 

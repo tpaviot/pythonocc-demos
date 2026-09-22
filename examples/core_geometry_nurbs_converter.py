@@ -15,12 +15,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_NurbsConvert
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
-
-from OCC.Extend.TopologyUtils import TopologyExplorer
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_NurbsConvert
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.GeomAbs import GeomAbs_BSplineSurface
+from OCC.Extend.TopologyUtils import TopologyExplorer
 
 base_shape = BRepPrimAPI_MakeTorus(30, 10).Shape()
 
@@ -38,7 +37,7 @@ expl = TopologyExplorer(converted_shape)
 fc_idx = 1
 
 for face in expl.faces():
-    print("=== Face %i ===" % fc_idx)
+    print(f"=== Face {fc_idx} ===")
     surf = BRepAdaptor_Surface(face, True)
     surf_type = surf.GetType()
     # check each of the is a BSpline surface

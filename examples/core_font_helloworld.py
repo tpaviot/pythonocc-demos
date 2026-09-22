@@ -15,8 +15,8 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from OCC.Core.Addons import Font_FontAspect_Bold, text_to_brep
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.Addons import text_to_brep, Font_FontAspect_Bold
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

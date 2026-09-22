@@ -37,8 +37,8 @@ ais_context = display.GetContext()
 dc = ais_context.DeviationCoefficient()
 da = ais_context.DeviationAngle()
 print("Default AISInteractiveContext display quality settings:")
-print("Deviation Coefficient: %f" % dc)
-print("Deviation Angle: %f" % da)
+print(f"Deviation Coefficient: {dc:f}")
+print(f"Deviation Angle: {da:f}")
 #
 # Improve quality by a factor 10
 #
@@ -46,7 +46,7 @@ factor = 10
 ais_context.SetDeviationCoefficient(dc / factor)
 ais_context.SetDeviationAngle(da / factor)
 
-print("Quality display improved by a factor {0}".format(factor))
+print(f"Quality display improved by a factor {factor}")
 #
 # Displays a cylinder
 #
@@ -55,7 +55,7 @@ ais_shp = display.DisplayShape(s)[0]
 
 drawer = Prs3d_Drawer()
 da_hlr = drawer.HLRAngle()
-print("Deviation Angle Hidden Line Removal: %f" % da_hlr)
+print(f"Deviation Angle Hidden Line Removal: {da_hlr:f}")
 drawer.SetHLRAngle(da_hlr / factor)
 ais_shp.SetAttributes(drawer)
 

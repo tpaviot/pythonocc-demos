@@ -15,9 +15,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
 from OCC.Core.Bnd import Bnd_Box
 from OCC.Core.BRepBndLib import brepbndlib_Add
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
 from OCC.Display.SimpleGui import init_display
 
 
@@ -28,7 +28,7 @@ def print_xy_click(shp, *kwargs):
 
 
 def compute_bbox(shp, *kwargs):
-    print("Compute bbox for %s " % shp)
+    print(f"Compute bbox for {shp} ")
     for shape in shp:
         bbox = Bnd_Box()
         brepbndlib_Add(shape, bbox)
@@ -36,10 +36,9 @@ def compute_bbox(shp, *kwargs):
         dx = xmax - xmin
         dy = ymax - ymin
         dz = zmax - zmin
-        print("Selected shape bounding box : dx=%f, dy=%f, dz=%f." % (dx, dy, dz))
+        print(f"Selected shape bounding box : dx={dx:f}, dy={dy:f}, dz={dz:f}.")
         print(
-            "               bounding box center: x=%f, y=%f, z=%f"
-            % (xmin + dx / 2.0, ymin + dy / 2.0, zmin + dz / 2.0)
+            f"               bounding box center: x={xmin + dx / 2.0:f}, y={ymin + dy / 2.0:f}, z={zmin + dz / 2.0:f}"
         )
 
 

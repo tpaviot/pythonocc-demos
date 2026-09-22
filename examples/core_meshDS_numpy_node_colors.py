@@ -6,27 +6,26 @@ Example provided by Simon Klein (simon.klein@outlook.com) with snippets from oth
 """
 
 import numpy as np
-from scipy.spatial import Delaunay
+from OCC.Core.Aspect import Aspect_SequenceOfColor
 from OCC.Core.MeshDS import MeshDS_DataSource
 from OCC.Core.MeshVS import (
+    MeshVS_DA_ShowEdges,
+    MeshVS_DMF_NodalColorDataPrs,
     MeshVS_DMF_OCCMask,
     MeshVS_Mesh,
     MeshVS_NodalColorPrsBuilder,
-    MeshVS_DA_ShowEdges,
-    MeshVS_DMF_NodalColorDataPrs,
 )
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.Aspect import Aspect_SequenceOfColor
 from OCC.Core.Quantity import (
-    Quantity_NOC_PURPLE,
-    Quantity_NOC_ORANGE,
-    Quantity_NOC_GREEN,
     Quantity_Color,
-    Quantity_NOC_RED,
-    Quantity_NOC_BLUE1,
     Quantity_NOC_BLACK,
+    Quantity_NOC_BLUE1,
+    Quantity_NOC_GREEN,
+    Quantity_NOC_ORANGE,
+    Quantity_NOC_PURPLE,
 )
 from OCC.Core.TColStd import TColStd_DataMapOfIntegerReal
+from OCC.Display.SimpleGui import init_display
+from scipy.spatial import Delaunay
 
 
 def getMesh(X=100, Y=100):

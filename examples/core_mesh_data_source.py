@@ -18,9 +18,14 @@
 import os
 
 from OCC.Core.MeshDS import MeshDS_DataSource
+from OCC.Core.MeshVS import (
+    MeshVS_DMF_NodalColorDataPrs,
+    MeshVS_DMF_OCCMask,
+    MeshVS_Mesh,
+    MeshVS_MeshPrsBuilder,
+    MeshVS_NodalColorPrsBuilder,
+)
 from OCC.Core.RWStl import rwstl
-from OCC.Core.MeshVS import *
-
 from OCC.Display.SimpleGui import init_display
 
 stl_filename = os.path.join("..", "assets", "models", "fan.stl")

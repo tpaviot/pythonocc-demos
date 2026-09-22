@@ -15,7 +15,6 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_iges_file

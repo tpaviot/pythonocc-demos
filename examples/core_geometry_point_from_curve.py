@@ -17,11 +17,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_Pnt, gp_Pnt2d, gp_OX2d
+from OCC.Core.GCPnts import GCPnts_UniformAbscissa
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.Geom2dAdaptor import Geom2dAdaptor_Curve
-from OCC.Core.GCPnts import GCPnts_UniformAbscissa
-
+from OCC.Core.gp import gp_OX2d, gp_Pnt, gp_Pnt2d
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -45,7 +44,7 @@ def points_from_curve():
     i = 0
     for p in a_sequence:
         i = i + 1
-        pstring = "P%i : parameter %f" % (i, ua.Parameter(i))
+        pstring = f"P{i} : parameter {ua.Parameter(i):f}"
         pnt = gp_Pnt(p.X(), p.Y(), 0)
         # display points
         display.DisplayShape(pnt, update=True)

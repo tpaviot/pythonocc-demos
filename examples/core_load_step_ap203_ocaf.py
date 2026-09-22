@@ -15,12 +15,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
+from OCC.Core.TDF import TDF_LabelSequence
 from OCC.Core.TDocStd import TDocStd_Document
 from OCC.Core.XCAFDoc import XCAFDoc_DocumentTool
-from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
-from OCC.Core.IFSelect import IFSelect_RetDone
-from OCC.Core.TDF import TDF_LabelSequence
-
 from OCC.Display.SimpleGui import init_display
 
 filename = "../assets/models/as1_pe_203.stp"
@@ -50,15 +49,15 @@ color_labels = TDF_LabelSequence()
 
 shape_tool.GetFreeShapes(labels)
 
-print("Number of shapes at root :%i" % labels.Length())
+print(f"Number of shapes at root :{labels.Length()}")
 for i in range(labels.Length()):
     sub_shapes_labels = TDF_LabelSequence()
     print("Is Assembly :", shape_tool.IsAssembly(labels.Value(i + 1)))
     sub_shapes = shape_tool.GetSubShapes(labels.Value(i + 1), sub_shapes_labels)
-    print("Number of subshapes in the assemly :%i" % sub_shapes_labels.Length())
+    print(f"Number of subshapes in the assemly :{sub_shapes_labels.Length()}")
 l_colors.GetColors(color_labels)
 
-print("Number of colors=%i" % color_labels.Length())
+print(f"Number of colors={color_labels.Length()}")
 for i in range(color_labels.Length()):
     color = color_labels.Value(i + 1)
     print(color.Dump())

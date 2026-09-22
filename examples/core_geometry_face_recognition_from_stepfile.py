@@ -29,20 +29,16 @@ console
 and analyzed
 """
 
-from __future__ import print_function
-
 import os
 import os.path
 import sys
 
-
-from OCC.Core.STEPControl import STEPControl_Reader
-from OCC.Core.IFSelect import IFSelect_RetDone, IFSelect_ItemsByEntity
-from OCC.Core.GeomAbs import GeomAbs_Plane, GeomAbs_Cylinder
-from OCC.Core.TopoDS import topods
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
+from OCC.Core.GeomAbs import GeomAbs_Cylinder, GeomAbs_Plane
+from OCC.Core.IFSelect import IFSelect_ItemsByEntity, IFSelect_RetDone
+from OCC.Core.STEPControl import STEPControl_Reader
+from OCC.Core.TopoDS import topods
 from OCC.Display.SimpleGui import init_display
-
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
 

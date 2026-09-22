@@ -16,15 +16,14 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 import random
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_Dir, gp_XYZ
+from OCC.Core.Bnd import Bnd_OBB
+from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepBndLib import brepbndlib
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
-from OCC.Core.Bnd import Bnd_OBB
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pnt, gp_XYZ
 from OCC.Core.TopoDS import TopoDS_Shape
-from OCC.Core.BRep import BRep_Builder
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

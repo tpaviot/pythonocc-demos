@@ -19,9 +19,9 @@
 coordinates in the console.
 """
 
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.TopoDS import topods
 from OCC.Core.BRep import BRep_Tool
+from OCC.Core.TopoDS import topods
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_step_file
 
 

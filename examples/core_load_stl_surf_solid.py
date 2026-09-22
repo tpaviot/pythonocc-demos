@@ -17,10 +17,9 @@
 
 import os
 
-from OCC.Core.gp import gp_Pnt
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.gp import gp_Pnt
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_stl_file
 

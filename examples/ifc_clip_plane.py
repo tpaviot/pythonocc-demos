@@ -19,9 +19,8 @@ import os
 import sys
 
 from OCC.Core.gp import gp_Vec
-from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Core.Graphic3d import Graphic3d_ClipPlane
-
+from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Display.SimpleGui import init_display
 
 try:

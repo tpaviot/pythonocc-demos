@@ -17,11 +17,10 @@
 
 import math
 
-from OCC.Core.gp import gp_Pnt, gp_Lin, gp_Ax1, gp_Dir, gp_Elips, gp_Ax2
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeVertex
-from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Core.Geom import Geom_BezierCurve
-
+from OCC.Core.gp import gp_Ax1, gp_Ax2, gp_Dir, gp_Elips, gp_Lin, gp_Pnt
+from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

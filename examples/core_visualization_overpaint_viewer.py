@@ -36,7 +36,7 @@ the example is extends Qt's :ref:`OpenGL overpainting example`
 import random
 import sys
 
-from OCC.Display.backend import load_any_qt_backend, get_qt_modules
+from OCC.Display.backend import get_qt_modules, load_any_qt_backend
 
 load_any_qt_backend()
 
@@ -64,7 +64,7 @@ ON_SELECT = "on_select"
 ON_SELECT_AREA = "on_select_area"
 
 
-class Bubble(object):
+class Bubble:
     def __init__(self, position, radius, velocity):
         self.position = position
         self.vel = velocity
@@ -141,7 +141,7 @@ class Bubble(object):
 
 class GLWidget(qtViewer3d):
     def __init__(self, parent=None):
-        super(GLWidget, self).__init__(parent)
+        super().__init__(parent)
 
         #: state
         self._initialized = False
@@ -320,14 +320,11 @@ class GLWidget(qtViewer3d):
         modifiers = event.modifiers()
 
         # rotate
-        if buttons == QtCore.Qt.LeftButton and not modifiers == QtCore.Qt.ShiftModifier:
+        if buttons == QtCore.Qt.LeftButton and modifiers != QtCore.Qt.ShiftModifier:
             self.current_action = ON_DYN_ROT
 
         # dynamic zoom
-        elif (
-            buttons == QtCore.Qt.RightButton
-            and not modifiers == QtCore.Qt.ShiftModifier
-        ):
+        elif buttons == QtCore.Qt.RightButton and modifiers != QtCore.Qt.ShiftModifier:
             self.current_action = ON_DYN_ZOOM
 
         # dynamic panning
@@ -366,7 +363,7 @@ class GLWidget(qtViewer3d):
             self.current_action = ON_ZOOM_FITALL
             self.update()
         else:
-            super(GLWidget, self).keyPressEvent(event)
+            super().keyPressEvent(event)
 
     def on_zoom_area(self):
         dx, dy = self.delta_mouse_event_pos
@@ -477,9 +474,7 @@ class GLWidget(qtViewer3d):
                 action()
 
         except Exception:
-            print(
-                "could not invoke camera command action {0}".format(self.current_action)
-            )
+            print(f"could not invoke camera command action {self.current_action}")
 
         finally:
             self.current_action = None

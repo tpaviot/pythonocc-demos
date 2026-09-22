@@ -1,14 +1,13 @@
-from __future__ import print_function
 import sys
 
 from OCC.Core.BRepGProp import brepgprop_LinearProperties
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
-from OCC.Display.SimpleGui import init_display
-from OCC.Display.backend import get_qt_modules
-from OCC.Core.GProp import GProp_GProps
-from OCC.Core.TopAbs import TopAbs_SOLID, TopAbs_EDGE, TopAbs_FACE
-from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.gp import gp_Trsf, gp_Vec
+from OCC.Core.GProp import GProp_GProps
+from OCC.Core.TopAbs import TopAbs_EDGE, TopAbs_FACE, TopAbs_SOLID
+from OCC.Core.TopLoc import TopLoc_Location
+from OCC.Display.backend import get_qt_modules
+from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display("qt-pyqt5")
 QtCore, QtGui, QtWidgets, QtOpenGL = get_qt_modules()
@@ -56,9 +55,9 @@ def on_select(shapes):
         com_z = centre_of_mass.Z()
         static_moments = g1.StaticMoments()
         print(
-            "shape {shape}: \n mass: {mass}"
-            "\n center of mass: {com_x}, {com_y}, {com_z}"
-            "\n static moments: {static_moments}".format(**vars())
+            f"shape {shape}: \n mass: {mass}"
+            f"\n center of mass: {com_x}, {com_y}, {com_z}"
+            f"\n static moments: {static_moments}"
         )
 
 

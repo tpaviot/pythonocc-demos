@@ -2,22 +2,20 @@
 
 import os
 import sys
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Display.backend import load_backend
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget,
-    QPushButton,
-    QHBoxLayout,
-    QGroupBox,
     QDialog,
+    QGroupBox,
+    QHBoxLayout,
+    QPushButton,
     QVBoxLayout,
 )
 
-from OCC.Display.backend import load_backend
-
 load_backend("pyqt5")
-import OCC.Display.qtDisplay as qtDisplay
+from OCC.Display import qtDisplay
 
 
 class App(QDialog):

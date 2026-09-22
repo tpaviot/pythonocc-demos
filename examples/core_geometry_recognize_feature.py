@@ -26,12 +26,10 @@ console
 and analyzed
 """
 
-from __future__ import print_function
-
 import sys
 
-from OCC.Core.GeomAbs import GeomAbs_Plane, GeomAbs_Cylinder, GeomAbs_BSplineSurface
 from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
+from OCC.Core.GeomAbs import GeomAbs_BSplineSurface, GeomAbs_Cylinder, GeomAbs_Plane
 from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_step_file

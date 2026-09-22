@@ -2,23 +2,21 @@
 
 import os
 import sys
+
+from OCC.Core.AIS import AIS_Manipulator
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
 from OCC.Core.gp import gp_Pnt
-from OCC.Core.AIS import AIS_Manipulator
+from OCC.Display.backend import load_backend
 from OCC.Extend.LayerManager import Layer
 
-from OCC.Display.backend import load_backend
-
 load_backend("pyqt5")
-import OCC.Display.qtDisplay as qtDisplay
-
+from OCC.Display import qtDisplay
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget,
-    QPushButton,
-    QHBoxLayout,
-    QGroupBox,
     QDialog,
+    QGroupBox,
+    QHBoxLayout,
+    QPushButton,
     QVBoxLayout,
 )
 

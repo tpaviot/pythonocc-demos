@@ -17,12 +17,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
-from OCC.Display.WebGl import threejs_renderer
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.gp import gp_Vec
-
+from OCC.Display.WebGl import threejs_renderer
 from OCC.Extend.ShapeFactory import translate_shp
 
 my_ren = threejs_renderer.ThreejsRenderer()
@@ -43,12 +41,18 @@ my_ren.DisplayShape(torus_shp1, export_edges=True, color=(1, 0, 0))  # red
 # better mesh quality, i.e. more triangles
 print("Computing GREEN torus: better quality, more time to compute")
 my_ren.DisplayShape(
-    torus_shp2, export_edges=True, color=(0, 1, 0), mesh_quality=0.5  # green
+    torus_shp2,
+    export_edges=True,
+    color=(0, 1, 0),
+    mesh_quality=0.5,  # green
 )
 
 # worse quality, i.e. less triangles
 print("Computing BLUE torus: worse quality, faster to compute")
 my_ren.DisplayShape(
-    torus_shp3, export_edges=True, color=(0, 0, 1), mesh_quality=5.0  # blue
+    torus_shp3,
+    export_edges=True,
+    color=(0, 0, 1),
+    mesh_quality=5.0,  # blue
 )
 my_ren.render()

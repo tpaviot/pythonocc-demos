@@ -19,10 +19,10 @@
 from OCC.Core.AIS import AIS_Shape
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 from OCC.Core.Graphic3d import (
-    Graphic3d_ShaderProgram,
-    Graphic3d_TOS_VERTEX,
-    Graphic3d_TOS_FRAGMENT,
     Graphic3d_ShaderObject,
+    Graphic3d_ShaderProgram,
+    Graphic3d_TOS_FRAGMENT,
+    Graphic3d_TOS_VERTEX,
 )
 from OCC.Display.SimpleGui import init_display
 

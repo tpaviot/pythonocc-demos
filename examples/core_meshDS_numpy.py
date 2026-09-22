@@ -5,10 +5,10 @@ Example provided by Simon Klein (simon.klein@outlook.com) with snippets from oth
 """
 
 import numpy as np
-from scipy.spatial import Delaunay
 from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.MeshVS import *
+from OCC.Core.MeshVS import MeshVS_Mesh, MeshVS_MeshPrsBuilder
 from OCC.Display.SimpleGui import init_display
+from scipy.spatial import Delaunay
 
 
 def getMesh(X=100, Y=100):

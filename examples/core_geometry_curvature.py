@@ -16,17 +16,16 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
 from OCC.Core.BRepLProp import BRepLProp_SLProps
-from OCC.Core.BRepAdaptor import BRepAdaptor_Surface
-from OCC.Core.TopExp import TopExp_Explorer
-from OCC.Core.TopAbs import TopAbs_FACE
-from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.BRepTools import breptools
-
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Core.TopAbs import TopAbs_FACE
+from OCC.Core.TopExp import TopExp_Explorer
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
 

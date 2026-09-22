@@ -17,21 +17,18 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
-from OCC.Core.gp import gp_Pnt, gp_Vec
+from OCC.Core.Geom import Geom_BSplineCurve
+from OCC.Core.GeomAPI import GeomAPI_PointsToBSpline
 from OCC.Core.GeomFill import (
     GeomFill_BSplineCurves,
-    GeomFill_StretchStyle,
     GeomFill_CoonsStyle,
     GeomFill_CurvedStyle,
+    GeomFill_StretchStyle,
 )
-from OCC.Core.GeomAPI import GeomAPI_PointsToBSpline
-from OCC.Core.Geom import Geom_BSplineCurve
-
+from OCC.Core.gp import gp_Pnt, gp_Vec
 from OCC.Display.SimpleGui import init_display
-
-from OCC.Extend.ShapeFactory import point_list_to_TColgp_Array1OfPnt, make_face
+from OCC.Extend.ShapeFactory import make_face, point_list_to_TColgp_Array1OfPnt
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

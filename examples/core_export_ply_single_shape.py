@@ -16,7 +16,6 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
-
 from OCC.Extend.DataExchange import write_ply_file
 
 # create the shapeto export

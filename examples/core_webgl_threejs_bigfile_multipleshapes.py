@@ -18,11 +18,10 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import sys
 
+from OCC.Display.WebGl import threejs_renderer
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Extend.TopologyUtils import TopologyExplorer
-from OCC.Display.WebGl import threejs_renderer
 
 # opens a big step file
 # render each part of the assembly as a shape

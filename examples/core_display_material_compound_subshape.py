@@ -18,14 +18,13 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.AIS import AIS_ColoredShape
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.gp import gp_Vec
 from OCC.Core.Graphic3d import Graphic3d_NOM_ALUMINIUM, Graphic3d_NOM_STEEL
 from OCC.Core.Quantity import Quantity_Color
-from OCC.Core.TopoDS import TopoDS_Compound, TopoDS_Builder
-
-from OCC.Core.gp import gp_Vec
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.Extend.ShapeFactory import translate_shp
+from OCC.Core.TopoDS import TopoDS_Builder, TopoDS_Compound
 from OCC.Display.SimpleGui import init_display
+from OCC.Extend.ShapeFactory import translate_shp
 
 available_materials = [Graphic3d_NOM_ALUMINIUM, Graphic3d_NOM_STEEL]
 

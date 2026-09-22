@@ -17,23 +17,21 @@
 
 import sys
 
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCone
-from OCC.Core.Graphic3d import Graphic3d_NOM_PLASTIC, Graphic3d_NOM_ALUMINIUM
-from OCC.Core.V3d import V3d_SpotLight, V3d_XnegYnegZpos
-from OCC.Core.Quantity import (
-    Quantity_Color,
-    Quantity_NOC_WHITE,
-    Quantity_NOC_CORAL2,
-    Quantity_NOC_BROWN,
-)
-from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.Core.gp import gp_Vec, gp_Pnt
-
-from OCC.Extend.ShapeFactory import translate_shp
-
 # first create geometry
 from core_classic_occ_bottle import bottle
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCone
+from OCC.Core.gp import gp_Pnt, gp_Vec
+from OCC.Core.Graphic3d import Graphic3d_NOM_ALUMINIUM, Graphic3d_NOM_PLASTIC
+from OCC.Core.Quantity import (
+    Quantity_Color,
+    Quantity_NOC_BROWN,
+    Quantity_NOC_CORAL2,
+    Quantity_NOC_WHITE,
+)
+from OCC.Core.V3d import V3d_SpotLight, V3d_XnegYnegZpos
+from OCC.Display.SimpleGui import init_display
+from OCC.Extend.ShapeFactory import translate_shp
 
 table = translate_shp(BRepPrimAPI_MakeBox(100, 100, 10).Shape(), gp_Vec(-50, -50, -10))
 glass_out = BRepPrimAPI_MakeCone(7, 9, 25).Shape()

@@ -21,50 +21,51 @@
 # available at http://www.algotopia.com/contents/opencascade/opencascade_sprocket
 
 import sys
-from math import pi as M_PI, sin, cos, atan
+from math import atan, cos, sin
+from math import pi as M_PI
 
-from OCC.Core.gp import (
-    gp_Pnt2d,
-    gp_Ax2d,
-    gp_Dir2d,
-    gp_Circ2d,
-    gp_Origin2d,
-    gp_DX2d,
-    gp_Ax2,
-    gp_OX2d,
-    gp_Lin2d,
-    gp_Trsf,
-    gp_XOY,
-    gp_Pnt,
-    gp_Vec,
-    gp_Ax3,
-    gp_Pln,
-    gp_Origin,
-    gp_DX,
-    gp_DY,
-    gp_DZ,
-    gp_OZ,
-)
-from OCC.Core.GC import GC_MakeArcOfCircle2d, GC_MakeCircle2d, GC_MakeLine2d
-from OCC.Core.Geom2dAPI import Geom2dAPI_InterCurveCurve
-from OCC.Core.Geom2d import Geom2d_TrimmedCurve
-from OCC.Core.GeomAPI import geomapi_To3d
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
 from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeEdge,
-    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_Transform,
 )
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet2d
 from OCC.Core.BRepPrimAPI import (
+    BRepPrimAPI_MakeCone,
+    BRepPrimAPI_MakeCylinder,
     BRepPrimAPI_MakePrism,
     BRepPrimAPI_MakeRevol,
-    BRepPrimAPI_MakeCylinder,
-    BRepPrimAPI_MakeCone,
 )
-from OCC.Core.GccAna import GccAna_Circ2d2TanRad
-from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
-from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet2d
 from OCC.Core.BRepTools import BRepTools_WireExplorer
+from OCC.Core.GC import GC_MakeArcOfCircle2d, GC_MakeCircle2d, GC_MakeLine2d
+from OCC.Core.GccAna import GccAna_Circ2d2TanRad
+from OCC.Core.Geom2d import Geom2d_TrimmedCurve
+from OCC.Core.Geom2dAPI import Geom2dAPI_InterCurveCurve
+from OCC.Core.GeomAPI import geomapi_To3d
+from OCC.Core.gp import (
+    gp_Ax2,
+    gp_Ax2d,
+    gp_Ax3,
+    gp_Circ2d,
+    gp_Dir2d,
+    gp_DX,
+    gp_DX2d,
+    gp_DY,
+    gp_DZ,
+    gp_Lin2d,
+    gp_Origin,
+    gp_Origin2d,
+    gp_OX2d,
+    gp_OZ,
+    gp_Pln,
+    gp_Pnt,
+    gp_Pnt2d,
+    gp_Trsf,
+    gp_Vec,
+    gp_XOY,
+)
 from OCC.Display.SimpleGui import init_display
 
 roller_diameter = 10.2
@@ -296,7 +297,7 @@ def clone_tooth(base_shape):
     # Find a divisor, between 1 and 8, for the number_of teeth
     multiplier = 1
     max_multiplier = 1
-    for i in range(0, 8):
+    for i in range(8):
         if num_teeth % multiplier == 0:
             max_multiplier = i + 1
 
@@ -329,7 +330,7 @@ def center_hole(base):
 
 def mounting_holes(base):
     result = base
-    for i in range(0, mounting_hole_count):
+    for i in range(mounting_hole_count):
         center = gp_Pnt(
             cos(i * M_PI / 3) * mounting_radius,
             sin(i * M_PI / 3) * mounting_radius,
@@ -431,7 +432,7 @@ def cut_out(base):
 
     result = base
     rotate = gp_Trsf()
-    for i in range(0, mounting_hole_count):
+    for i in range(mounting_hole_count):
         rotate.SetRotation(gp_OZ(), i * 2.0 * M_PI / mounting_hole_count)
         rotated_cutout = BRepBuilderAPI_Transform(cutout, rotate, True)
 

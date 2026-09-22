@@ -18,20 +18,20 @@ import sys
 import time
 
 from OCC.Core.BRepAlgoAPI import (
-    BRepAlgoAPI_Fuse,
     BRepAlgoAPI_Common,
-    BRepAlgoAPI_Section,
     BRepAlgoAPI_Cut,
+    BRepAlgoAPI_Fuse,
+    BRepAlgoAPI_Section,
 )
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform
 from OCC.Core.BRepPrimAPI import (
     BRepPrimAPI_MakeBox,
-    BRepPrimAPI_MakeWedge,
     BRepPrimAPI_MakeSphere,
     BRepPrimAPI_MakeTorus,
+    BRepPrimAPI_MakeWedge,
 )
+from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pln, gp_Pnt, gp_Trsf, gp_Vec
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_Vec, gp_Ax2, gp_Pnt, gp_Dir, gp_Pln, gp_Trsf
 
 display, start_display, add_menu, add_function_to_menu = init_display("pyqt5")
 
@@ -102,7 +102,7 @@ def slicer(event=None):
         if section_shp.IsDone():
             sections.append(section_shp)
     total_time = time.time() - init_time
-    print("%.3fs necessary to perform slice." % total_time)
+    print(f"{total_time:.3f}s necessary to perform slice.")
 
     display.EraseAll()
     display.DisplayShape(shape)

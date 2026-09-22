@@ -17,14 +17,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 import os
 import sys
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
 from OCC.Core.BRepTools import breptools_Write
-
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_stl_file
 
@@ -44,9 +42,8 @@ def mesh_shape(a_topods_shape):
 
     a() = ShapeFromFile("shape.brep");
     """
-    gmsh_geo_file = open("shape.geo", "w")
-    gmsh_geo_file.write(gmsh_geo_file_content)
-    gmsh_geo_file.close()
+    with open("shape.geo", "w", encoding="utf-8") as gmsh_geo_file:
+        gmsh_geo_file.write(gmsh_geo_file_content)
 
     # call gmsh
     gmsh_success = os.system("gmsh shape.geo -2 -o shape.stl -format stl")

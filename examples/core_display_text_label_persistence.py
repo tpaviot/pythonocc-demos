@@ -24,14 +24,14 @@ With a transform persistence, the text size is in pixels and the anchor
 point is the 3d position of the label. Graphic3d_TMF_ZoomPers alone keeps
 the size constant but the text still turns with the camera."""
 
-from OCC.Core.AIS import AIS_Shaded, AIS_Shape
 from OCC.Core.Addons import Font_FontAspect_Bold, text_to_brep
+from OCC.Core.AIS import AIS_Shaded, AIS_Shape
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.Graphic3d import Graphic3d_TMF_ZoomRotatePers, Graphic3d_TransformPers
 from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_RED
-from OCC.Extend.TopologyUtils import TopologyExplorer
 from OCC.Display.SimpleGui import init_display
+from OCC.Extend.TopologyUtils import TopologyExplorer
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

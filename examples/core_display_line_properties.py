@@ -17,16 +17,14 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 import sys
 
-from OCC.Core.gp import gp_Pnt, gp_Dir
-from OCC.Core.Geom import Geom_Line
 from OCC.Core.AIS import AIS_Line
-from OCC.Core.Prs3d import Prs3d_LineAspect, Prs3d_Drawer
+from OCC.Core.Geom import Geom_Line
+from OCC.Core.gp import gp_Dir, gp_Pnt
+from OCC.Core.Prs3d import Prs3d_Drawer, Prs3d_LineAspect
 from OCC.Core.Quantity import Quantity_Color
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

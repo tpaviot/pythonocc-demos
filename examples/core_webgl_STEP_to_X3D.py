@@ -15,8 +15,8 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Extend.DataExchange import read_step_file_with_names_colors
 from OCC.Display.WebGl import x3dom_renderer
+from OCC.Extend.DataExchange import read_step_file_with_names_colors
 
 filename = "../assets/models/as1-oc-214.stp"
 shapes_labels_colors = read_step_file_with_names_colors(filename)

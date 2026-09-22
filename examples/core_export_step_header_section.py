@@ -17,14 +17,11 @@
 
 from datetime import datetime
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-
-from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.Core.Interface import Interface_Static_SetCVal
-from OCC.Core.IFSelect import IFSelect_RetDone
-
-from OCC.Core.Interface import Interface_HArray1OfHAsciiString
 from OCC.Core.APIHeaderSection import APIHeaderSection_MakeHeader
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.Interface import Interface_HArray1OfHAsciiString, Interface_Static_SetCVal
+from OCC.Core.STEPControl import STEPControl_AsIs, STEPControl_Writer
 from OCC.Core.TCollection import TCollection_HAsciiString
 
 # creates a basic shape

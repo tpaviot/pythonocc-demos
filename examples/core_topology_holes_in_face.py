@@ -17,12 +17,12 @@
 
 # based on https://www.cnblogs.com/opencascade/p/MakeFaceWithHoles.html
 
-from OCC.Core.gp import gp_Circ, gp_Pln, gp_XOY, gp_Pnt
 from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeEdge,
-    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_MakeWire,
 )
+from OCC.Core.gp import gp_Circ, gp_Pln, gp_Pnt, gp_XOY
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

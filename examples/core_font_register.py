@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##Copyright 2016 Thomas Paviot (tpaviot@gmail.com)
 ##
 ##This file is part of pythonOCC.
@@ -18,8 +17,8 @@
 
 import os
 
+from OCC.Core.Addons import Font_FA_Regular, register_font, text_to_brep
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.Addons import text_to_brep, register_font, Font_FA_Regular
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

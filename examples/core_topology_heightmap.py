@@ -15,22 +15,21 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division, print_function
 
 import math
 
-from OCC.Core.gp import gp_Pnt
+from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
 from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeEdge,
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_MakeWire,
 )
-from OCC.Core.TColgp import TColgp_Array2OfPnt
-from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
-from OCC.Core.GeomFill import GeomFill_SimpleBound, GeomFill_ConstrainedFilling
 from OCC.Core.GeomAbs import GeomAbs_C2
+from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
+from OCC.Core.GeomFill import GeomFill_ConstrainedFilling, GeomFill_SimpleBound
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.TColgp import TColgp_Array2OfPnt
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
 
 try:
     from PIL import Image
@@ -135,7 +134,6 @@ def heightmap_from_image(event=None):
             b2 = boundary_curve_from_2_points(v2, v3)
             b3 = boundary_curve_from_2_points(v3, v4)
             b4 = boundary_curve_from_2_points(v4, v1)
-            #
             bConstrainedFilling = GeomFill_ConstrainedFilling(8, 2)
             bConstrainedFilling.Init(b1, b2, b3, b4, False)
             srf1 = bConstrainedFilling.Surface()
@@ -147,7 +145,7 @@ def heightmap_from_image(event=None):
             patch.Build()
             display.DisplayShape(patch.Face())
             # then create faces
-        print("%s%%" % int(float(i) / width * 100))
+        print(f"{int(float(i) / width * 100)}%")
         # display.process_events()
     display.FitAll()
 

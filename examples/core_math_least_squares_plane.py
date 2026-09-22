@@ -58,7 +58,9 @@ gauss = math_Gauss(ata)
 gauss.Solve(atz, solution)
 a, b, c = list(solution)
 print(f"fitted plane: z = {a:.3f}.x + {b:.3f}.y + {c:.3f}")
-print(f"solution vector: Lower() = {solution.Lower()}, Value(1) = {solution.Value(1):.3f}")
+print(
+    f"solution vector: Lower() = {solution.Lower()}, Value(1) = {solution.Value(1):.3f}"
+)
 
 # display the points and the fitted plane: normal (-a, -b, 1) through (0, 0, c)
 vertices = TopoDS_Compound()

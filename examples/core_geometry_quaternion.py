@@ -17,10 +17,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
+from OCC.Core.gp import gp_Pnt, gp_Quaternion, gp_QuaternionSLerp, gp_Vec
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_QuaternionSLerp, gp_Quaternion, gp_Vec, gp_Pnt
 from OCC.Extend.ShapeFactory import make_edge
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -78,9 +77,7 @@ def frange(start, end=None, inc=None):
     L = []
     while 1:
         next_ = start + len(L) * inc
-        if inc > 0 and next_ >= end:
-            break
-        elif inc < 0 and next_ <= end:
+        if inc > 0 and next_ >= end or inc < 0 and next_ <= end:
             break
         L.append(next_)
 
@@ -107,7 +104,7 @@ def interpolate(event=None):
         v__as_pnt = gp_Pnt((origin + v).XYZ())
         e = make_edge(v__as_pnt, p)
         display.DisplayColoredShape(e, "WHITE")
-        msg = "v45->q1*v45 @{0}".format(i / 10.0)
+        msg = f"v45->q1*v45 @{i / 10.0}"
         display.DisplayMessage(p, msg)
     display.FitAll()
 

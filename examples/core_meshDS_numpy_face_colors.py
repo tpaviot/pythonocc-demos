@@ -6,19 +6,18 @@ Example provided by Simon Klein (simon.klein@outlook.com) with snippets from oth
 """
 
 import numpy as np
-from scipy.spatial import Delaunay
 from matplotlib import cm
 from OCC.Core.MeshDS import MeshDS_DataSource
 from OCC.Core.MeshVS import (
-    MeshVS_DMF_OCCMask,
-    MeshVS_Mesh,
-    MeshVS_ElementalColorPrsBuilder,
     MeshVS_DA_ShowEdges,
     MeshVS_DMF_ElementalColorDataPrs,
-    MeshVS_DataMapOfIntegerColor,
+    MeshVS_DMF_OCCMask,
+    MeshVS_ElementalColorPrsBuilder,
+    MeshVS_Mesh,
 )
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Display.SimpleGui import init_display
+from scipy.spatial import Delaunay
 
 
 def getMesh(X=100, Y=100):

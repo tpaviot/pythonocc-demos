@@ -19,27 +19,26 @@
 
 import sys
 
-from OCC.Core.gp import gp_Pnt
-from OCC.Core.Geom import Geom_CartesianPoint
-from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
+from OCC.Core.AIS import AIS_Point
 from OCC.Core.Aspect import (
-    Aspect_TOM_POINT,
-    Aspect_TOM_PLUS,
-    Aspect_TOM_STAR,
-    Aspect_TOM_X,
+    Aspect_TOM_BALL,
     Aspect_TOM_O,
-    Aspect_TOM_O_POINT,
     Aspect_TOM_O_PLUS,
+    Aspect_TOM_O_POINT,
     Aspect_TOM_O_STAR,
     Aspect_TOM_O_X,
+    Aspect_TOM_PLUS,
+    Aspect_TOM_POINT,
     Aspect_TOM_RING1,
     Aspect_TOM_RING2,
     Aspect_TOM_RING3,
-    Aspect_TOM_BALL,
+    Aspect_TOM_STAR,
+    Aspect_TOM_X,
 )
-from OCC.Core.AIS import AIS_Point
-from OCC.Core.Prs3d import Prs3d_PointAspect, Prs3d_Drawer
-
+from OCC.Core.Geom import Geom_CartesianPoint
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.Prs3d import Prs3d_PointAspect
+from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

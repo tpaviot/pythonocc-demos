@@ -15,14 +15,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakePolygon
 from OCC.Core.GeomAPI import GeomAPI_Interpolate
+from OCC.Core.gp import gp_Pnt
 from OCC.Core.TColgp import TColgp_HArray1OfPnt
-
 from OCC.Display.SimpleGui import init_display
-
 from OCC.Extend.TopologyUtils import ordered_vertices_from_wire
 
 # First create a polygonal wire

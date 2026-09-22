@@ -20,8 +20,8 @@
 import time
 from math import pi
 
-from OCC.Core.gp import gp_Ax1, gp_Pnt, gp_Dir, gp_Trsf
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.gp import gp_Ax1, gp_Dir, gp_Pnt, gp_Trsf
 from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Display.SimpleGui import init_display
 
@@ -44,13 +44,13 @@ def rotating_cube_1_axis(event=None):
     angle = 0.0
     tA = time.time()
     n_rotations = 200
-    for i in range(n_rotations):
+    for _ in range(n_rotations):
         aCubeTrsf.SetRotation(ax1, angle)
         aCubeToploc = TopLoc_Location(aCubeTrsf)
         display.Context.SetLocation(ais_boxshp, aCubeToploc)
         display.Context.UpdateCurrentViewer()
         angle += 2 * pi / n_rotations
-    print("%i rotations took %f" % (n_rotations, time.time() - tA))
+    print(f"{n_rotations} rotations took {time.time() - tA:f}")
 
 
 def rotating_cube_2_axis(event=None):
@@ -63,14 +63,14 @@ def rotating_cube_2_axis(event=None):
     angle = 0.0
     tA = time.time()
     n_rotations = 200
-    for i in range(n_rotations):
+    for _ in range(n_rotations):
         a_cube_trsf.SetRotation(ax1, angle)
         a_cube_trsf2.SetRotation(ax2, angle)
         aCubeToploc = TopLoc_Location(a_cube_trsf * a_cube_trsf2)
         display.Context.SetLocation(ais_boxshp, aCubeToploc)
         display.Context.UpdateCurrentViewer()
         angle += 2 * pi / n_rotations
-    print("%i rotations took %f" % (n_rotations, time.time() - tA))
+    print(f"{n_rotations} rotations took {time.time() - tA:f}")
 
 
 if __name__ == "__main__":

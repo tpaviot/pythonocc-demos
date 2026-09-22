@@ -15,18 +15,16 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
-import random
 import os
 import os.path
+import random
 import sys
 
 from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
 from OCC.Display.SimpleGui import init_display
-
-from OCC.Extend.TopologyUtils import TopologyExplorer
 from OCC.Extend.DataExchange import read_step_file
+from OCC.Extend.TopologyUtils import TopologyExplorer
 
 
 def import_as_one_shape(event=None):

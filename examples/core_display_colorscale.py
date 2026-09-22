@@ -15,15 +15,14 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.AIS import AIS_ColorScale
 from OCC.Core.Aspect import Aspect_TOTP_LEFT_LOWER
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.gp import gp_XY
 from OCC.Core.Graphic3d import (
     Graphic3d_TMF_2d,
     Graphic3d_TransformPers,
 )
-from OCC.Core.gp import gp_XY, gp_Pnt
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

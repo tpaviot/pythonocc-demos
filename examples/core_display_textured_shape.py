@@ -20,13 +20,12 @@
 import os
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
 
-class Texture(object):
+class Texture:
     """
     This class encapsulates the necessary texture properties:
     Filename, toScaleU, etc.
@@ -34,7 +33,7 @@ class Texture(object):
 
     def __init__(self, filename):
         if not os.path.isfile(filename):
-            raise IOError("File %s not found.\n" % filename)
+            raise OSError(f"File {filename} not found.\n")
         self._filename = filename
         self._toScaleU = 1.0
         self._toScaleV = 1.0

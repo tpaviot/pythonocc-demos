@@ -18,16 +18,16 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # look for all example names
-import os
 import glob
-import sys
+import os
 import subprocess
+import sys
 import time
 
 
 def worker(example_name):
     # += operation is not atomic, so we need to get a lock:
-    print("running %s ..." % example_name, end="")
+    print(f"running {example_name} ...", end="")
     try:
         subprocess.check_output(
             [sys.executable, example_name],
@@ -37,7 +37,7 @@ def worker(example_name):
         print("[passed]")
         return True
     except subprocess.CalledProcessError as cpe:
-        print("%s" % cpe.output)
+        print(f"{cpe.output}")
         print("[failed]")
         return False
 
@@ -77,10 +77,10 @@ if __name__ == "__main__":
             failed += 1
 
     print("Test examples results :")
-    print("\t %i/%i tests passed" % ((nbr_examples - failed), nbr_examples))
+    print(f"\t {nbr_examples - failed}/{nbr_examples} tests passed")
 
     if failed > 0:
-        print("%i tests failed" % failed)
+        print(f"{failed} tests failed")
 
     print("Total time to run all examples: %fs" % (time.time() - init_time))
 

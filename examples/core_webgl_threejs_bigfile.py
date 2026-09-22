@@ -19,8 +19,8 @@
 
 import os
 
-from OCC.Extend.DataExchange import read_step_file
 from OCC.Display.WebGl import threejs_renderer
+from OCC.Extend.DataExchange import read_step_file
 
 big_shp = read_step_file(
     os.path.join("..", "assets", "models", "RC_Buggy_2_front_suspension.stp")

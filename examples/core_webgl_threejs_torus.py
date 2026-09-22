@@ -17,8 +17,8 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Display.WebGl import threejs_renderer
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
+from OCC.Display.WebGl import threejs_renderer
 
 torus_shp = BRepPrimAPI_MakeTorus(20.0, 10.0).Shape()
 my_renderer = threejs_renderer.ThreejsRenderer()

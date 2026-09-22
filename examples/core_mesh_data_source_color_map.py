@@ -18,18 +18,22 @@
 import os
 import random
 
-from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.RWStl import rwstl
-from OCC.Core.MeshVS import *
 from OCC.Core.Aspect import Aspect_SequenceOfColor
+from OCC.Core.MeshDS import MeshDS_DataSource
+from OCC.Core.MeshVS import (
+    MeshVS_DMF_NodalColorDataPrs,
+    MeshVS_DMF_OCCMask,
+    MeshVS_Mesh,
+    MeshVS_NodalColorPrsBuilder,
+)
 from OCC.Core.Quantity import (
     Quantity_Color,
-    Quantity_NOC_RED,
-    Quantity_NOC_BLUE1,
     Quantity_NOC_BLACK,
+    Quantity_NOC_BLUE1,
+    Quantity_NOC_RED,
 )
+from OCC.Core.RWStl import rwstl
 from OCC.Core.TColStd import TColStd_DataMapOfIntegerReal
-
 from OCC.Display.SimpleGui import init_display
 
 stl_filename = os.path.join("..", "assets", "models", "fan.stl")

@@ -16,14 +16,11 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-from OCC.Core.gp import gp_Pnt
-from OCC.Core.TColgp import TColgp_Array2OfPnt
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeFace
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
-from OCC.Core.AIS import AIS_Shape
-from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_RED, Quantity_NOC_BLUE
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
-
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.Quantity import Quantity_NOC_BLUE, Quantity_NOC_RED
+from OCC.Core.TColgp import TColgp_Array2OfPnt
 from OCC.Display.SimpleGui import init_display
 
 
@@ -79,7 +76,7 @@ def points_to_bspline_surface(points, u_points, v_points):
     surface_builder = GeomAPI_PointsToBSplineSurface(points_array)
 
     if not surface_builder.IsDone():
-        raise Exception("Unable to create B-spline surface")
+        raise RuntimeError("Unable to create B-spline surface")
 
     return surface_builder.Surface()
 
@@ -111,7 +108,6 @@ def create_iso_curves(surface, num_u_iso=10, num_v_iso=10):
 
 
 if __name__ == "__main__":
-
     points, u_points, v_points = create_complex_surface_points()
     surface = points_to_bspline_surface(points, u_points, v_points)
 

@@ -20,9 +20,9 @@
 import os
 import sys
 
+from OCC.Display.WebGl import x3dom_renderer
 from OCC.Extend.DataExchange import read_step_file
 from OCC.Extend.TopologyUtils import TopologyExplorer
-from OCC.Display.WebGl import x3dom_renderer
 
 # opens a big step file
 # render each part of the assembly as a shape

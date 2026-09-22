@@ -15,10 +15,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Display.SimpleGui import init_display
+from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepTools import breptools_Read
 from OCC.Core.TopoDS import TopoDS_Shape
-from OCC.Core.BRep import BRep_Builder
+from OCC.Display.SimpleGui import init_display
 
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()

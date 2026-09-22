@@ -15,13 +15,13 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
+from OCC.Core.TDF import TDF_LabelSequence
 from OCC.Core.TDocStd import TDocStd_Document
 from OCC.Core.XCAFDoc import (
     XCAFDoc_DocumentTool_MaterialTool,
 )
-from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
-from OCC.Core.IFSelect import IFSelect_RetDone
-from OCC.Core.TDF import TDF_LabelSequence
 
 filename = "../assets/models/eight_cyl.stp"
 

@@ -17,12 +17,10 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
-from OCC.Core.gp import gp_Pnt2d, gp_Dir2d, gp_Ax22d, gp_Parab2d
 from OCC.Core.GC import GC_MakeParabola2d
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
-
+from OCC.Core.gp import gp_Ax22d, gp_Dir2d, gp_Parab2d, gp_Pnt2d
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

@@ -16,13 +16,11 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.HLRTopoBRep import HLRTopoBRep_OutLiner
-from OCC.Core.BRepTools import breptools_Read
-from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Core.BRep import BRep_Builder
+from OCC.Core.BRepTools import breptools_Read
 from OCC.Core.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape
+from OCC.Core.TopoDS import TopoDS_Shape
+from OCC.Display.SimpleGui import init_display
 
 cylinder_head = TopoDS_Shape()
 outt = TopoDS_Shape()

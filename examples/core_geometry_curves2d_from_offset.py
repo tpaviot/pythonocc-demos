@@ -17,13 +17,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
+from OCC.Core.Geom2d import Geom2d_OffsetCurve
+from OCC.Core.Geom2dAPI import Geom2dAPI_PointsToBSpline
 from OCC.Core.gp import gp_Pnt2d
 from OCC.Core.TColgp import TColgp_Array1OfPnt2d
-from OCC.Core.Geom2dAPI import Geom2dAPI_PointsToBSpline
-from OCC.Core.Geom2d import Geom2d_OffsetCurve
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -45,11 +43,11 @@ def curves2d_from_offset(event=None):
     dist = 1
     offset_curve1 = Geom2d_OffsetCurve(spline_1, dist)
     result = offset_curve1.IsCN(2)
-    print("Offset curve yellow is C2: %r" % result)
+    print(f"Offset curve yellow is C2: {result!r}")
     dist2 = 1.5
     offset_curve2 = Geom2d_OffsetCurve(spline_1, dist2)
     result2 = offset_curve2.IsCN(2)
-    print("Offset curve blue is C2: %r" % result2)
+    print(f"Offset curve blue is C2: {result2!r}")
 
     display.DisplayShape(spline_1)
     display.DisplayShape(offset_curve1, color="YELLOW")

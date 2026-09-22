@@ -15,20 +15,20 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.TDocStd import TDocStd_Document
-from OCC.Core.TCollection import TCollection_AsciiString
-from OCC.Core.XCAFDoc import (
-    XCAFDoc_DocumentTool_ShapeTool,
-    XCAFDoc_DocumentTool_LayerTool,
-)
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
-from OCC.Core.TColStd import TColStd_IndexedDataMapOfStringString
-from OCC.Core.Message import Message_ProgressRange
 from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 from OCC.Core.BRepTools import breptools_Clean
+from OCC.Core.Message import Message_ProgressRange
 
 # GLTF export
 from OCC.Core.RWGltf import RWGltf_CafWriter, RWGltf_WriterTrsfFormat
+from OCC.Core.TCollection import TCollection_AsciiString
+from OCC.Core.TColStd import TColStd_IndexedDataMapOfStringString
+from OCC.Core.TDocStd import TDocStd_Document
+from OCC.Core.XCAFDoc import (
+    XCAFDoc_DocumentTool_LayerTool,
+    XCAFDoc_DocumentTool_ShapeTool,
+)
 
 # create the shapeto export
 shp = BRepPrimAPI_MakeSphere(60.0).Shape()

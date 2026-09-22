@@ -15,20 +15,18 @@
 
 # This example demonstrates how to inherit from a TopoDS_Shape class
 
-from __future__ import print_function
 
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
-from OCC.Core.TopoDS import TopoDS_Edge
-from OCC.Core.gp import gp_Pnt
 from OCC.Core.BRep import BRep_Tool
-
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+from OCC.Core.gp import gp_Pnt
+from OCC.Core.TopoDS import TopoDS_Edge
 from OCC.Display.SimpleGui import init_display
 
 
 class InheritEdge(TopoDS_Edge):
     def __init__(self, edge):
         # following constructor creates an empty TopoDS_Edge
-        super(InheritEdge, self).__init__()
+        super().__init__()
         # we need to copy the base shape using the following three lines
         print(self.IsNull())
         self.TShape(edge.TShape())

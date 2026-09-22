@@ -30,7 +30,6 @@ display.DisplayShape(the_shape, update=True)
 def animate_viewpoint():
     cam = display.View.Camera()  # type: Graphic3d_Camera
 
-    center = cam.Center()
     eye = cam.Eye()
     eye.SetX(0.0)
     eye.SetZ(0.0)

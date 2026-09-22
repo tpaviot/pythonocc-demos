@@ -17,12 +17,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_Dir, gp_Ax2, gp_Circ, gp_Pnt
 from OCC.Core.AIS import AIS_Shape
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+from OCC.Core.gp import gp_Ax2, gp_Circ, gp_Dir, gp_Pnt
+from OCC.Core.Prs3d import Prs3d_DimensionAspect
 from OCC.Core.PrsDim import PrsDim_RadiusDimension
 from OCC.Core.Quantity import Quantity_Color, Quantity_NOC_BLACK
-from OCC.Core.Prs3d import Prs3d_DimensionAspect
-from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

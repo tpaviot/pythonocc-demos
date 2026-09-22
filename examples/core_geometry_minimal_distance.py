@@ -17,13 +17,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
 from OCC.Core.BRepExtrema import BRepExtrema_DistShapeShape
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Core.gp import gp_Ax2, gp_Circ, gp_Pnt
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_Circ
-
 from OCC.Extend.ShapeFactory import make_edge, make_vertex
 
 display, start_display, add_menu, add_function_to_menu = init_display()

@@ -17,12 +17,11 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.gp import gp_OX2d
+from OCC.Core.Convert import Convert_TgtThetaOver2
 from OCC.Core.GC import GC_MakeEllipse2d
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 from OCC.Core.Geom2dConvert import geom2dconvert_CurveToBSplineCurve
-from OCC.Core.Convert import Convert_TgtThetaOver2
-
+from OCC.Core.gp import gp_OX2d
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

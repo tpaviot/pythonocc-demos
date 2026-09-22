@@ -20,10 +20,10 @@
 # this example was ported from: http://heekscnc.blogspot.nl/2009/09/occ-offset.html, by Dan Heeks
 
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeOffset
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.GeomAbs import GeomAbs_Arc
 from OCC.Core.gp import gp_Pnt
-from OCC.Extend.ShapeFactory import make_edge, make_vertex, make_wire, make_face
+from OCC.Display.SimpleGui import init_display
+from OCC.Extend.ShapeFactory import make_edge, make_face, make_vertex, make_wire
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
 display, start_display, add_menu, add_function_to_menu = init_display()

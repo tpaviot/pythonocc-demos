@@ -15,9 +15,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Display.SimpleGui import init_display
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.BOPAlgo import BOPAlgo_Builder
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 my_box1 = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape()
@@ -31,7 +31,7 @@ builder.SetRunParallel(True)
 builder.Perform()  # or .PerformWithFiller(a_filler)
 
 if builder.HasErrors():
-    raise AssertionError("Failed with error: " % builder.DumpErrorsToString())
+    raise AssertionError(f"Failed with error: {builder.DumpErrors()}")
 result = builder.Shape()
 display.DisplayShape(result, update=True)
 start_display()

@@ -44,7 +44,6 @@ la.SetWidth(4)
 line_aspect = drawer.SeenLineAspect()
 drawer.EnableDrawHiddenLine()
 line_aspect.SetWidth(4)
-#
 drawer.SetWireAspect(line_aspect)
 #
 # Displays a cylinder

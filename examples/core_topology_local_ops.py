@@ -18,47 +18,45 @@ import sys
 from math import pi
 
 from OCC.Core.BRep import BRep_Tool
-from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section, BRepAlgoAPI_Fuse
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse, BRepAlgoAPI_Section
 from OCC.Core.BRepBuilderAPI import (
-    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_MakeEdge,
     BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_Transform,
 )
 from OCC.Core.BRepFeat import (
-    BRepFeat_MakePrism,
     BRepFeat_MakeDPrism,
-    BRepFeat_SplitShape,
     BRepFeat_MakeLinearForm,
+    BRepFeat_MakePrism,
     BRepFeat_MakeRevol,
+    BRepFeat_SplitShape,
 )
 from OCC.Core.BRepLib import breplib
 from OCC.Core.BRepOffset import BRepOffset_Skin
 from OCC.Core.BRepOffsetAPI import (
-    BRepOffsetAPI_MakeThickSolid,
     BRepOffsetAPI_MakeOffsetShape,
+    BRepOffsetAPI_MakeThickSolid,
 )
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakePrism
-from OCC.Display.SimpleGui import init_display
 from OCC.Core.GC import GC_MakeLine2d
 from OCC.Core.Geom import Geom_Plane
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.GeomAbs import GeomAbs_Arc
-from OCC.Core.TopTools import TopTools_ListOfShape
-from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Core.gp import (
     gp,
-    gp_Pnt2d,
-    gp_Circ2d,
     gp_Ax2d,
+    gp_Circ2d,
     gp_Dir2d,
-    gp_Pnt,
     gp_Pln,
-    gp_Vec,
+    gp_Pnt,
+    gp_Pnt2d,
     gp_Trsf,
-    gp_GTrsf,
+    gp_Vec,
 )
-
+from OCC.Core.TopoDS import TopoDS_Face
+from OCC.Core.TopTools import TopTools_ListOfShape
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.TopologyUtils import TopologyExplorer
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -127,7 +125,7 @@ def brepfeat_prism(event=None):
     box = BRepPrimAPI_MakeBox(400, 250, 300).Shape()
     faces = TopologyExplorer(box).faces()
 
-    for i in range(5):
+    for _ in range(5):
         face = next(faces)
 
     srf = BRep_Tool.Surface(face)

@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-
 ##Copyright 2013-2014 Guillaume Florent (florentsailing@gmail.com)
 ##
 ##This file is part of pythonOCC.
@@ -28,14 +26,13 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism
 from OCC.Core.Geom2dAPI import Geom2dAPI_PointsToBSpline
 from OCC.Core.GeomAPI import geomapi
-from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Pnt2d, gp_Pln, gp_Dir
+from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt, gp_Pnt2d, gp_Vec
 from OCC.Core.TColgp import TColgp_Array1OfPnt2d
 from OCC.Display.SimpleGui import init_display
+from OCC.Extend.ShapeFactory import make_edge, make_wire
 
-from OCC.Extend.ShapeFactory import make_wire, make_edge
 
-
-class UiucAirfoil(object):
+class UiucAirfoil:
     """
     Airfoil with a section from the UIUC database
     """
@@ -49,7 +46,7 @@ class UiucAirfoil(object):
     def make_shape(self):
         # 1 - retrieve the data from the UIUC airfoil data page
         foil_dat_url = (
-            "http://m-selig.ae.illinois.edu/ads/coord_seligFmt/%s.dat" % self.profile
+            f"http://m-selig.ae.illinois.edu/ads/coord_seligFmt/{self.profile}.dat"
         )
         # explicitly tell to not use ssl verification
         ssl._create_default_https_context = ssl._create_unverified_context

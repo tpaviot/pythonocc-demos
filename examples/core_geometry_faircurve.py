@@ -19,13 +19,13 @@
 
 
 import math
-import time
 import sys
+import time
 
-from OCC.Core.gp import gp_Pnt2d, gp_Pln
-from OCC.Core.Geom import Geom_Plane
-from OCC.Core.FairCurve import FairCurve_MinimalVariation
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+from OCC.Core.FairCurve import FairCurve_MinimalVariation
+from OCC.Core.Geom import Geom_Plane
+from OCC.Core.gp import gp_Pln, gp_Pnt2d
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -61,7 +61,7 @@ def faircurve(event=None):
     pt2 = gp_Pnt2d(0.0, 120.0)
     height = 100.0
     pl = Geom_Plane(gp_Pln())
-    for i in range(0, 40):
+    for i in range(40):
         # TODO: the parameter slope needs to be visualized
         slope = i / 100.0
         bc = batten_curve(pt1, pt2, height, slope, math.radians(i), math.radians(-i))

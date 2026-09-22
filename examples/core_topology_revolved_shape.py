@@ -15,14 +15,15 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 import math
+
 from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeEdge,
-    BRepBuilderAPI_MakeWire,
     BRepBuilderAPI_MakeFace,
+    BRepBuilderAPI_MakeWire,
 )
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeRevol
+from OCC.Core.gp import gp_Ax1, gp_Dir, gp_Pnt
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.gp import gp_Pnt, gp_Dir, gp_Ax1
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

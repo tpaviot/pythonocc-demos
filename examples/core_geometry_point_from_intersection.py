@@ -17,14 +17,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 
-from OCC.Core.gp import gp_Pln, gp_XOY, gp_Ax3, gp_YOZ, gp_Elips
+from OCC.Core.GC import GC_MakeEllipse, GC_MakePlane
+from OCC.Core.Geom import Geom_RectangularTrimmedSurface
+from OCC.Core.gp import gp_Ax3, gp_Elips, gp_Pln, gp_XOY, gp_YOZ
 from OCC.Core.IntAna import IntAna_IntConicQuad
 from OCC.Core.Precision import precision_Angular, precision_Confusion
-from OCC.Core.GC import GC_MakePlane, GC_MakeEllipse
-from OCC.Core.Geom import Geom_RectangularTrimmedSurface
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -54,7 +52,7 @@ def points_from_intersection():
         if nb_results > 0:
             for i in range(1, nb_results + 1):
                 P = intersection.Point(i)
-                pstring = "P%i" % i
+                pstring = f"P{i}"
                 display.DisplayShape(P)
                 display.DisplayMessage(P, pstring)
 

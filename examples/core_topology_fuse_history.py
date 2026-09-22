@@ -1,7 +1,7 @@
-from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_Dir
-from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder
 from OCC.Core.BRepTools import BRepTools_History
+from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pnt
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopTools import TopTools_ListIteratorOfListOfShape

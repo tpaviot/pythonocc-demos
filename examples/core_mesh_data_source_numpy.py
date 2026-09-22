@@ -15,12 +15,16 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.MeshVS import *
-
-from OCC.Display.SimpleGui import init_display
-
 import numpy as np
+from OCC.Core.MeshDS import MeshDS_DataSource
+from OCC.Core.MeshVS import (
+    MeshVS_DMF_NodalColorDataPrs,
+    MeshVS_DMF_OCCMask,
+    MeshVS_Mesh,
+    MeshVS_MeshPrsBuilder,
+    MeshVS_NodalColorPrsBuilder,
+)
+from OCC.Display.SimpleGui import init_display
 
 # create data
 v1 = [0, 0, 0]

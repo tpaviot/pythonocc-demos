@@ -17,13 +17,11 @@
 
 import os
 
-from OCC.Core.MeshDS import MeshDS_DataSource
-from OCC.Core.MeshVS import *
-
-from OCC.Display.SimpleGui import init_display
-
 import numpy as np
 import stl  # numpy-stl
+from OCC.Core.MeshDS import MeshDS_DataSource
+from OCC.Core.MeshVS import MeshVS_Mesh, MeshVS_MeshPrsBuilder
+from OCC.Display.SimpleGui import init_display
 
 # load a stl file using numpy-stl
 stl_filename = os.path.join("..", "assets", "models", "fan.stl")

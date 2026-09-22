@@ -14,7 +14,6 @@
 ##
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import print_function
 
 import os
 import sys
@@ -23,23 +22,21 @@ import time
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepAdaptor import BRepAdaptor_Curve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakePolygon
-from OCC.Core.BRepFill import BRepFill_CurveConstraint
-from OCC.Display.SimpleGui import init_display
+from OCC.Core.BRepFill import BRepFill_Filling
 from OCC.Core.GeomAbs import GeomAbs_C0
 from OCC.Core.GeomLProp import GeomLProp_SLProps
 from OCC.Core.GeomPlate import (
     GeomPlate_BuildPlateSurface,
     GeomPlate_CurveConstraint,
-    GeomPlate_PointConstraint,
     GeomPlate_MakeApprox,
+    GeomPlate_PointConstraint,
 )
-from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface
 from OCC.Core.gp import gp_Pnt
-from OCC.Core.BRepFill import BRepFill_Filling
-
-from OCC.Extend.TopologyUtils import TopologyExplorer, WireExplorer
-from OCC.Extend.ShapeFactory import make_face, make_vertex
+from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface
+from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_iges_file
+from OCC.Extend.ShapeFactory import make_face, make_vertex
+from OCC.Extend.TopologyUtils import TopologyExplorer, WireExplorer
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 
@@ -92,7 +89,7 @@ def make_n_sided(edges, points, continuity=GeomAbs_C0):
 def make_closed_polygon(*args):
     poly = BRepBuilderAPI_MakePolygon()
     for pt in args:
-        if isinstance(pt, list) or isinstance(pt, tuple):
+        if isinstance(pt, (list, tuple)):
             for i in pt:
                 poly.Add(i)
         else:
@@ -197,7 +194,8 @@ class RadiusConstrainedSurface:
         self.targetRadius = targetRadius
         self.poly = poly
         self.pnt = pnt
-        self.plate = self.build_surface()
+        self.plate = None
+        self.build_surface()
 
     def build_surface(self):
         """
@@ -244,7 +242,7 @@ def solve_radius(event=None):
     for i in (0.1, 0.5, 1.5, 2.0, 3.0, 0.2):
         rcs = RadiusConstrainedSurface(display, poly, p5, i)
         rcs.solve()
-        print("Goal: %s radius: %s" % (i, rcs.curr_radius))
+        print(f"Goal: {i} radius: {rcs.curr_radius}")
         time.sleep(0.1)
 
 

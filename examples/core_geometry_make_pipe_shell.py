@@ -15,13 +15,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipeShell
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
+from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipeShell
 from OCC.Core.Geom import Geom_BezierCurve
+from OCC.Core.gp import gp_Circ, gp_Pnt, gp_ZOX
 from OCC.Core.Law import Law_Linear
 from OCC.Core.TColgp import TColgp_Array1OfPnt
-from OCC.Core.gp import gp_Circ, gp_Pnt, gp_ZOX
-
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()

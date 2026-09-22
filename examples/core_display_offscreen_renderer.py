@@ -1,5 +1,4 @@
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-
 from OCC.Display.OCCViewer import OffscreenRenderer
 
 a_box_shape = BRepPrimAPI_MakeBox(10, 20, 30).Shape()
