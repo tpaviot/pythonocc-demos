@@ -27,7 +27,6 @@ from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
 from OCC.Core.Message import Message_ProgressRange
 from OCC.Core.RWGltf import RWGltf_CafReader, RWGltf_CafWriter
-from OCC.Core.TCollection import TCollection_AsciiString
 from OCC.Core.TColStd import TColStd_IndexedDataMapOfStringString
 from OCC.Core.TDataStd import TDataStd_Name, TDataStd_NamedData
 from OCC.Core.TDF import TDF_ChildIterator
@@ -72,7 +71,7 @@ while label_iterator.More():
     # FindAttribute returns None if the label has no such attribute
     user_data = label.FindAttribute(TDataStd_NamedData.GetID(), TDataStd_NamedData())
     if user_data is not None:
-        material = TCollection_AsciiString(user_data.GetString("material")).ToCString()
+        material = str(user_data.GetString("material"))
         quantity = user_data.GetInteger("quantity")
         print(f"{label.GetLabelName()}: material={material}, quantity={quantity}")
     label_iterator.Next()
