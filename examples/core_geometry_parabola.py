@@ -20,7 +20,7 @@
 from __future__ import print_function
 
 from OCC.Core.gp import gp_Pnt2d, gp_Dir2d, gp_Ax22d, gp_Parab2d
-from OCC.Core.GCE2d import GCE2d_MakeParabola
+from OCC.Core.GC import GC_MakeParabola2d
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 
 from OCC.Display.SimpleGui import init_display
@@ -39,7 +39,7 @@ def parabola(event=None):
     display.DisplayShape(a_pnt)
     display.DisplayMessage(a_pnt, "P")
 
-    aParabola = GCE2d_MakeParabola(para)
+    aParabola = GC_MakeParabola2d(para)
     gParabola = aParabola.Value()
 
     aTrimmedCurve = Geom2d_TrimmedCurve(gParabola, -100, 100, True)

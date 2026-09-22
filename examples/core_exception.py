@@ -19,6 +19,7 @@ from OCC.Core.gp import gp_Dir
 
 d = gp_Dir(0, 0, 1)
 try:
-    d.Coord(-1)  # should raise Standard_OutOfRange
-except RuntimeError:
-    print("Exception successfully raised.")
+    # raises Standard_OutOfRange, mapped to a python IndexError
+    d.Coord(-1)
+except IndexError as e:
+    print(f"Exception successfully raised: {e}")

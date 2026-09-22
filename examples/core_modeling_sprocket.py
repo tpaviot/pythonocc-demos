@@ -45,7 +45,7 @@ from OCC.Core.gp import (
     gp_DZ,
     gp_OZ,
 )
-from OCC.Core.GCE2d import GCE2d_MakeArcOfCircle, GCE2d_MakeCircle, GCE2d_MakeLine
+from OCC.Core.GC import GC_MakeArcOfCircle2d, GC_MakeCircle2d, GC_MakeLine2d
 from OCC.Core.Geom2dAPI import Geom2dAPI_InterCurveCurve
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 from OCC.Core.GeomAPI import geomapi_To3d
@@ -106,7 +106,7 @@ hole_radius = 8.5 / 2.0
 def build_tooth():
     base_center = gp_Pnt2d(pitch_circle_radius + (tooth_radius - roller_radius), 0)
     base_circle = gp_Circ2d(gp_Ax2d(base_center, gp_Dir2d()), tooth_radius)
-    trimmed_base = GCE2d_MakeArcOfCircle(
+    trimmed_base = GC_MakeArcOfCircle2d(
         base_circle, M_PI - (roller_contact_angle / 2.0), M_PI
     ).Value()
     trimmed_base.Reverse()  # just a trick
@@ -122,11 +122,11 @@ def build_tooth():
     profile_circle = gp_Circ2d(
         gp_Ax2d(profile_center, gp_Dir2d()), profile_center.Distance(p1)
     )
-    geom_profile_circle = GCE2d_MakeCircle(profile_circle).Value()
+    geom_profile_circle = GC_MakeCircle2d(profile_circle).Value()
 
     # Construct the outer circle gp_Circ2d
     outer_circle = gp_Circ2d(gp_Ax2d(gp_Pnt2d(0, 0), gp_Dir2d()), top_radius)
-    geom_outer_circle = GCE2d_MakeCircle(outer_circle).Value()
+    geom_outer_circle = GC_MakeCircle2d(outer_circle).Value()
 
     inter = Geom2dAPI_InterCurveCurve(geom_profile_circle, geom_outer_circle)
     num_points = inter.NbPoints()
@@ -142,7 +142,7 @@ def build_tooth():
         sys.exit(-1)
 
     # Trim the profile circle and mirror
-    trimmed_profile = GCE2d_MakeArcOfCircle(profile_circle, p1, p2).Value()
+    trimmed_profile = GC_MakeArcOfCircle2d(profile_circle, p1, p2).Value()
 
     # Calculate the outermost point
     p3 = gp_Pnt2d(
@@ -150,7 +150,7 @@ def build_tooth():
     )
 
     # and use it to create the third arc
-    trimmed_outer = GCE2d_MakeArcOfCircle(outer_circle, p2, p3).Value()
+    trimmed_outer = GC_MakeArcOfCircle2d(outer_circle, p2, p3).Value()
 
     # Mirror and reverse the three arcs
     mirror_axis = gp_Ax2d(gp_Origin2d(), gp_DX2d().Rotated(tooth_angle / 2.0))
@@ -172,14 +172,14 @@ def build_tooth():
     outer_mid = trimmed_outer.EndPoint()
     outer_end = mirror_outer.EndPoint()
 
-    outer_arc = GCE2d_MakeArcOfCircle(outer_start, outer_mid, outer_end).Value()
+    outer_arc = GC_MakeArcOfCircle2d(outer_start, outer_mid, outer_end).Value()
 
     # Create an arc for the inside of the wedge
     inner_circle = gp_Circ2d(
         gp_Ax2d(gp_Pnt2d(0, 0), gp_Dir2d()), top_radius - roller_diameter
     )
     inner_start = gp_Pnt2d(top_radius - roller_diameter, 0)
-    inner_arc = GCE2d_MakeArcOfCircle(inner_circle, inner_start, tooth_angle).Value()
+    inner_arc = GC_MakeArcOfCircle2d(inner_circle, inner_start, tooth_angle).Value()
     inner_arc.Reverse()
 
     # Convert the 2D arcs and two extra lines to 3D edges
@@ -242,7 +242,7 @@ def round_tooth(wedge):
         round_circle_2d = round_circle_2d_2
 
     # Remove the arc used for rounding
-    trimmed_circle = GCE2d_MakeArcOfCircle(round_circle_2d, p2d_1, p2d_2).Value()
+    trimmed_circle = GC_MakeArcOfCircle2d(round_circle_2d, p2d_1, p2d_2).Value()
 
     # Calculate extra points used to construct lines
     p1 = gp_Pnt(p2d_1.X(), 0, p2d_1.Y())
@@ -352,8 +352,8 @@ def cut_out(base):
     outer = gp_Circ2d(gp_OX2d(), top_radius - 1.75 * roller_diameter)
     inner = gp_Circ2d(gp_OX2d(), center_radius + 0.75 * roller_diameter)
 
-    geom_outer = GCE2d_MakeCircle(outer).Value()
-    geom_inner = GCE2d_MakeCircle(inner).Value()
+    geom_outer = GC_MakeCircle2d(outer).Value()
+    geom_inner = GC_MakeCircle2d(inner).Value()
     geom_inner.Reverse()
 
     base_angle = (2.0 * M_PI) / mounting_hole_count
@@ -365,8 +365,8 @@ def cut_out(base):
     left.Rotate(gp_Origin2d(), correction_angle)
     right.Rotate(gp_Origin2d(), base_angle - correction_angle)
 
-    geom_left = GCE2d_MakeLine(left).Value()
-    geom_right = GCE2d_MakeLine(right).Value()
+    geom_left = GC_MakeLine2d(left).Value()
+    geom_right = GC_MakeLine2d(right).Value()
 
     inter_1 = Geom2dAPI_InterCurveCurve(geom_outer, geom_left)
     inter_2 = Geom2dAPI_InterCurveCurve(geom_outer, geom_right)
@@ -393,8 +393,8 @@ def cut_out(base):
     else:
         p4 = inter_4.Point(2)
 
-    trimmed_outer = GCE2d_MakeArcOfCircle(outer, p1, p2).Value()
-    trimmed_inner = GCE2d_MakeArcOfCircle(inner, p4, p3).Value()
+    trimmed_outer = GC_MakeArcOfCircle2d(outer, p1, p2).Value()
+    trimmed_inner = GC_MakeArcOfCircle2d(inner, p4, p3).Value()
 
     plane = gp_Pln(gp_Origin(), gp_DZ())
 

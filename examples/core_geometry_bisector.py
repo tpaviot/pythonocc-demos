@@ -17,7 +17,7 @@
 
 from OCC.Core.Bisector import Bisector_BisecCC
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.GCE2d import GCE2d_MakeLine, GCE2d_MakeCircle
+from OCC.Core.GC import GC_MakeLine2d, GC_MakeCircle2d
 from OCC.Core.GccAna import GccAna_Lin2dBisec, GccAna_CircLin2dBisec, GccAna_Pnt2dBisec
 from OCC.Core.gp import gp_Lin2d, gp_Pnt2d, gp_Dir2d, gp_Circ2d, gp_Ax22d, gp_Pnt
 
@@ -75,13 +75,13 @@ def bisect_crvcrv(event=None):
     display.EraseAll()
     ax = gp_Ax22d(gp_Pnt2d(), gp_Dir2d(1, 0), gp_Dir2d(0, -1))
     circ = gp_Circ2d(ax, 5)
-    crv1 = GCE2d_MakeCircle(circ).Value()
+    crv1 = GC_MakeCircle2d(circ).Value()
     edg1 = make_edge2d(crv1, -1.0, 1.0)
     display.DisplayColoredShape(edg1, "BLUE")
 
     p1 = gp_Pnt2d(-10, 0)
     p2 = gp_Pnt2d(-10, 10)
-    crv2 = GCE2d_MakeLine(p1, p2).Value()
+    crv2 = GC_MakeLine2d(p1, p2).Value()
     edg2 = make_edge2d(crv2, -10.0, 10.0)
     display.DisplayColoredShape(edg2, "GREEN")
 

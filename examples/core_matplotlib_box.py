@@ -63,10 +63,14 @@ def draw_shape_mpl(shape):
 
     # plot it
     fig = plt.figure()
-    ax = Axes3D(fig)
+    ax = fig.add_subplot(projection="3d")
 
     ax.add_collection3d(Poly3DCollection(triangles, linewidths=0.2, alpha=0.5))
-    ax.add_collection3d(Line3DCollection(edges, colors="w", linewidths=1.0))
+    # edges may have a different number of vertices each, which matplotlib
+    # cannot autoscale from; the limits are already set by the triangles
+    ax.add_collection3d(
+        Line3DCollection(edges, colors="w", linewidths=1.0), autolim=False
+    )
 
     ax.get_xaxis().set_visible(True)
     ax.get_yaxis().set_visible(True)

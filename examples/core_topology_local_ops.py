@@ -40,7 +40,7 @@ from OCC.Core.BRepOffsetAPI import (
 )
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakePrism
 from OCC.Display.SimpleGui import init_display
-from OCC.Core.GCE2d import GCE2d_MakeLine
+from OCC.Core.GC import GC_MakeLine2d
 from OCC.Core.Geom import Geom_Plane
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.GeomAbs import GeomAbs_Arc
@@ -86,22 +86,22 @@ def extrusion(event=None):
     MW = BRepBuilderAPI_MakeWire()
     p1 = gp_Pnt2d(200.0, -100.0)
     p2 = gp_Pnt2d(100.0, -100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     Edge1 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge1.Edge())
     p1 = p2
     p2 = gp_Pnt2d(100.0, -200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     Edge2 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge2.Edge())
     p1 = p2
     p2 = gp_Pnt2d(200.0, -200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     Edge3 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge3.Edge())
     p1 = p2
     p2 = gp_Pnt2d(200.0, -100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     Edge4 = BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2))
     MW.Add(Edge4.Edge())
 
@@ -284,17 +284,17 @@ def brep_feat_local_revolution(event=None):
     MW1 = BRepBuilderAPI_MakeWire()
     p1 = gp_Pnt2d(100.0, 100.0)
     p2 = gp_Pnt2d(200.0, 100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
     p1 = gp_Pnt2d(200.0, 100.0)
     p2 = gp_Pnt2d(150.0, 200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
     p1 = gp_Pnt2d(150.0, 200.0)
     p2 = gp_Pnt2d(100.0, 100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW1.Add(BRepBuilderAPI_MakeEdge(aline, surf, 0.0, p1.Distance(p2)).Edge())
 
     MKF1 = BRepBuilderAPI_MakeFace()
@@ -322,19 +322,19 @@ def brep_feat_extrusion_protrusion(event=None):
     D1 = Pl1.Pln().Axis().Direction().Reversed()
     MW = BRepBuilderAPI_MakeWire()
     p1, p2 = gp_Pnt2d(200.0, -100.0), gp_Pnt2d(100.0, -100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
     p1, p2 = gp_Pnt2d(100.0, -100.0), gp_Pnt2d(100.0, -200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
     p1, p2 = gp_Pnt2d(100.0, -200.0), gp_Pnt2d(200.0, -200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
     p1, p2 = gp_Pnt2d(200.0, -200.0), gp_Pnt2d(200.0, -100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW.Add(BRepBuilderAPI_MakeEdge(aline, surf1, 0.0, p1.Distance(p2)).Edge())
 
     MKF = BRepBuilderAPI_MakeFace()
@@ -358,15 +358,15 @@ def brep_feat_extrusion_protrusion(event=None):
     D2 = Pl2.Pln().Axis().Direction().Reversed()
     MW2 = BRepBuilderAPI_MakeWire()
     p1, p2 = gp_Pnt2d(100.0, 100.0), gp_Pnt2d(200.0, 100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
     p1, p2 = gp_Pnt2d(200.0, 100.0), gp_Pnt2d(150.0, 200.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
     p1, p2 = gp_Pnt2d(150.0, 200.0), gp_Pnt2d(100.0, 100.0)
-    aline = GCE2d_MakeLine(p1, p2).Value()
+    aline = GC_MakeLine2d(p1, p2).Value()
     MW2.Add(BRepBuilderAPI_MakeEdge(aline, surf2, 0.0, p1.Distance(p2)).Edge())
 
     MKF2 = BRepBuilderAPI_MakeFace()

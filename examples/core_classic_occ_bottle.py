@@ -32,8 +32,7 @@ from OCC.Core.gp import (
     gp_Ax2d,
     gp_Pln,
 )
-from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment
-from OCC.Core.GCE2d import GCE2d_MakeSegment
+from OCC.Core.GC import GC_MakeArcOfCircle, GC_MakeSegment, GC_MakeSegment2d
 from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve
 from OCC.Core.BRepBuilderAPI import (
@@ -199,7 +198,7 @@ anArc2 = Geom2d_TrimmedCurve(anEllipse2, 0, math.pi)
 anEllipsePnt1 = anEllipse1.Value(0)
 anEllipsePnt2 = anEllipse1.Value(math.pi)
 
-aSegment = GCE2d_MakeSegment(anEllipsePnt1, anEllipsePnt2)
+aSegment = GC_MakeSegment2d(anEllipsePnt1, anEllipsePnt2)
 
 # Build edges and wires for threading
 anEdge1OnSurf1 = BRepBuilderAPI_MakeEdge(anArc1, aCyl1)
