@@ -156,7 +156,7 @@ def visualize_curvature_at_points(shape):
         props = BRepLProp_SLProps(surface_adaptor, 1, 1e-6)
 
         # Display each point with its curvature color
-        for (u, v), curvature in zip(points, curvatures):
+        for (u, v), curvature in zip(points, curvatures, strict=True):
             props.SetParameters(u, v)
             if props.IsNormalDefined():
                 point_3d = props.Value()

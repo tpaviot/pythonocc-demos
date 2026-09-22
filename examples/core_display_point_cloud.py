@@ -44,7 +44,7 @@ def pcd_get_number_of_vertices(pcd_filename):
     POINTS 397
     DATA ascii
     """
-    with open(pcd_filename, "r", encoding="utf-8") as f:
+    with open(pcd_filename, encoding="utf-8") as f:
         # read 8 lines
         for _ in range(8):
             f.readline()
@@ -82,7 +82,7 @@ def bunny(event=None):
     # create the point_cloud
     pc = Graphic3d_ArrayOfPoints(nbr_of_vertices)
     # fedd it with vertices
-    with open(pcd_file_name, "r", encoding="utf-8") as fp:
+    with open(pcd_file_name, encoding="utf-8") as fp:
         # read 11 lines to skip header
         for _ in range(10):
             fp.readline()
@@ -100,7 +100,7 @@ def bunny(event=None):
 
 def tabletop(event=None):
     with open(
-        os.path.join("..", "assets", "models", "tabletop.pcd"), "r", encoding="utf-8"
+        os.path.join("..", "assets", "models", "tabletop.pcd"), encoding="utf-8"
     ) as fp:
         pcd_file = fp.readlines()[11:]
     # create the point_cloud

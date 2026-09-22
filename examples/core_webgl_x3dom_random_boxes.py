@@ -26,7 +26,7 @@ from OCC.Extend.ShapeFactory import rotate_shp_3_axis, translate_shp
 
 my_ren = x3dom_renderer.X3DomRenderer()
 
-for i in range(100):
+for _ in range(100):
     box_shp = BRepPrimAPI_MakeBox(
         random.random() * 20, random.random() * 20, random.random() * 20
     ).Shape()

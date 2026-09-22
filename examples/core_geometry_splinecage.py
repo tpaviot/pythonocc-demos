@@ -123,13 +123,16 @@ def build_curve_network(event=None, enforce_tangency=True):
 
     filtered_length = {}
     for e in filtered_edges:
-        l = round(length_from_edge(e), 3)
-        filtered_length[l] = e
+        length = round(length_from_edge(e), 3)
+        filtered_length[length] = e
 
     input_edge_face_pairs, edges_no_adjacent_face = [], []
-    for l, edg in filtered_length.items():
-        if l in _edge_length_to_edge:
-            edge_face_pair = [_edge_length_to_edge[l], _edge_length_to_face[l]]
+    for length, edg in filtered_length.items():
+        if length in _edge_length_to_edge:
+            edge_face_pair = [
+                _edge_length_to_edge[length],
+                _edge_length_to_face[length],
+            ]
             input_edge_face_pairs.append(edge_face_pair)
         else:
             edges_no_adjacent_face.append(edg)

@@ -44,12 +44,12 @@ def iter_list_of_shape(list_of_shape):
 # Print out the history of the merge operation
 print("History of the merge operation:")
 for fi, face in enumerate(iter_type(box)):
-    for i in range(history.Generated(face).Size()):
+    if history.Generated(face).Size():
         print(
             f"Generated from box face no {fi}: {list(iter_list_of_shape(history.Generated(face)))}"
         )
 for fi, face in enumerate(iter_type(cylinder)):
-    for i in range(history.Generated(face).Size()):
+    if history.Generated(face).Size():
         print(
             f"Generated from cylinder face no {fi}: {list(iter_list_of_shape(history.Generated(face)))}"
         )

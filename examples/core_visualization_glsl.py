@@ -64,7 +64,7 @@ else:
     raise AssertionError("no valid shader program found")
 
 # when a shader fails to compile, raise an AssertionError
-assert not aspect.ShaderProgram() is None, "no shader program is null"
+assert aspect.ShaderProgram() is not None, "no shader program is null"
 
 # redisplay the sphere, when the shader was attached to its AIS_Shape aspect
 display.Context.Redisplay(anIO, True)

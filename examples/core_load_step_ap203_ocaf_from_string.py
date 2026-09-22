@@ -24,7 +24,7 @@ from OCC.Display.SimpleGui import init_display
 
 filename = "../assets/models/as1_pe_203.stp"
 
-with open(filename, "r", encoding="utf8") as step_file:
+with open(filename, encoding="utf8") as step_file:
     step_file_as_string = step_file.read()
 
 _shapes = []
