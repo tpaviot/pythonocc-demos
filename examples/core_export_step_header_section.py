@@ -20,7 +20,7 @@ from datetime import datetime
 from OCC.Core.APIHeaderSection import APIHeaderSection_MakeHeader
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.IFSelect import IFSelect_RetDone
-from OCC.Core.Interface import Interface_HArray1OfHAsciiString, Interface_Static_SetCVal
+from OCC.Core.Interface import Interface_HArray1OfHAsciiString, Interface_Static
 from OCC.Core.STEPControl import STEPControl_AsIs, STEPControl_Writer
 from OCC.Core.TCollection import TCollection_HAsciiString
 
@@ -31,10 +31,10 @@ box_s = BRepPrimAPI_MakeBox(10, 20, 30).Shape()
 step_writer = STEPControl_Writer()
 dd = step_writer.WS().TransferWriter().FinderProcess()
 
-Interface_Static_SetCVal("write.step.schema", "AP203")
+Interface_Static.SetCVal("write.step.schema", "AP203")
 
 # transfer shapes and write file
-Interface_Static_SetCVal("write.step.product.name", "Box")
+Interface_Static.SetCVal("write.step.product.name", "Box")
 step_writer.Transfer(box_s, STEPControl_AsIs)
 
 #

@@ -22,7 +22,7 @@ from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_MakeWire,
 )
-from OCC.Core.BRepLib import breplib_BuildCurves3d
+from OCC.Core.BRepLib import breplib
 from OCC.Core.Geom2d import Geom2d_Line
 from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
@@ -125,7 +125,7 @@ def face():
     Wire1 = BRepBuilderAPI_MakeWire(Edge1, Edge2, Edge3).Wire()
     Wire1.Reverse()
     pink_face = BRepBuilderAPI_MakeFace(aFace, Wire1).Face()
-    breplib_BuildCurves3d(pink_face)
+    breplib.BuildCurves3d(pink_face)
 
     display.DisplayColoredShape(green_face.Face(), "GREEN")
     display.DisplayColoredShape(red_face.Face(), "RED")

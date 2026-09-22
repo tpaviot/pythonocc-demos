@@ -16,7 +16,7 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.Bnd import Bnd_Box
-from OCC.Core.BRepBndLib import brepbndlib_Add
+from OCC.Core.BRepBndLib import brepbndlib
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeTorus
 from OCC.Display.SimpleGui import init_display
 
@@ -31,7 +31,7 @@ def compute_bbox(shp, *kwargs):
     print(f"Compute bbox for {shp} ")
     for shape in shp:
         bbox = Bnd_Box()
-        brepbndlib_Add(shape, bbox)
+        brepbndlib.Add(shape, bbox)
         xmin, ymin, zmin, xmax, ymax, zmax = bbox.Get()
         dx = xmax - xmin
         dy = ymax - ymin

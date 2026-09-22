@@ -19,7 +19,7 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
 from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
 from OCC.Core.gp import gp_Pnt
-from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface, shapeanalysis_GetFaceUVBounds
+from OCC.Core.ShapeAnalysis import ShapeAnalysis_Surface, shapeanalysis
 from OCC.Core.TColgp import TColgp_Array2OfPnt
 from OCC.Display.SimpleGui import init_display
 
@@ -50,7 +50,7 @@ def build_points_network(bspl_srf):
     # first create a face
     face = BRepBuilderAPI_MakeFace(bspl_srf, 1e-6).Face()
     # get face uv bounds
-    umin, umax, vmin, vmax = shapeanalysis_GetFaceUVBounds(face)
+    umin, umax, vmin, vmax = shapeanalysis.GetFaceUVBounds(face)
     print(umin, umax, vmin, vmax)
 
     pnts = []

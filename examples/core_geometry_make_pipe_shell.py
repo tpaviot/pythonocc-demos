@@ -18,7 +18,7 @@
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakePipeShell
 from OCC.Core.Geom import Geom_BezierCurve
-from OCC.Core.gp import gp_Circ, gp_Pnt, gp_ZOX
+from OCC.Core.gp import gp, gp_Circ, gp_Pnt
 from OCC.Core.Law import Law_Linear
 from OCC.Core.TColgp import TColgp_Array1OfPnt
 from OCC.Display.SimpleGui import init_display
@@ -42,7 +42,7 @@ def thicken_spline(event=None):
     display.DisplayShape(bz_curv_wire)
 
     # Creation of profile to sweep along the spine
-    circle = gp_Circ(gp_ZOX(), 1)
+    circle = gp_Circ(gp.ZOX(), 1)
     circle.SetLocation(array[0])
     circle_edge = BRepBuilderAPI_MakeEdge(circle).Edge()
     circle_wire = BRepBuilderAPI_MakeWire(circle_edge).Wire()

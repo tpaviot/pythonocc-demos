@@ -19,9 +19,7 @@ from OCC.Core.IFSelect import IFSelect_RetDone
 from OCC.Core.STEPCAFControl import STEPCAFControl_Reader
 from OCC.Core.TDF import TDF_LabelSequence
 from OCC.Core.TDocStd import TDocStd_Document
-from OCC.Core.XCAFDoc import (
-    XCAFDoc_DocumentTool_MaterialTool,
-)
+from OCC.Core.XCAFDoc import XCAFDoc_DocumentTool
 
 filename = "../assets/models/eight_cyl.stp"
 
@@ -29,7 +27,7 @@ filename = "../assets/models/eight_cyl.stp"
 doc = TDocStd_Document("pythonocc-doc")
 
 # Get root assembly
-mat_tool = XCAFDoc_DocumentTool_MaterialTool(doc.Main())
+mat_tool = XCAFDoc_DocumentTool.MaterialTool(doc.Main())
 
 step_reader = STEPCAFControl_Reader()
 

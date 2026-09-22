@@ -20,7 +20,7 @@
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.IFSelect import IFSelect_RetDone
-from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.Interface import Interface_Static
 from OCC.Core.STEPControl import STEPControl_AsIs, STEPControl_Writer
 
 # creates a basic shape
@@ -31,7 +31,7 @@ step_writer = STEPControl_Writer()
 dd = step_writer.WS().TransferWriter().FinderProcess()
 print(dd)
 
-Interface_Static_SetCVal("write.step.schema", "AP203")
+Interface_Static.SetCVal("write.step.schema", "AP203")
 
 # transfer shapes and write file
 step_writer.Transfer(box_s, STEPControl_AsIs)

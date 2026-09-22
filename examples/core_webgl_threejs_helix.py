@@ -21,11 +21,11 @@ from math import pi
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Core.GC import GC_MakeSegment2d
 from OCC.Core.Geom import Geom_CylindricalSurface
-from OCC.Core.gp import gp_Ax3, gp_Dir2d, gp_Lin2d, gp_Pnt2d, gp_XOY
+from OCC.Core.gp import gp, gp_Ax3, gp_Dir2d, gp_Lin2d, gp_Pnt2d
 from OCC.Display.WebGl import threejs_renderer
 
 # First build a helix
-aCylinder = Geom_CylindricalSurface(gp_Ax3(gp_XOY()), 6.0)
+aCylinder = Geom_CylindricalSurface(gp_Ax3(gp.XOY()), 6.0)
 aLine2d = gp_Lin2d(gp_Pnt2d(0.0, 0.0), gp_Dir2d(1.0, 1.0))
 aSegment = GC_MakeSegment2d(aLine2d, 0.0, pi * 2.0)
 

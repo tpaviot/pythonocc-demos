@@ -18,14 +18,14 @@
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
 from OCC.Core.BRep import BRep_Builder
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Display.WebGl import x3dom_renderer
 
 # loads brep shape
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
+breptools.Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 
 # render cylinder head in x3dom
 my_renderer = x3dom_renderer.X3DomRenderer()

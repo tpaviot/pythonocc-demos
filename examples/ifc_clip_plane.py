@@ -18,6 +18,7 @@
 import os
 import sys
 
+from OCC.Core.Aspect import Aspect_HS_GRID_DIAGONAL
 from OCC.Core.gp import gp_Vec
 from OCC.Core.Graphic3d import Graphic3d_ClipPlane
 from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
@@ -51,7 +52,7 @@ clip_plane_1 = Graphic3d_ClipPlane()
 
 # set hatch on
 clip_plane_1.SetCapping(True)
-clip_plane_1.SetCappingHatch(True)
+clip_plane_1.SetCappingHatch(Aspect_HS_GRID_DIAGONAL)
 
 # off by default, user will have to enable it
 clip_plane_1.SetOn(False)

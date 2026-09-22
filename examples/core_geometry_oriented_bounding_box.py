@@ -21,7 +21,7 @@ from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepBndLib import brepbndlib
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.gp import gp_Ax2, gp_Dir, gp_Pnt, gp_XYZ
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Display.SimpleGui import init_display
@@ -67,7 +67,7 @@ display.DisplayShape(obb_shape1, transparency=0.5)
 # then loads a brep file and computes the optimal bounding box
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
+breptools.Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 obb2 = Bnd_OBB()
 brepbndlib.AddOBB(cylinder_head, obb2, True, True, True)
 obb_shape2 = convert_bnd_to_shape(obb2)

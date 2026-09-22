@@ -22,7 +22,7 @@ import os
 import sys
 
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeTorus
-from OCC.Core.BRepTools import breptools_Write
+from OCC.Core.BRepTools import breptools
 from OCC.Display.SimpleGui import init_display
 from OCC.Extend.DataExchange import read_stl_file
 
@@ -32,7 +32,7 @@ def mesh_shape(a_topods_shape):
     a topods_shp ready to be displayed
     """
     # dump the geometry to a brep file
-    breptools_Write(a_topods_shape, "shape.brep")
+    breptools.Write(a_topods_shape, "shape.brep")
 
     # create the gmesh file
     gmsh_geo_file_content = """SetFactory("OpenCASCADE");

@@ -20,7 +20,7 @@
 from OCC.Core.GCPnts import GCPnts_UniformAbscissa
 from OCC.Core.Geom2d import Geom2d_Circle
 from OCC.Core.Geom2dAdaptor import Geom2dAdaptor_Curve
-from OCC.Core.gp import gp_OX2d, gp_Pnt, gp_Pnt2d
+from OCC.Core.gp import gp, gp_Pnt, gp_Pnt2d
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -29,7 +29,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 def points_from_curve():
     radius = 5.0
     abscissa = 3.0
-    circle = Geom2d_Circle(gp_OX2d(), radius, True)
+    circle = Geom2d_Circle(gp.OX2d(), radius, True)
     gac = Geom2dAdaptor_Curve(circle)
     ua = GCPnts_UniformAbscissa(gac, abscissa)
     a_sequence = []

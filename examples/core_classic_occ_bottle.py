@@ -40,12 +40,11 @@ from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.Geom2d import Geom2d_Ellipse, Geom2d_TrimmedCurve
 from OCC.Core.GeomAbs import GeomAbs_Plane
 from OCC.Core.gp import (
+    gp,
     gp_Ax2,
     gp_Ax2d,
     gp_Ax3,
     gp_Dir2d,
-    gp_DZ,
-    gp_OX,
     gp_Pln,
     gp_Pnt,
     gp_Pnt2d,
@@ -99,7 +98,7 @@ aEdge3 = BRepBuilderAPI_MakeEdge(aSegment2.Value())
 aWire = BRepBuilderAPI_MakeWire(aEdge1.Edge(), aEdge2.Edge(), aEdge3.Edge())
 
 # Quick way to specify the X axis
-xAxis = gp_OX()
+xAxis = gp.OX()
 
 # Set up the mirror
 aTrsf = gp_Trsf()
@@ -139,7 +138,7 @@ while anEdgeExplorer.More():
 
 # Create the neck of the bottle
 neckLocation = gp_Pnt(0, 0, height)
-neckAxis = gp_DZ()
+neckAxis = gp.DZ()
 neckAx2 = gp_Ax2(neckLocation, neckAxis)
 
 myNeckRadius = thickness / 4.0
@@ -176,7 +175,7 @@ mk_thick_solid.Build()
 myBody_step3 = mk_thick_solid.Shape()
 
 # Set up our surfaces for the threading on the neck
-neckAx2_Ax3 = gp_Ax3(neckLocation, gp_DZ())
+neckAx2_Ax3 = gp_Ax3(neckLocation, gp.DZ())
 aCyl1 = Geom_CylindricalSurface(neckAx2_Ax3, myNeckRadius * 0.99)
 aCyl2 = Geom_CylindricalSurface(neckAx2_Ax3, myNeckRadius * 1.05)
 

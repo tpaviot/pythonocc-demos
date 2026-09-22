@@ -24,7 +24,7 @@ import time
 from OCC.Core.BRep import BRep_Builder
 from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Section
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.gp import gp_Dir, gp_Pln, gp_Pnt
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Display.SimpleGui import init_display
@@ -44,7 +44,7 @@ def drange(start, stop, step):
 def get_brep():
     cylinder_head = TopoDS_Shape()
     builder = BRep_Builder()
-    breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
+    breptools.Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
     return cylinder_head
 
 

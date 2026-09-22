@@ -19,8 +19,9 @@
 
 import sys
 
+from OCC.Core.Aspect import Aspect_HS_GRID_DIAGONAL
 from OCC.Core.BRep import BRep_Builder
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.gp import gp_Vec
 from OCC.Core.Graphic3d import Graphic3d_ClipPlane
 from OCC.Core.Quantity import Quantity_Color, Quantity_TOC_RGB
@@ -32,7 +33,7 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 
 cylinder_head = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
+breptools.Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 
 ais_shp = display.DisplayShape(cylinder_head)[0]
 
@@ -41,7 +42,7 @@ clip_plane_1 = Graphic3d_ClipPlane()
 
 # set hatch on
 clip_plane_1.SetCapping(True)
-clip_plane_1.SetCappingHatch(True)
+clip_plane_1.SetCappingHatch(Aspect_HS_GRID_DIAGONAL)
 
 # off by default, user will have to enable it
 clip_plane_1.SetOn(False)

@@ -22,7 +22,7 @@ from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_MakeWire,
 )
-from OCC.Core.gp import gp_Circ, gp_Pln, gp_Pnt, gp_XOY
+from OCC.Core.gp import gp, gp_Circ, gp_Pln, gp_Pnt
 from OCC.Display.SimpleGui import init_display
 
 display, start_display, add_menu, add_function_to_menu = init_display()
@@ -31,11 +31,11 @@ display, start_display, add_menu, add_function_to_menu = init_display()
 def holes_in_face():
     aPlane = gp_Pln()
     print(type(gp_Pln()))
-    print(type(gp_XOY()))
+    print(type(gp.XOY()))
 
-    aCircle1 = gp_Circ(gp_XOY(), 1.0)
-    aCircle2 = gp_Circ(gp_XOY(), 1.0)
-    aCircle3 = gp_Circ(gp_XOY(), 1.0)
+    aCircle1 = gp_Circ(gp.XOY(), 1.0)
+    aCircle2 = gp_Circ(gp.XOY(), 1.0)
+    aCircle3 = gp_Circ(gp.XOY(), 1.0)
 
     aCircle1.SetLocation(gp_Pnt(3.0, 3.0, 0.0))
     aCircle2.SetLocation(gp_Pnt(7.0, 3.0, 0.0))

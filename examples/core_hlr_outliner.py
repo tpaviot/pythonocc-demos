@@ -17,7 +17,7 @@
 
 
 from OCC.Core.BRep import BRep_Builder
-from OCC.Core.BRepTools import breptools_Read
+from OCC.Core.BRepTools import breptools
 from OCC.Core.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Display.SimpleGui import init_display
@@ -25,7 +25,7 @@ from OCC.Display.SimpleGui import init_display
 cylinder_head = TopoDS_Shape()
 outt = TopoDS_Shape()
 builder = BRep_Builder()
-breptools_Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
+breptools.Read(cylinder_head, "../assets/models/cylinder_head.brep", builder)
 
 myAlgo = HLRBRep_Algo()
 myAlgo.Add(cylinder_head)

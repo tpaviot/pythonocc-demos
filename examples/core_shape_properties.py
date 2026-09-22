@@ -17,7 +17,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-from OCC.Core.BRepGProp import brepgprop_SurfaceProperties, brepgprop_VolumeProperties
+from OCC.Core.BRepGProp import brepgprop
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.GProp import GProp_GProps
 from OCC.Extend.TopologyUtils import TopologyExplorer
@@ -30,7 +30,7 @@ def cube_inertia_properties():
     cube_shape = BRepPrimAPI_MakeBox(50.0, 50.0, 50.0).Shape()
     # Compute inertia properties
     props = GProp_GProps()
-    brepgprop_VolumeProperties(cube_shape, props)
+    brepgprop.VolumeProperties(cube_shape, props)
     # Get inertia properties
     mass = props.Mass()
     cog = props.CentreOfMass()
@@ -51,7 +51,7 @@ def shape_faces_surface():
     props = GProp_GProps()
     shp_idx = 1
     for face in t.faces():
-        brepgprop_SurfaceProperties(face, props)
+        brepgprop.SurfaceProperties(face, props)
         face_surf = props.Mass()
         print(f"Surface for face nbr {shp_idx} : {face_surf:f}")
         shp_idx += 1

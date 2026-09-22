@@ -43,28 +43,20 @@ from OCC.Core.GC import GC_MakeArcOfCircle2d, GC_MakeCircle2d, GC_MakeLine2d
 from OCC.Core.GccAna import GccAna_Circ2d2TanRad
 from OCC.Core.Geom2d import Geom2d_TrimmedCurve
 from OCC.Core.Geom2dAPI import Geom2dAPI_InterCurveCurve
-from OCC.Core.GeomAPI import geomapi_To3d
+from OCC.Core.GeomAPI import geomapi
 from OCC.Core.gp import (
+    gp,
     gp_Ax2,
     gp_Ax2d,
     gp_Ax3,
     gp_Circ2d,
     gp_Dir2d,
-    gp_DX,
-    gp_DX2d,
-    gp_DY,
-    gp_DZ,
     gp_Lin2d,
-    gp_Origin,
-    gp_Origin2d,
-    gp_OX2d,
-    gp_OZ,
     gp_Pln,
     gp_Pnt,
     gp_Pnt2d,
     gp_Trsf,
     gp_Vec,
-    gp_XOY,
 )
 from OCC.Display.SimpleGui import init_display
 
@@ -154,7 +146,7 @@ def build_tooth():
     trimmed_outer = GC_MakeArcOfCircle2d(outer_circle, p2, p3).Value()
 
     # Mirror and reverse the three arcs
-    mirror_axis = gp_Ax2d(gp_Origin2d(), gp_DX2d().Rotated(tooth_angle / 2.0))
+    mirror_axis = gp_Ax2d(gp.Origin2d(), gp.DX2d().Rotated(tooth_angle / 2.0))
 
     mirror_base = Geom2d_TrimmedCurve.DownCast(trimmed_base.Copy())
     mirror_profile = Geom2d_TrimmedCurve.DownCast(trimmed_profile.Copy())
@@ -184,12 +176,12 @@ def build_tooth():
     inner_arc.Reverse()
 
     # Convert the 2D arcs and two extra lines to 3D edges
-    plane = gp_Pln(gp_Origin(), gp_DZ())
-    arc1 = BRepBuilderAPI_MakeEdge(geomapi_To3d(trimmed_base, plane)).Edge()
-    arc2 = BRepBuilderAPI_MakeEdge(geomapi_To3d(trimmed_profile, plane)).Edge()
-    arc3 = BRepBuilderAPI_MakeEdge(geomapi_To3d(outer_arc, plane)).Edge()
-    arc4 = BRepBuilderAPI_MakeEdge(geomapi_To3d(mirror_profile, plane)).Edge()
-    arc5 = BRepBuilderAPI_MakeEdge(geomapi_To3d(mirror_base, plane)).Edge()
+    plane = gp_Pln(gp.Origin(), gp.DZ())
+    arc1 = BRepBuilderAPI_MakeEdge(geomapi.To3d(trimmed_base, plane)).Edge()
+    arc2 = BRepBuilderAPI_MakeEdge(geomapi.To3d(trimmed_profile, plane)).Edge()
+    arc3 = BRepBuilderAPI_MakeEdge(geomapi.To3d(outer_arc, plane)).Edge()
+    arc4 = BRepBuilderAPI_MakeEdge(geomapi.To3d(mirror_profile, plane)).Edge()
+    arc5 = BRepBuilderAPI_MakeEdge(geomapi.To3d(mirror_base, plane)).Edge()
 
     p4 = mirror_base.EndPoint()
     p5 = inner_arc.StartPoint()
@@ -197,7 +189,7 @@ def build_tooth():
     lin1 = BRepBuilderAPI_MakeEdge(
         gp_Pnt(p4.X(), p4.Y(), 0), gp_Pnt(p5.X(), p5.Y(), 0)
     ).Edge()
-    arc6 = BRepBuilderAPI_MakeEdge(geomapi_To3d(inner_arc, plane)).Edge()
+    arc6 = BRepBuilderAPI_MakeEdge(geomapi.To3d(inner_arc, plane)).Edge()
 
     p6 = inner_arc.EndPoint()
     lin2 = BRepBuilderAPI_MakeEdge(
@@ -253,8 +245,8 @@ def round_tooth(wedge):
     p5 = gp_Pnt(p2d_1.X(), 0, p2d_1.Y() - 1)
 
     # Convert the arc and four extra lines into 3D edges
-    plane = gp_Pln(gp_Ax3(gp_Origin(), gp_DY().Reversed(), gp_DX()))
-    arc1 = BRepBuilderAPI_MakeEdge(geomapi_To3d(trimmed_circle, plane)).Edge()
+    plane = gp_Pln(gp_Ax3(gp.Origin(), gp.DY().Reversed(), gp.DX()))
+    arc1 = BRepBuilderAPI_MakeEdge(geomapi.To3d(trimmed_circle, plane)).Edge()
     lin1 = BRepBuilderAPI_MakeEdge(p2, p3).Edge()
     lin2 = BRepBuilderAPI_MakeEdge(p3, p4).Edge()
     lin3 = BRepBuilderAPI_MakeEdge(p4, p5).Edge()
@@ -271,11 +263,11 @@ def round_tooth(wedge):
     round_face = BRepBuilderAPI_MakeFace(round_wire.Wire()).Shape()
 
     # Revolve the face around the Z axis over the tooth angle
-    rounding_cut_1 = BRepPrimAPI_MakeRevol(round_face, gp_OZ(), tooth_angle).Shape()
+    rounding_cut_1 = BRepPrimAPI_MakeRevol(round_face, gp.OZ(), tooth_angle).Shape()
 
     # Construct a mirrored copy of the first cutting shape
     mirror = gp_Trsf()
-    mirror.SetMirror(gp_XOY())
+    mirror.SetMirror(gp.XOY())
     mirrored_cut_1 = BRepBuilderAPI_Transform(rounding_cut_1, mirror, True).Shape()
 
     # and translate it so that it ends up on the other side of the wedge
@@ -303,19 +295,19 @@ def clone_tooth(base_shape):
 
     multiplier = max_multiplier
     for i in range(1, multiplier):
-        clone.SetRotation(gp_OZ(), -i * tooth_angle)
+        clone.SetRotation(gp.OZ(), -i * tooth_angle)
         rotated_shape = BRepBuilderAPI_Transform(base_shape, clone, True).Shape()
         grouped_shape = BRepAlgoAPI_Fuse(grouped_shape, rotated_shape).Shape()
 
     # Rotate the basic tooth and fuse together
     aggregated_shape = grouped_shape
     for i in range(1, int(num_teeth / multiplier)):
-        clone.SetRotation(gp_OZ(), -i * multiplier * tooth_angle)
+        clone.SetRotation(gp.OZ(), -i * multiplier * tooth_angle)
         rotated_shape = BRepBuilderAPI_Transform(grouped_shape, clone, True).Shape()
         aggregated_shape = BRepAlgoAPI_Fuse(aggregated_shape, rotated_shape).Shape()
 
     cylinder = BRepPrimAPI_MakeCylinder(
-        gp_XOY(), top_radius - roller_diameter, thickness
+        gp.XOY(), top_radius - roller_diameter, thickness
     )
     aggregated_shape = BRepAlgoAPI_Fuse(aggregated_shape, cylinder.Shape()).Shape()
 
@@ -336,7 +328,7 @@ def mounting_holes(base):
             sin(i * M_PI / 3) * mounting_radius,
             0.0,
         )
-        center_axis = gp_Ax2(center, gp_DZ())
+        center_axis = gp_Ax2(center, gp.DZ())
 
         cylinder = BRepPrimAPI_MakeCylinder(center_axis, hole_radius, thickness).Shape()
         result = BRepAlgoAPI_Cut(result, cylinder).Shape()
@@ -350,8 +342,8 @@ def mounting_holes(base):
 
 
 def cut_out(base):
-    outer = gp_Circ2d(gp_OX2d(), top_radius - 1.75 * roller_diameter)
-    inner = gp_Circ2d(gp_OX2d(), center_radius + 0.75 * roller_diameter)
+    outer = gp_Circ2d(gp.OX2d(), top_radius - 1.75 * roller_diameter)
+    inner = gp_Circ2d(gp.OX2d(), center_radius + 0.75 * roller_diameter)
 
     geom_outer = GC_MakeCircle2d(outer).Value()
     geom_inner = GC_MakeCircle2d(inner).Value()
@@ -361,10 +353,10 @@ def cut_out(base):
     hole_angle = atan(hole_radius / mounting_radius)
     correction_angle = 3 * hole_angle
 
-    left = gp_Lin2d(gp_Origin2d(), gp_DX2d())
-    right = gp_Lin2d(gp_Origin2d(), gp_DX2d())
-    left.Rotate(gp_Origin2d(), correction_angle)
-    right.Rotate(gp_Origin2d(), base_angle - correction_angle)
+    left = gp_Lin2d(gp.Origin2d(), gp.DX2d())
+    right = gp_Lin2d(gp.Origin2d(), gp.DX2d())
+    left.Rotate(gp.Origin2d(), correction_angle)
+    right.Rotate(gp.Origin2d(), base_angle - correction_angle)
 
     geom_left = GC_MakeLine2d(left).Value()
     geom_right = GC_MakeLine2d(right).Value()
@@ -397,15 +389,15 @@ def cut_out(base):
     trimmed_outer = GC_MakeArcOfCircle2d(outer, p1, p2).Value()
     trimmed_inner = GC_MakeArcOfCircle2d(inner, p4, p3).Value()
 
-    plane = gp_Pln(gp_Origin(), gp_DZ())
+    plane = gp_Pln(gp.Origin(), gp.DZ())
 
-    arc1 = BRepBuilderAPI_MakeEdge(geomapi_To3d(trimmed_outer, plane)).Edge()
+    arc1 = BRepBuilderAPI_MakeEdge(geomapi.To3d(trimmed_outer, plane)).Edge()
 
     lin1 = BRepBuilderAPI_MakeEdge(
         gp_Pnt(p2.X(), p2.Y(), 0), gp_Pnt(p3.X(), p3.Y(), 0)
     ).Edge()
 
-    arc2 = BRepBuilderAPI_MakeEdge(geomapi_To3d(trimmed_inner, plane)).Edge()
+    arc2 = BRepBuilderAPI_MakeEdge(geomapi.To3d(trimmed_inner, plane)).Edge()
 
     lin2 = BRepBuilderAPI_MakeEdge(
         gp_Pnt(p4.X(), p4.Y(), 0), gp_Pnt(p1.X(), p1.Y(), 0)
@@ -433,7 +425,7 @@ def cut_out(base):
     result = base
     rotate = gp_Trsf()
     for i in range(mounting_hole_count):
-        rotate.SetRotation(gp_OZ(), i * 2.0 * M_PI / mounting_hole_count)
+        rotate.SetRotation(gp.OZ(), i * 2.0 * M_PI / mounting_hole_count)
         rotated_cutout = BRepBuilderAPI_Transform(cutout, rotate, True)
 
         result = BRepAlgoAPI_Cut(result, rotated_cutout.Shape()).Shape()

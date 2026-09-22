@@ -1,6 +1,6 @@
 import sys
 
-from OCC.Core.BRepGProp import brepgprop_LinearProperties
+from OCC.Core.BRepGProp import brepgprop
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
 from OCC.Core.gp import gp_Trsf, gp_Vec
 from OCC.Core.GProp import GProp_GProps
@@ -47,7 +47,7 @@ def on_select(shapes):
     g1 = GProp_GProps()
 
     for shape in shapes:
-        brepgprop_LinearProperties(shape, g1)
+        brepgprop.LinearProperties(shape, g1)
         mass = g1.Mass()
         centre_of_mass = g1.CentreOfMass()
         com_x = centre_of_mass.X()
