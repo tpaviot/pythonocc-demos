@@ -69,9 +69,9 @@ label_iterator = TDF_ChildIterator(imported_shape_tool.BaseLabel(), True)
 while label_iterator.More():
     label = label_iterator.Value()
     # FindAttribute returns None if the label has no such attribute
-    user_data = label.FindAttribute(TDataStd_NamedData.GetID(), TDataStd_NamedData())
-    if user_data is not None:
-        material = str(user_data.GetString("material"))
-        quantity = user_data.GetInteger("quantity")
+    found_data = label.FindAttribute(TDataStd_NamedData.GetID(), TDataStd_NamedData())
+    if found_data is not None:
+        material = str(found_data.GetString("material"))
+        quantity = found_data.GetInteger("quantity")
         print(f"{label.GetLabelName()}: material={material}, quantity={quantity}")
     label_iterator.Next()

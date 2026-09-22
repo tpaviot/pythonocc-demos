@@ -61,10 +61,10 @@ a_builder = MeshVS_MeshPrsBuilder(a_mesh_prs)
 a_mesh_prs.AddBuilder(a_builder, True)
 
 # assign nodal builder to the mesh
-a_builder = MeshVS_NodalColorPrsBuilder(
+a_nodal_builder = MeshVS_NodalColorPrsBuilder(
     a_mesh_prs, MeshVS_DMF_NodalColorDataPrs | MeshVS_DMF_OCCMask
 )
-a_builder.UseTexture(True)
+a_nodal_builder.UseTexture(True)
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 

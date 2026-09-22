@@ -63,7 +63,7 @@ for name, ops in (
 
 # The geometry is read from the graph through typed ids, here the surface
 # of every face and the number of faces around every edge
-surface_types = {}
+surface_types: dict[str, int] = {}
 for index in range(topo.Faces().Nb()):
     face_id = BRepGraph_FaceId(index)
     surface_type = topo.Faces().Surface(face_id).DynamicType().Name()

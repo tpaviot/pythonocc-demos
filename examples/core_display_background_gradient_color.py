@@ -15,6 +15,7 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from OCC.Core.Aspect import Aspect_GradientFillMethod_Vertical
 from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCC.Core.Quantity import (
     Quantity_Color,
@@ -29,7 +30,7 @@ my_box = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape()
 display.View.SetBgGradientColors(
     Quantity_Color(Quantity_NOC_ALICEBLUE),
     Quantity_Color(Quantity_NOC_ANTIQUEWHITE),
-    2,
+    Aspect_GradientFillMethod_Vertical,
     True,
 )
 display.Repaint()

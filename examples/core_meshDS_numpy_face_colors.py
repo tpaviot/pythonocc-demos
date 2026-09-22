@@ -56,7 +56,8 @@ element_builder = MeshVS_ElementalColorPrsBuilder(
 
 # set normalized color intensity to node
 for nFace in range(faces.shape[0]):
-    color = Quantity_Color(*face_colors[nFace], Quantity_TOC_RGB)
+    r, g, b = face_colors[nFace]
+    color = Quantity_Color(r, g, b, Quantity_TOC_RGB)
     element_builder.SetColor1(nFace + 1, color)  # element indices are 1 based
 
 # Add the builder to the visualizer
