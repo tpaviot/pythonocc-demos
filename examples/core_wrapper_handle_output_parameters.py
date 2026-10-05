@@ -47,7 +47,7 @@ from OCC.Core.gp import gp_Pnt
 from OCC.Core.PCDM import PCDM_ReaderStatus, PCDM_StoreStatus
 from OCC.Core.ShapeAnalysis import ShapeAnalysis_FreeBounds
 from OCC.Core.TDataStd import TDataStd_Name
-from OCC.Core.TDocStd import TDocStd_Application, TDocStd_Document
+from OCC.Core.TDocStd import TDocStd_Application
 from OCC.Core.TopLoc import TopLoc_Location
 from OCC.Core.TopTools import TopTools_HSequenceOfShape
 from OCC.Core.UnitsAPI import unitsapi
@@ -85,11 +85,12 @@ print("unitsapi.AnyToLS:")
 print(f"  1 in = {value} m, dimensions: {dimensions.Quantity()}")
 
 # 4. The breaking change: TDocStd_Application.Open returns [status, document]
-# where it returned the document alone before 8.0.1.1
+# where it returned the document alone before 8.0.1.1. NewDocument is a void
+# function with a single handle output, it returns the new document alone
 app = TDocStd_Application()
 bindrivers.DefineFormat(app)
-doc = TDocStd_Document("BinOcaf")
-app.InitDocument(doc)
+doc = app.NewDocument("BinOcaf", None)
+assert doc is not None
 TDataStd_Name.Set(doc.Main(), "handle outputs demo")
 with tempfile.TemporaryDirectory() as tmp:
     path = os.path.join(tmp, "demo.cbf")
