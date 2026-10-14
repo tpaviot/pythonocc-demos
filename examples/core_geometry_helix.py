@@ -15,9 +15,12 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
-"""The HelixBRep package, new in OCCT 8.0: build helices, cylindrical or
-conical, made of several sections of different pitches. The helix is a wire
-of BSpline edges that approximate it."""
+"""The HelixGeom and HelixBRep packages, new in OCCT 8.0: build helices,
+cylindrical or conical, approximated by BSpline curves. HelixGeom builds
+the curves, HelixBRep a wire made of several sections of different
+pitches."""
+
+import math
 
 from OCC.Core.BRepAdaptor import BRepAdaptor_CompCurve
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
@@ -27,6 +30,7 @@ from OCC.Core.GC import GC_MakeCircle
 from OCC.Core.GeomAbs import GeomAbs_C1
 from OCC.Core.gp import gp_Ax2, gp_Ax3, gp_Dir, gp_Pnt, gp_Vec
 from OCC.Core.HelixBRep import HelixBRep_BuilderHelix
+from OCC.Core.HelixGeom import HelixGeom_BuilderHelix
 from OCC.Core.TColStd import TColStd_Array1OfBoolean, TColStd_Array1OfReal
 from OCC.Display.SimpleGui import init_display
 
@@ -74,18 +78,21 @@ spring = pipe.Shape()
 print(f"spring solid valid: {BRepCheck_Analyzer(spring).IsValid()}")
 display.DisplayShape(spring, color="GREEN", transparency=0.3)
 
-# A conical helix: its diameter goes from 20 to 8 over a height of 30,
-# with a constant pitch of 3
-conical_builder = HelixBRep_BuilderHelix()
-one_true = TColStd_Array1OfBoolean(1, 1)
-one_true.SetValue(1, True)
-conical_axis = gp_Ax3(gp_Pnt(40, 0, 0), gp_Dir(0, 0, 1))
-conical_builder.SetParameters(
-    conical_axis, 20.0, 8.0, make_array(30.0), make_array(3.0), one_true
-)
-conical_builder.Perform()
-assert conical_builder.ErrorStatus() == 0
-display.DisplayShape(conical_builder.Shape(), color="BLUE")
+# A conical helix, with HelixGeom: 8 turns of pitch 4, from a radius of 10,
+# the radius decreasing with a taper angle of -0.15 rad. HelixGeom builds
+# the BSpline curves that approximate the helix, HelixBRep the edges
+geom_builder = HelixGeom_BuilderHelix()
+geom_builder.SetPosition(gp_Ax2(gp_Pnt(40, 0, 0), gp_Dir(0, 0, 1)))
+geom_builder.SetCurveParameters(0.0, 8 * 2 * math.pi, 4.0, 10.0, -0.15, False)
+geom_builder.SetTolerance(1e-4)
+geom_builder.Perform()
+assert geom_builder.ErrorStatus() == 0
+curves = geom_builder.Curves()
+print(f"conical helix approximated by {curves.Length()} BSpline curve(s)")
+conical_wire = BRepBuilderAPI_MakeWire()
+for i in range(1, curves.Length() + 1):
+    conical_wire.Add(BRepBuilderAPI_MakeEdge(curves.Value(i)).Edge())
+display.DisplayShape(conical_wire.Wire(), color="BLUE")
 
 display.FitAll()
 start_display()
