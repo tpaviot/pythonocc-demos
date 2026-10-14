@@ -67,8 +67,8 @@ shape_tool.GetFreeShapes(free_shapes)
 print(f"{step_file}: {free_shapes.Length()} assembly")
 
 # the mesh based formats write the triangulation of the faces
-for i in range(1, free_shapes.Length() + 1):
-    BRepMesh_IncrementalMesh(shape_tool.GetShape(free_shapes.Value(i)), 0.5)
+for label in free_shapes:
+    BRepMesh_IncrementalMesh(shape_tool.GetShape(label), 0.5)
 
 # write the document to each format, the colors and names are kept by
 # the formats that support them

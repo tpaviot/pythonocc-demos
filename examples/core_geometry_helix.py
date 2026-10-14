@@ -90,8 +90,8 @@ assert geom_builder.ErrorStatus() == 0
 curves = geom_builder.Curves()
 print(f"conical helix approximated by {curves.Length()} BSpline curve(s)")
 conical_wire = BRepBuilderAPI_MakeWire()
-for i in range(1, curves.Length() + 1):
-    conical_wire.Add(BRepBuilderAPI_MakeEdge(curves.Value(i)).Edge())
+for curve in curves:
+    conical_wire.Add(BRepBuilderAPI_MakeEdge(curve).Edge())
 display.DisplayShape(conical_wire.Wire(), color="BLUE")
 
 display.FitAll()
